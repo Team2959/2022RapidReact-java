@@ -8,12 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.SetHoodAngleCommand;
-
-import javax.management.RuntimeErrorException;
-import javax.swing.text.Style;
-
 import cwtech.trigger.ModeTrigger;
-import cwtech.util.DashboardEntry;
 
 // Do code sa java ateema, do chowbaso
 

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class Hood extends SubsystemBase implements AutoCloseable {
-    public static final int kMiddle = 994; // TODO get actual value
+    public static final int kMiddle = 994;
     public static final double kMin = 0.02;
     public static final double kMax = 0.9;
 

@@ -3,10 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.SparkMaxPIDController;
-
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -15,7 +11,6 @@ public class Turret extends SubsystemBase {
     private final CANSparkMax turretMotor;
     private final SparkMaxAlternateEncoder turretEncoder;
     private final SparkMaxPIDController turretController;
-    private final double relativeEncoderStart;
     
     public Turret() {
         this.turretMotor = new CANSparkMax(RobotMap.kTurretCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
@@ -29,8 +24,6 @@ public class Turret extends SubsystemBase {
     
         this.turretController.setSmartMotionMaxVelocity(2000, 0);
         this.turretController.setSmartMotionMaxAccel(1500, 0);
-
-        this.relativeEncoderStart = this.turretEncoder.getPosition();
     }
 
     public void setDesiredAngle(double degrees) {
