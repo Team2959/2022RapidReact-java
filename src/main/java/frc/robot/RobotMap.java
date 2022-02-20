@@ -15,6 +15,7 @@ public final class RobotMap {
     public static final int kShooterFollowerCANSparkMaxMotor = 6;
     public static final int kTurretCANSparkMaxMotor = 7;
     public static final int kIntakeCANSparkMaxMotor = 8;
+    public static final int kAccelaratorVictorSPX = 9;
     public static final int kFrontLeftTurnCANSparkMaxMotor = 11;
     public static final int kFrontRightTurnCANSparkMaxMotor = 12;
     public static final int kBackRightTurnCANSparkMaxMotor = 13;
@@ -26,12 +27,11 @@ public final class RobotMap {
     // REV Pneumatic Hub solenoid addresses
     public static final int kFeederSolenoid = 0;
     public static final int kClimbSolenoid = 1;
-    public static final int kKickerSolenoid = 0;
     public static final int kIntakeArmsSolenoid = 2;
 
     // Servos
     public static final int kHoodServoRight = 1;
-    public static final int kHoodServoLeft = 2;
+    public static final int kHoodServoLeft = 0;
 
     // Digital IO addresses
     public static final int kTurretPulseWidthDigIO = 3;
