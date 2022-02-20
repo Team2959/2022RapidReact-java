@@ -47,8 +47,12 @@ public final class RobotMap {
     public static final int kButtonBox = 3;
 
     // Co-Pilot Buttons
-    public static final int kExtendClimbHooks = 4;
-    public static final int kRetractClimbHooks = 5;
+    public static final int kExtendClimbHooksButton = 4;
+    public static final int kRetractClimbHooksButton = 5;
+    public static final int kReverseIntakeButton = 10; 
+
+    // Driver Buttons
+    public static final int kToggleIntakeButton = 2;
 
     // Zeroed values, should be in radians
     public static final double kZeroedFrontLeft = 3.082;
