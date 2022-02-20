@@ -11,10 +11,13 @@ public class Turret extends SubsystemBase {
     private final CANSparkMax turretMotor;
     private final SparkMaxAlternateEncoder turretEncoder;
     private final SparkMaxPIDController turretController;
+
+    static public final double kMaxDegreesForwards = 270;
+    static public final double kMaxDegreesBackwards = -270;
     
     public Turret() {
         this.turretMotor = new CANSparkMax(RobotMap.kTurretCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
-        this.turretEncoder = (SparkMaxAlternateEncoder) this.turretMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 1);
+        this.turretEncoder = (SparkMaxAlternateEncoder) this.turretMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, 4096);
         this.turretController = this.turretMotor.getPIDController();
 
         this.turretController.setOutputRange(-0.5, 0.5);
@@ -33,4 +36,9 @@ public class Turret extends SubsystemBase {
     public void setSpeed(double speed) {
         this.turretController.setReference(speed, CANSparkMax.ControlType.kSmartMotion);
     }
+
+    public double getAngleDegrees() {
+        return this.turretEncoder.getPosition();
+    }
+
 }
