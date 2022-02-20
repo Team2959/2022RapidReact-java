@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
-public class Hood extends SubsystemBase {
-    private static final int kMiddle = 994; // TODO get actual value
+public class Hood extends SubsystemBase implements AutoCloseable {
+    public static final int kMiddle = 994; // TODO get actual value
     public static final double kMin = 0.02;
     public static final double kMax = 0.9;
 
@@ -26,6 +26,8 @@ public class Hood extends SubsystemBase {
 
         this.left.setPeriodMultiplier(PWM.PeriodMultiplier.k4X);
         this.right.setPeriodMultiplier(PWM.PeriodMultiplier.k4X);
+
+        setSpeed(0.0);
     }
 
     /** Sets the speed of the Hood 
@@ -41,5 +43,13 @@ public class Hood extends SubsystemBase {
     // returns 0.0 to 1.0
     public double getPosition() {
         return this.dutyCycle.getOutput();
+    }
+
+    @Override
+    public void close() throws Exception{
+        this.left.close();
+        this.right.close();
+        this.dutyCycleInput.close();
+        this.dutyCycle.close();
     }
 }
