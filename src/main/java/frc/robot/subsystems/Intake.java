@@ -11,7 +11,7 @@ public class Intake extends SubsystemBase implements AutoCloseable {
     private final Solenoid arms;
     private final CANSparkMax motor;
 
-    private final double kIntakeSpeed = 0.2;
+    private final double kIntakeSpeed = 0.05;
 
     public Intake() {
         this.arms = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kIntakeArmsSolenoid);
@@ -21,10 +21,10 @@ public class Intake extends SubsystemBase implements AutoCloseable {
     public void toggleIntake() {
         if (this.arms.get() == true) {
             this.arms.set(false);
-            this.motor.set(kIntakeSpeed);
+            this.motor.set(0);
         } else {
             this.arms.set(true);
-            this.motor.set(0);
+            this.motor.set(kIntakeSpeed);
         }
     }
 

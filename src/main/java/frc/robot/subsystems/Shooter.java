@@ -17,7 +17,7 @@ public class Shooter extends SubsystemBase {
     private final CANSparkMax follower;
     private final SparkMaxPIDController controller;
     private final SparkMaxRelativeEncoder encoder;
-    private final Solenoid kicker;
+    private final Solenoid feeder;
     private final VictorSPX accelarator;
     // TODO implement accelarator Wheels
 
@@ -26,7 +26,8 @@ public class Shooter extends SubsystemBase {
         this.follower = new CANSparkMax(RobotMap.kShooterFollowerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
         this.controller = this.main.getPIDController();
         this.encoder = (SparkMaxRelativeEncoder) this.main.getEncoder();
-        this.kicker = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kFeederSolenoid);
+        // this.kicker = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kFeederSolenoid);
+        this.feeder = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.kFeederSolenoid);
 
         this.accelarator = new VictorSPX(RobotMap.kAccelaratorVictorSPX);
  
@@ -48,11 +49,11 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setFeeder(boolean extended) {
-        this.kicker.set(extended);
+        this.feeder.set(extended);
     }
 
-    public boolean getKicker() {
-        return this.kicker.get();
+    public boolean getFeeder() {
+        return this.feeder.get();
     }
 
     /** @param speed A value between -1.0 and 1.0 */

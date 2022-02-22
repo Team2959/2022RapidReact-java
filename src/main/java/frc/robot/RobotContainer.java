@@ -18,12 +18,12 @@ import frc.robot.subsystems.Vision;
 public class RobotContainer {
     public final Climb climb = new Climb();
     public final Drivetrain drivetrain = new Drivetrain();
-    public final OI oi = new OI(this);
     public final Hood hood = new Hood();
     public final Shooter shooter = new Shooter();
     public final Turret turret = new Turret();
     public final Vision vision = new Vision();
     public final Intake intake = new Intake();
+    public final OI oi = new OI(this);
 
     public RobotContainer() {
         configureButtonBindings();

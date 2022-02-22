@@ -42,11 +42,12 @@ public final class RobotMap {
     public static final int kBackLeftTurnPulseWidthDigIO = 8;
 
     // Operator input USB ports
-    public static final int kLeftJoystick = 1;
-    public static final int kRightJoystick = 2;
-    public static final int kButtonBox = 3;
+    public static final int kLeftJoystick = 0;
+    public static final int kRightJoystick = 1;
+    public static final int kButtonBox = 2;
 
     // Co-Pilot Buttons
+    public static final int kFireButton = 1;
     public static final int kExtendClimbHooksButton = 4;
     public static final int kRetractClimbHooksButton = 5;
     public static final int kReverseIntakeButton = 10; 

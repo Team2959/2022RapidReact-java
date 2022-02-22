@@ -6,6 +6,7 @@ import cwtech.util.Conditioning;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendClimbHooksCommand;
+import frc.robot.commands.FireCommand;
 import frc.robot.commands.IntakeToggleCommand;
 import frc.robot.commands.RetractClimbHooksCommand;
 import frc.robot.commands.ReverseIntakeCommand;
@@ -25,6 +26,7 @@ public class OI {
     private final JoystickButton reverseIntakeButton;
     private final JoystickButton extendClimbHooksButton;
     private final JoystickButton retractClimbHooksButton;
+    private final JoystickButton fireButton;
 
     public OI(RobotContainer container) {
         this.leftJoystick = new Joystick(RobotMap.kLeftJoystick);
@@ -35,10 +37,11 @@ public class OI {
         this.rotationConditioning = new Conditioning();
         this.container = container;
 
-        this.toggleIntakeButton = new JoystickButton(this.leftJoystick, RobotMap.kToggleIntakeButton); // TODO ensure proper joystick here
+        this.toggleIntakeButton = new JoystickButton(this.rightJoystick, RobotMap.kToggleIntakeButton);
         this.reverseIntakeButton = new JoystickButton(this.buttonBox, RobotMap.kReverseIntakeButton);
         this.extendClimbHooksButton = new JoystickButton(this.buttonBox, RobotMap.kExtendClimbHooksButton);
         this.retractClimbHooksButton = new JoystickButton(this.buttonBox, RobotMap.kRetractClimbHooksButton);
+        this.fireButton = new JoystickButton(this.buttonBox, RobotMap.kFireButton);
 
         this.xConditioning.setDeadband(0.15);
         this.xConditioning.setExponent(1.3);
@@ -48,9 +51,10 @@ public class OI {
         this.rotationConditioning.setExponent(0.8);
 
         this.toggleIntakeButton.whenPressed(new IntakeToggleCommand(this.container));
-        this.reverseIntakeButton.whenPressed(new ReverseIntakeCommand(this.container));
+        this.reverseIntakeButton.whileHeld(new ReverseIntakeCommand(this.container));
         this.extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(this.container));
         this.retractClimbHooksButton.whenPressed(new RetractClimbHooksCommand(this.container));
+        this.fireButton.whenPressed(new FireCommand(this.container));
     }
     
     public class DriveState {

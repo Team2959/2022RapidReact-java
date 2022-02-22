@@ -7,6 +7,7 @@ import frc.robot.RobotContainer;
 public class FireCommand extends SequentialCommandGroup {
     public FireCommand(RobotContainer container) {
         addCommands(
+            new SnapTurretToTarget(container),
             new TuneShooterAndHoodCommand(container),
             new FeedBallCommand(container),
             new WaitCommand(1),
