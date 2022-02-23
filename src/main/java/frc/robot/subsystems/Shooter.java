@@ -26,9 +26,8 @@ public class Shooter extends SubsystemBase {
         this.follower = new CANSparkMax(RobotMap.kShooterFollowerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
         this.controller = this.main.getPIDController();
         this.encoder = (SparkMaxRelativeEncoder) this.main.getEncoder();
-        // this.kicker = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kFeederSolenoid);
-        this.feeder = new Solenoid(PneumaticsModuleType.CTREPCM, RobotMap.kFeederSolenoid);
-
+        this.feeder = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kFeederSolenoid);
+        
         this.accelarator = new VictorSPX(RobotMap.kAccelaratorVictorSPX);
  
         this.controller.setFF(0.0002);

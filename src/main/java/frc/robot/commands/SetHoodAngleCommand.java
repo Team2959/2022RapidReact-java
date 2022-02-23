@@ -19,7 +19,7 @@ public class SetHoodAngleCommand extends CommandBase {
     public void initialize() {
         double hoodPosition = this.container.hood.getPosition();
 
-        if(hoodPosition > this.hoodPosition) {
+        if(hoodPosition < this.hoodPosition) {
             this.container.hood.setSpeed(1.0);
             this.backwards = false;
         } 
@@ -34,6 +34,11 @@ public class SetHoodAngleCommand extends CommandBase {
         double currentHoodPosition = this.container.hood.getPosition();
         // Checks to see if at or pass requested hood position and if so stop
         return this.backwards ? currentHoodPosition <= this.hoodPosition : currentHoodPosition >= this.hoodPosition;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        this.container.hood.setSpeed(0.0);
     }
     
 }
