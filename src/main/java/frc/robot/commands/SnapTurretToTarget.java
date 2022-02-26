@@ -22,10 +22,10 @@ public class SnapTurretToTarget extends CommandBase {
     public void initialize() {
         double tx = this.container.vision.getTX();
         if(tx > 0) {
-            this.container.turret.setSpeed(kSpeed);
+            this.container.turret.setSpeed(-kSpeed);
         }
         else {
-            this.container.turret.setSpeed(-kSpeed);
+            this.container.turret.setSpeed(kSpeed);
         }
     }
 

@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -33,21 +34,25 @@ public class Drivetrain extends SubsystemBase {
     private SwerveDriveKinematics kinematics;
     private SwerveDriveOdometry odometry;
 
+    public void resetNavX() {
+        this.navX.reset();
+    }
+
     public Drivetrain() {
         this.navX = new AHRS(Port.kMXP);
 
         this.frontLeft = new SwerveModule(RobotMap.kFrontLeftDriveCANSparkMaxMotor,
                 RobotMap.kFrontLeftTurnCANSparkMaxMotor, RobotMap.kFrontLeftTurnPulseWidthDigIO,
-                RobotMap.kZeroedFrontLeft);
+                RobotMap.kZeroedFrontLeft, "Front Left");
         this.frontRight = new SwerveModule(RobotMap.kFrontRightDriveCANSparkMaxMotor,
                 RobotMap.kFrontRightTurnCANSparkMaxMotor, RobotMap.kFrontRightTurnPulseWidthDigIO,
-                RobotMap.kZeroedFrontRight);
+                RobotMap.kZeroedFrontRight, "Front Right");
         this.backLeft = new SwerveModule(RobotMap.kBackLeftDriveCANSparkMaxMotor,
                 RobotMap.kBackLeftTurnCANSparkMaxMotor, RobotMap.kBackLeftTurnPulseWidthDigIO,
-                RobotMap.kZeroedBackLeft);
+                RobotMap.kZeroedBackLeft, "Back Left");
         this.backRight = new SwerveModule(RobotMap.kBackRightDriveCANSparkMaxMotor,
                 RobotMap.kBackRightTurnCANSparkMaxMotor, RobotMap.kBackRightTurnPulseWidthDigIO,
-                RobotMap.kZeroedBackRight);
+                RobotMap.kZeroedBackRight, "Back Right");
 
         this.kinematics = new SwerveDriveKinematics(frontLeftLocation, frontRightLocation, backLeftLocation,
                 backRightLocation);
@@ -60,6 +65,10 @@ public class Drivetrain extends SubsystemBase {
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(xMetersPerSecond, yMetersPerSecond, rotationRadiansPerSecond,
                         this.navX.getRotation2d())
                 : new ChassisSpeeds(xMetersPerSecond, yMetersPerSecond, rotationRadiansPerSecond));
+
+        SmartDashboard.putNumber("X Meters Per Second", xMetersPerSecond);
+        SmartDashboard.putNumber("Y Meters Per Second", yMetersPerSecond);
+        SmartDashboard.putNumber("Rot Radians Per Second", rotationRadiansPerSecond);
 
         SwerveModuleState fl = states[0];
         SwerveModuleState fr = states[1];
@@ -77,6 +86,11 @@ public class Drivetrain extends SubsystemBase {
     public void periodic() {
         this.odometry.update(this.navX.getRotation2d(), frontLeft.getState(), frontRight.getState(),
                 backLeft.getState(), backRight.getState());
+
+        this.frontLeft.periodic();
+        this.frontRight.periodic();
+        this.backLeft.periodic();
+        this.backRight.periodic();
     }
 
     public void setInitalPositions() {

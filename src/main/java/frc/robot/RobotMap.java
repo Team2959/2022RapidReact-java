@@ -7,12 +7,12 @@ package frc.robot;
 public final class RobotMap {
 
     // CAN motor addresses
-    public static final int kFrontLeftDriveCANSparkMaxMotor = 1;
+    public static final int kFrontLeftDriveCANSparkMaxMotor = 21;
     public static final int kFrontRightDriveCANSparkMaxMotor = 2;
     public static final int kBackRightDriveCANSparkMaxMotor = 3;
     public static final int kBackLeftDriveCANSparkMaxMotor = 4;
-    public static final int kShooterPrimaryCANSparkMaxMotor = 5;
-    public static final int kShooterFollowerCANSparkMaxMotor = 6;
+    public static final int kShooterPrimaryCANSparkMaxMotor = 6;
+    public static final int kShooterFollowerCANSparkMaxMotor = 5;
     public static final int kTurretCANSparkMaxMotor = 7;
     public static final int kIntakeCANSparkMaxMotor = 8;
     public static final int kAccelaratorVictorSPX = 9;
@@ -25,9 +25,9 @@ public final class RobotMap {
     // public static final int kClimbWheelsPwmSparkMotor = 1;
 
     // REV Pneumatic Hub solenoid addresses
-    public static final int kFeederSolenoid = 0;
-    public static final int kClimbSolenoid = 1;
-    public static final int kIntakeArmsSolenoid = 2;
+    public static final int kIntakeArmsSolenoid = 0;
+    public static final int kFeederSolenoid = 1;
+    public static final int kClimbSolenoid = 2;
 
     // Servos
     public static final int kHoodServoRight = 1;
@@ -39,7 +39,7 @@ public final class RobotMap {
     public static final int kFrontLeftTurnPulseWidthDigIO = 5;
     public static final int kFrontRightTurnPulseWidthDigIO = 6;
     public static final int kBackRightTurnPulseWidthDigIO = 7;
-    public static final int kBackLeftTurnPulseWidthDigIO = 8;
+    public static final int kBackLeftTurnPulseWidthDigIO = 9;
 
     // Operator input USB ports
     public static final int kLeftJoystick = 0;

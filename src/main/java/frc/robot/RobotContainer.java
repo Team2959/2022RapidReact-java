@@ -27,7 +27,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         configureButtonBindings();
-        drivetrain.setDefaultCommand(new TeleopDriveCommand(this, true));
+        drivetrain.setDefaultCommand(new TeleopDriveCommand(this, false));
 
         (new ModeTrigger(ModeTrigger.Mode.Teleop)).whileActiveOnce(new SetHoodAngleCommand(this, Hood.kMin));
     }

@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledInit() {
+        CommandScheduler.getInstance().cancelAll();
         ModeTrigger.registerMode(ModeTrigger.Mode.Disabled);
     }
 
@@ -36,6 +37,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        CommandScheduler.getInstance().cancelAll();
         ModeTrigger.registerMode(ModeTrigger.Mode.Autonomous);
     }
 
@@ -43,9 +45,17 @@ public class Robot extends TimedRobot {
     public void autonomousPeriodic() {
     }
 
+    private boolean hasSetInitalPositions = false;
+
     @Override
     public void teleopInit() {
+        CommandScheduler.getInstance().cancelAll();
         ModeTrigger.registerMode(ModeTrigger.Mode.Teleop);
+        this.robotContainer.drivetrain.resetNavX();
+        if(!hasSetInitalPositions) {
+            this.robotContainer.drivetrain.setInitalPositions();
+            hasSetInitalPositions = true;
+        }
     }
 
     @Override

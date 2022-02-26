@@ -20,11 +20,11 @@ public class SetHoodAngleCommand extends CommandBase {
         double hoodPosition = this.container.hood.getPosition();
 
         if(hoodPosition < this.hoodPosition) {
-            this.container.hood.setSpeed(1.0);
+            this.container.hood.setSpeed(.75);
             this.backwards = false;
         } 
         else {
-            this.container.hood.setSpeed(-1.0);
+            this.container.hood.setSpeed(-0.75);
             this.backwards = true;
         }
     }

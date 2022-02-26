@@ -30,8 +30,8 @@ public class Shooter extends SubsystemBase {
         
         this.accelarator = new VictorSPX(RobotMap.kAccelaratorVictorSPX);
  
-        this.controller.setFF(0.0002);
-        this.controller.setP(0.0004);
+        this.controller.setFF(0.0008);
+        this.controller.setP(0.0008);
         this.controller.setD(0);
     
         this.follower.follow(this.main, true);

@@ -6,6 +6,7 @@ import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycle;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxAlternateEncoder;
@@ -22,16 +23,19 @@ public class SwerveModule implements Sendable {
     private SparkMaxPIDController drivePIDController;
     private SparkMaxPIDController turnPIDController;
     private final double turnOffset;
+    private final String name;
 
     private static final double kWheelRadius = 2.0 * 0.254; // 2" * 0.254 m / inch
     private static final int kEncoderResolution = 4096;
     private static final double kGearboxRatio = 1.0 / 6.86; // One turn of the wheel is 6.86 turns of the motor
     private static final double kDrivePositionFactor = (2.0 * Math.PI * kWheelRadius * kGearboxRatio);
 
-    public SwerveModule(int driveMotor, int turnMotor, int dutyCycle, double turnOffset) {
+    public SwerveModule(int driveMotor, int turnMotor, int dutyCycle, double turnOffset, String name) {
 
         this.driveMotor = new CANSparkMax(driveMotor, CANSparkMax.MotorType.kBrushless);
         this.turnMotor = new CANSparkMax(turnMotor, CANSparkMax.MotorType.kBrushless);
+
+        this.name = name;
 
         this.turnOffset = turnOffset;
 
@@ -60,6 +64,10 @@ public class SwerveModule implements Sendable {
         this.turnPIDController.setIZone(1.0);
 
         this.turnEncoder.setPositionConversionFactor(2.0 * Math.PI);
+    }
+
+    public void periodic() {
+        SmartDashboard.putNumber(this.name + "/Encoder", getAbsoluteEncoderPosition());
     }
 
     public double getAbsoluteEncoderPosition() {
