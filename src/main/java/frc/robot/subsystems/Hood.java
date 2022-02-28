@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.PWM;
@@ -51,5 +53,11 @@ public class Hood extends SubsystemBase implements AutoCloseable {
         m_right.close();
         m_dutyCycleInput.close();
         m_dutyCycle.close();
+    }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        builder.setSmartDashboardType("Hood");
+        builder.addDoubleProperty("Position", () -> getPosition(), null);
     }
 }

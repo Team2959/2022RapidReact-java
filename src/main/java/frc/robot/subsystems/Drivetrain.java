@@ -102,6 +102,8 @@ public class Drivetrain extends SubsystemBase {
 
     public void initSendable(SendableBuilder builder) {
         builder.setSmartDashboardType("Drivetrain");
+        builder.addDoubleProperty("X", () -> m_odometry.getPoseMeters().getX(), null);
+        builder.addDoubleProperty("Y", () -> m_odometry.getPoseMeters().getY(), null);
     }
 
 }

@@ -99,6 +99,17 @@ public class SwerveModule implements Sendable {
     public void initSendable(SendableBuilder builder) {
         builder.setSmartDashboardType("SwerveModule");
         builder.addDoubleProperty("absoluteAngle", this::getAbsoluteEncoderPosition, null);
+        builder.addDoubleProperty("relativeAngle", () -> m_turnEncoder.getPosition(), null);
+        builder.addDoubleProperty("driveVelocity", () -> m_driveEncoder.getVelocity(), null);
+        builder.addDoubleProperty("turnVelocity", () -> m_turnEncoder.getVelocity(), null);
+        builder.addDoubleProperty("driveP", () -> m_drivePIDController.getP(), (double d) -> m_drivePIDController.setP(d));
+        builder.addDoubleProperty("driveI", () -> m_drivePIDController.getI(), (double d) -> m_drivePIDController.setI(d));
+        builder.addDoubleProperty("driveD", () -> m_drivePIDController.getD(), (double d) -> m_drivePIDController.setD(d));
+        builder.addDoubleProperty("driveFF", () -> m_drivePIDController.getFF(), (double d) -> m_drivePIDController.setFF(d));
+        builder.addDoubleProperty("turnP", () -> m_turnPIDController.getP(), (double d) -> m_turnPIDController.setP(d));
+        builder.addDoubleProperty("turnI", () -> m_turnPIDController.getI(), (double d) -> m_turnPIDController.setI(d));
+        builder.addDoubleProperty("turnD", () -> m_turnPIDController.getD(), (double d) -> m_turnPIDController.setD(d));
+        builder.addDoubleProperty("turnFF", () -> m_turnPIDController.getFF(), (double d) -> m_turnPIDController.setFF(d));
     }
 }
 

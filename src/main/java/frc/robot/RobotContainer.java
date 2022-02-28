@@ -5,6 +5,7 @@
 package frc.robot;
 
 import cwtech.trigger.ModeTrigger;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.SetHoodAngleCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.Climb;
@@ -30,6 +31,14 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(new TeleopDriveCommand(this, false));
 
         (new ModeTrigger(ModeTrigger.Mode.Teleop)).whileActiveOnce(new SetHoodAngleCommand(this, Hood.kMin));
+    
+        SmartDashboard.putData(climb);
+        SmartDashboard.putData(drivetrain);
+        SmartDashboard.putData(hood);
+        SmartDashboard.putData(shooter);
+        SmartDashboard.putData(turret);
+        SmartDashboard.putData(vision);
+        SmartDashboard.putData(intake);
     }
 
     private void configureButtonBindings() {
