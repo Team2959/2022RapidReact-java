@@ -13,11 +13,11 @@ import cwtech.trigger.ModeTrigger;
 // Do code sa java ateema, do chowbaso
 
 public class Robot extends TimedRobot {
-    private RobotContainer robotContainer;
+    private RobotContainer m_robotContainer;
 
     @Override
     public void robotInit() {
-        robotContainer = new RobotContainer();
+        m_robotContainer = new RobotContainer();
     }
 
     @Override
@@ -51,9 +51,9 @@ public class Robot extends TimedRobot {
     public void teleopInit() {
         CommandScheduler.getInstance().cancelAll();
         ModeTrigger.registerMode(ModeTrigger.Mode.Teleop);
-        this.robotContainer.drivetrain.resetNavX();
+        m_robotContainer.drivetrain.resetNavX();
         if(!hasSetInitalPositions) {
-            this.robotContainer.drivetrain.setInitalPositions();
+            m_robotContainer.drivetrain.setInitalPositions();
             hasSetInitalPositions = true;
         }
     }
@@ -82,15 +82,15 @@ public class Robot extends TimedRobot {
             System.err.print("Running Motor: ");
             System.err.println(i);
             System.err.flush();
-            this.robotContainer.shooter.setVelocity(i);
+            m_robotContainer.shooter.setVelocity(i);
         }
         else if(SmartDashboard.getBoolean("Test/Hood Run", false)) {
             double i = SmartDashboard.getNumber("Test/Hood Position", 0.0);
-            (new SetHoodAngleCommand(robotContainer, i)).schedule();
+            (new SetHoodAngleCommand(m_robotContainer, i)).schedule();
             SmartDashboard.putBoolean("Test/Hood Run", false);
         } 
         else {
-            this.robotContainer.shooter.setVelocity(0);
+            m_robotContainer.shooter.setVelocity(0);
         }
     }
 }

@@ -14,16 +14,16 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 
 public class SwerveModule implements Sendable {
-    private CANSparkMax driveMotor;
-    private CANSparkMax turnMotor;
-    private DigitalInput dutyCycleInput;
-    private DutyCycle dutyCycleEncoder;
-    private SparkMaxRelativeEncoder driveEncoder;
-    private SparkMaxAlternateEncoder turnEncoder;
-    private SparkMaxPIDController drivePIDController;
-    private SparkMaxPIDController turnPIDController;
-    private final double turnOffset;
-    private final String name;
+    private CANSparkMax m_driveMotor;
+    private CANSparkMax m_turnMotor;
+    private DigitalInput m_dutyCycleInput;
+    private DutyCycle m_dutyCycleEncoder;
+    private SparkMaxRelativeEncoder m_driveEncoder;
+    private SparkMaxAlternateEncoder m_turnEncoder;
+    private SparkMaxPIDController m_drivePIDController;
+    private SparkMaxPIDController m_turnPIDController;
+    private final double m_turnOffset;
+    private final String m_name;
 
     private static final double kWheelRadius = 2.0 * 0.254; // 2" * 0.254 m / inch
     private static final int kEncoderResolution = 4096;
@@ -32,68 +32,68 @@ public class SwerveModule implements Sendable {
 
     public SwerveModule(int driveMotor, int turnMotor, int dutyCycle, double turnOffset, String name) {
 
-        this.driveMotor = new CANSparkMax(driveMotor, CANSparkMax.MotorType.kBrushless);
-        this.turnMotor = new CANSparkMax(turnMotor, CANSparkMax.MotorType.kBrushless);
+        m_driveMotor = new CANSparkMax(driveMotor, CANSparkMax.MotorType.kBrushless);
+        m_turnMotor = new CANSparkMax(turnMotor, CANSparkMax.MotorType.kBrushless);
 
-        this.name = name;
+        m_name = name;
 
-        this.turnOffset = turnOffset;
+        m_turnOffset = turnOffset;
 
-        this.dutyCycleInput = new DigitalInput(dutyCycle);
-        this.dutyCycleEncoder = new DutyCycle(this.dutyCycleInput);
+        m_dutyCycleInput = new DigitalInput(dutyCycle);
+        m_dutyCycleEncoder = new DutyCycle(m_dutyCycleInput);
 
-        this.driveEncoder = (SparkMaxRelativeEncoder) this.driveMotor.getEncoder();
-        this.turnEncoder = (SparkMaxAlternateEncoder) this.turnMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, kEncoderResolution);
+        m_driveEncoder = (SparkMaxRelativeEncoder) m_driveMotor.getEncoder();
+        m_turnEncoder = (SparkMaxAlternateEncoder) m_turnMotor.getAlternateEncoder(SparkMaxAlternateEncoder.Type.kQuadrature, kEncoderResolution);
     
-        this.drivePIDController = this.driveMotor.getPIDController();
-        this.turnPIDController = this.turnMotor.getPIDController();
+        m_drivePIDController = m_driveMotor.getPIDController();
+        m_turnPIDController = m_turnMotor.getPIDController();
 
-        this.driveEncoder.setPositionConversionFactor(kDrivePositionFactor);
-        this.driveEncoder.setVelocityConversionFactor(kDrivePositionFactor / 60);
+        m_driveEncoder.setPositionConversionFactor(kDrivePositionFactor);
+        m_driveEncoder.setVelocityConversionFactor(kDrivePositionFactor / 60);
         
-        this.drivePIDController.setP(0.0003);
-        this.drivePIDController.setI(0.0);
-        this.drivePIDController.setD(0.0);
-        this.drivePIDController.setFF(0.0002);
-        this.drivePIDController.setIZone(600);
+        m_drivePIDController.setP(0.0003);
+        m_drivePIDController.setI(0.0);
+        m_drivePIDController.setD(0.0);
+        m_drivePIDController.setFF(0.0002);
+        m_drivePIDController.setIZone(600);
 
-        this.turnPIDController.setFeedbackDevice(this.turnEncoder);
-        this.turnPIDController.setP(0.4);
-        this.turnPIDController.setI(0.00001);
-        this.turnPIDController.setD(0.0);
-        this.turnPIDController.setIZone(1.0);
+        m_turnPIDController.setFeedbackDevice(m_turnEncoder);
+        m_turnPIDController.setP(0.4);
+        m_turnPIDController.setI(0.00001);
+        m_turnPIDController.setD(0.0);
+        m_turnPIDController.setIZone(1.0);
 
-        this.turnEncoder.setPositionConversionFactor(2.0 * Math.PI);
+        m_turnEncoder.setPositionConversionFactor(2.0 * Math.PI);
     }
 
     public void periodic() {
-        SmartDashboard.putNumber(this.name + "/Encoder", getAbsoluteEncoderPosition());
+        SmartDashboard.putNumber(m_name + "/Encoder", getAbsoluteEncoderPosition());
     }
 
     public double getAbsoluteEncoderPosition() {
-        double initalPosition = this.dutyCycleEncoder.getOutput();
+        double initalPosition = m_dutyCycleEncoder.getOutput();
         double initalPositionInRadians = initalPosition * 2.0 * Math.PI;
-        double initalPositionInRadiansScaled = new Rotation2d(initalPositionInRadians - this.turnOffset).getRadians();
+        double initalPositionInRadiansScaled = new Rotation2d(initalPositionInRadians - m_turnOffset).getRadians();
         return initalPositionInRadiansScaled;
     }
 
     public SwerveModuleState getState() {
-        return new SwerveModuleState(this.driveEncoder.getVelocity(), new Rotation2d(this.turnEncoder.getPosition()));
+        return new SwerveModuleState(m_driveEncoder.getVelocity(), new Rotation2d(m_turnEncoder.getPosition()));
     }
 
     public void setDesiredState(SwerveModuleState referenceState) {
-        SwerveModuleState state = SwerveModuleState.optimize(referenceState, new Rotation2d(this.turnEncoder.getPosition()));
+        SwerveModuleState state = SwerveModuleState.optimize(referenceState, new Rotation2d(m_turnEncoder.getPosition()));
         
-        this.drivePIDController.setReference(state.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
+        m_drivePIDController.setReference(state.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
         
-        double delta = state.angle.getRadians() - new Rotation2d(this.turnEncoder.getPosition()).getRadians();
-        double setpoint = this.turnEncoder.getPosition() + delta;
+        double delta = state.angle.getRadians() - new Rotation2d(m_turnEncoder.getPosition()).getRadians();
+        double setpoint = m_turnEncoder.getPosition() + delta;
 
-        this.turnPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
+        m_turnPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
     }
 
     public void setInitalPosition() {
-        this.turnEncoder.setPosition(getAbsoluteEncoderPosition());
+        m_turnEncoder.setPosition(getAbsoluteEncoderPosition());
     }
 
     public void initSendable(SendableBuilder builder) {

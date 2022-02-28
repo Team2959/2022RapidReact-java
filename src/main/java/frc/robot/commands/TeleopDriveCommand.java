@@ -9,24 +9,24 @@ import frc.robot.OI.DriveType;
 
 public class TeleopDriveCommand extends CommandBase {
 
-    private final boolean fieldRelative;
-    private final RobotContainer container;
+    private final boolean m_fieldRelative;
+    private final RobotContainer m_container;
 
     public TeleopDriveCommand(RobotContainer container, boolean fieldRelative) {
-        this.fieldRelative = fieldRelative;
-        this.container = container;
+        m_fieldRelative = fieldRelative;
+        m_container = container;
 
-        addRequirements(this.container.drivetrain);
+        addRequirements(m_container.drivetrain);
     }
 
     @Override
     public void execute() {
-        DriveState state = this.container.oi.getDriveState(DriveType.Double);
-        this.container.drivetrain.drive(state.xMetersPerSecond, state.yMetersPerSecond, state.rotationRadiansPerSecond, this.fieldRelative);
+        DriveState state = m_container.oi.getDriveState(DriveType.Double);
+        m_container.drivetrain.drive(state.m_xMetersPerSecond, state.m_yMetersPerSecond, state.m_rotationRadiansPerSecond, m_fieldRelative);
     }
 
     @Override
     public void end(boolean interupted) {
-        this.container.drivetrain.drive(0, 0, 0, this.fieldRelative);
+        m_container.drivetrain.drive(0, 0, 0, m_fieldRelative);
     }
 }

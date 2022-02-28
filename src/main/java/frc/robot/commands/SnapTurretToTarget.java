@@ -6,13 +6,13 @@ import frc.robot.subsystems.Turret;
 
 /** Snaps Turret to Target */
 public class SnapTurretToTarget extends CommandBase {
-    private final RobotContainer container;
+    private final RobotContainer m_container;
 
     public SnapTurretToTarget(RobotContainer container) {
-        this.container = container;
+        m_container = container;
 
-        addRequirements(this.container.turret);
-        addRequirements(this.container.vision);
+        addRequirements(m_container.turret);
+        addRequirements(m_container.vision);
     }
 
     private final double kSpeed = 0.5;
@@ -20,32 +20,32 @@ public class SnapTurretToTarget extends CommandBase {
 
     @Override
     public void initialize() {
-        double tx = this.container.vision.getTX();
+        double tx = m_container.vision.getTX();
         if(tx > 0) {
-            this.container.turret.setSpeed(-kSpeed);
+            m_container.turret.setSpeed(-kSpeed);
         }
         else {
-            this.container.turret.setSpeed(kSpeed);
+            m_container.turret.setSpeed(kSpeed);
         }
     }
 
     @Override
     public void execute() {
-        if(this.container.turret.getAngleDegrees() <= Turret.kMaxDegreesBackwards) {
-            this.container.turret.setSpeed(kSpeed);
+        if(m_container.turret.getAngleDegrees() <= Turret.kMaxDegreesBackwards) {
+            m_container.turret.setSpeed(kSpeed);
         }
-        else if(this.container.turret.getAngleDegrees() >= Turret.kMaxDegreesForwards) {
-            this.container.turret.setSpeed(-kSpeed);
+        else if(m_container.turret.getAngleDegrees() >= Turret.kMaxDegreesForwards) {
+            m_container.turret.setSpeed(-kSpeed);
         }
     }
 
     @Override
     public boolean isFinished() {
-        return this.container.vision.getTX() < kVisionError || this.container.vision.getTX() > -kVisionError;
+        return m_container.vision.getTX() < kVisionError || m_container.vision.getTX() > -kVisionError;
     }
     
     @Override
     public void end(boolean interupt) {
-        this.container.turret.setSpeed(0);
+        m_container.turret.setSpeed(0);
     }
 }

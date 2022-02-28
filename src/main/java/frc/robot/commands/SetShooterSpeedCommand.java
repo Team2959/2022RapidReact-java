@@ -5,25 +5,25 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class SetShooterSpeedCommand extends CommandBase {
-    private final RobotContainer container;
-    private final double speed;
+    private final RobotContainer m_container;
+    private final double m_speed;
 
     public SetShooterSpeedCommand(RobotContainer container, double speed) {
-        this.container = container;
-        this.speed = speed;
+        m_container = container;
+        m_speed = speed;
 
-        addRequirements(this.container.shooter);
+        addRequirements(m_container.shooter);
     }
 
     @Override
     public void initialize() {
-        this.container.shooter.setVelocity(this.speed);
-        this.container.shooter.setAccelarator(1.0);
+        m_container.shooter.setVelocity(m_speed);
+        m_container.shooter.setAccelarator(1.0);
     }
 
     @Override
     public boolean isFinished() {
-        //return Util.dcompareMine(this.container.shooter.getVelocity(), this.speed, this.speed * 0.05);
+        //return Util.dcompareMine(container.shooter.getVelocity(), speed, speed * 0.05);
         return true;
     }
 }

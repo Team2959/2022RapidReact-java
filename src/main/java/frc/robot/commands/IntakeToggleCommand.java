@@ -5,16 +5,16 @@ import frc.robot.RobotContainer;
 
 public class IntakeToggleCommand extends InstantCommand {
 
-    private final RobotContainer container;
+    private final RobotContainer m_container;
 
     public IntakeToggleCommand(RobotContainer container) {
-        this.container = container;
+        m_container = container;
     
-        addRequirements(this.container.intake);
+        addRequirements(m_container.intake);
     }
 
     @Override
     public void initialize() {
-        this.container.intake.toggleIntake();
+        m_container.intake.toggleIntake();
     }
 }

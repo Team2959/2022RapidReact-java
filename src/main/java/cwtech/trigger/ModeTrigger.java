@@ -14,19 +14,19 @@ public class ModeTrigger extends Trigger {
         Teleop,
         Autonomous,
     };
-    private static Mode currentMode;
-    private final Mode mode;
+    private static Mode m_currentMode;
+    private final Mode m_mode;
 
     public ModeTrigger(Mode mode) {
-        this.mode = mode;
+        m_mode = mode;
     }
 
     @Override
     public boolean get() {
-        return this.mode == currentMode;
+        return m_mode == m_currentMode;
     }
 
     public static void registerMode(Mode mode) {
-        currentMode = mode;
+        m_currentMode = mode;
     }
 }

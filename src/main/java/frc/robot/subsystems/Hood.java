@@ -11,21 +11,21 @@ public class Hood extends SubsystemBase implements AutoCloseable {
     public static final double kMin = 0.02;
     public static final double kMax = 0.9;
 
-    private final PWM left;
-    private final PWM right;
+    private final PWM m_left;
+    private final PWM m_right;
 
-    private final DigitalInput dutyCycleInput;
-    private final DutyCycle dutyCycle;
+    private final DigitalInput m_dutyCycleInput;
+    private final DutyCycle m_dutyCycle;
 
     public Hood() {
-        this.left = new PWM(RobotMap.kHoodServoLeft);
-        this.right = new PWM(RobotMap.kHoodServoRight);
+        m_left = new PWM(RobotMap.kHoodServoLeft);
+        m_right = new PWM(RobotMap.kHoodServoRight);
 
-        this.dutyCycleInput = new DigitalInput(RobotMap.kHoodPulseWidthDigIO);
-        this.dutyCycle = new DutyCycle(this.dutyCycleInput);
+        m_dutyCycleInput = new DigitalInput(RobotMap.kHoodPulseWidthDigIO);
+        m_dutyCycle = new DutyCycle(m_dutyCycleInput);
 
-        this.left.setPeriodMultiplier(PWM.PeriodMultiplier.k4X);
-        this.right.setPeriodMultiplier(PWM.PeriodMultiplier.k4X);
+        m_left.setPeriodMultiplier(PWM.PeriodMultiplier.k4X);
+        m_right.setPeriodMultiplier(PWM.PeriodMultiplier.k4X);
 
         setSpeed(0.0);
     }
@@ -36,20 +36,20 @@ public class Hood extends SubsystemBase implements AutoCloseable {
     public void setSpeed(double speed) {
         speed = speed * 100;
         int rawSpeed = (int) speed;
-        this.left.setRaw(kMiddle + rawSpeed);
-        this.right.setRaw(kMiddle - rawSpeed);
+        m_left.setRaw(kMiddle + rawSpeed);
+        m_right.setRaw(kMiddle - rawSpeed);
     }
 
     // returns 0.0 to 1.0
     public double getPosition() {
-        return this.dutyCycle.getOutput();
+        return m_dutyCycle.getOutput();
     }
 
     @Override
     public void close() throws Exception{
-        this.left.close();
-        this.right.close();
-        this.dutyCycleInput.close();
-        this.dutyCycle.close();
+        m_left.close();
+        m_right.close();
+        m_dutyCycleInput.close();
+        m_dutyCycle.close();
     }
 }

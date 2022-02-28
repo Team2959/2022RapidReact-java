@@ -3,12 +3,12 @@ package cwtech.util;
 public class Trajectory {
     /** Class to give exit velocity(degrees) and shooting angle(degrees) */
     static public class TrajectoryCalculation {
-        public final double shootingAngleDegrees;
-        public final double exitVelocityMetersPerSecond;
+        public final double m_shootingAngleDegrees;
+        public final double m_exitVelocityMetersPerSecond;
 
         TrajectoryCalculation(double shootingAngleDegrees, double exitVelocityMetersPerSecond) {
-            this.shootingAngleDegrees = shootingAngleDegrees;
-            this.exitVelocityMetersPerSecond = exitVelocityMetersPerSecond;
+            m_shootingAngleDegrees = shootingAngleDegrees;
+            m_exitVelocityMetersPerSecond = exitVelocityMetersPerSecond;
         }
     }
 

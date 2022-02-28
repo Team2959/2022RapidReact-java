@@ -5,14 +5,14 @@ import frc.robot.RobotContainer;
 
 public class FeedBallCommand extends InstantCommand {
     
-    private final RobotContainer container;
+    private final RobotContainer m_container;
 
     public FeedBallCommand(RobotContainer container) {
-        this.container = container;
+        m_container = container;
     }
     
     @Override
     public void initialize() {
-        this.container.shooter.setFeeder(true);
+        m_container.shooter.setFeeder(true);
     }
 }

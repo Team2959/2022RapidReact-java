@@ -13,58 +13,58 @@ import frc.robot.commands.ReverseIntakeCommand;
 import frc.robot.subsystems.Drivetrain;
 
 public class OI {
-    private Joystick leftJoystick;
-    private Joystick rightJoystick;
-    private Joystick buttonBox;
-    private final RobotContainer container;
+    private Joystick m_leftJoystick;
+    private Joystick m_rightJoystick;
+    private Joystick m_buttonBox;
+    private final RobotContainer m_container;
 
-    private Conditioning xConditioning;
-    private Conditioning yConditioning;
-    private Conditioning rotationConditioning;
+    private Conditioning m_xConditioning;
+    private Conditioning m_yConditioning;
+    private Conditioning m_rotationConditioning;
 
-    private final JoystickButton toggleIntakeButton;
-    private final JoystickButton reverseIntakeButton;
-    private final JoystickButton extendClimbHooksButton;
-    private final JoystickButton retractClimbHooksButton;
-    private final JoystickButton fireButton;
+    private final JoystickButton m_toggleIntakeButton;
+    private final JoystickButton m_reverseIntakeButton;
+    private final JoystickButton m_extendClimbHooksButton;
+    private final JoystickButton m_retractClimbHooksButton;
+    private final JoystickButton m_fireButton;
 
     public OI(RobotContainer container) {
-        this.leftJoystick = new Joystick(RobotMap.kLeftJoystick);
-        this.rightJoystick = new Joystick(RobotMap.kRightJoystick);
-        this.buttonBox = new Joystick(RobotMap.kButtonBox);
-        this.xConditioning = new Conditioning();
-        this.yConditioning = new Conditioning();
-        this.rotationConditioning = new Conditioning();
-        this.container = container;
+        m_leftJoystick = new Joystick(RobotMap.kLeftJoystick);
+        m_rightJoystick = new Joystick(RobotMap.kRightJoystick);
+        m_buttonBox = new Joystick(RobotMap.kButtonBox);
+        m_xConditioning = new Conditioning();
+        m_yConditioning = new Conditioning();
+        m_rotationConditioning = new Conditioning();
+        m_container = container;
 
-        this.toggleIntakeButton = new JoystickButton(this.rightJoystick, RobotMap.kToggleIntakeButton);
-        this.reverseIntakeButton = new JoystickButton(this.buttonBox, RobotMap.kReverseIntakeButton);
-        this.extendClimbHooksButton = new JoystickButton(this.buttonBox, RobotMap.kExtendClimbHooksButton);
-        this.retractClimbHooksButton = new JoystickButton(this.buttonBox, RobotMap.kRetractClimbHooksButton);
-        this.fireButton = new JoystickButton(this.buttonBox, RobotMap.kFireButton);
+        m_toggleIntakeButton = new JoystickButton(m_rightJoystick, RobotMap.kToggleIntakeButton);
+        m_reverseIntakeButton = new JoystickButton(m_buttonBox, RobotMap.kReverseIntakeButton);
+        m_extendClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kExtendClimbHooksButton);
+        m_retractClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kRetractClimbHooksButton);
+        m_fireButton = new JoystickButton(m_buttonBox, RobotMap.kFireButton);
 
-        this.xConditioning.setDeadband(0.15);
-        this.xConditioning.setExponent(1.3);
-        this.yConditioning.setDeadband(0.15);
-        this.yConditioning.setExponent(0.8);
-        this.rotationConditioning.setDeadband(0.25);
-        this.rotationConditioning.setExponent(0.8);
+        m_xConditioning.setDeadband(0.15);
+        m_xConditioning.setExponent(1.3);
+        m_yConditioning.setDeadband(0.15);
+        m_yConditioning.setExponent(0.8);
+        m_rotationConditioning.setDeadband(0.25);
+        m_rotationConditioning.setExponent(0.8);
 
-        this.toggleIntakeButton.whenPressed(new IntakeToggleCommand(this.container));
-        this.reverseIntakeButton.whileHeld(new ReverseIntakeCommand(this.container));
-        this.extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(this.container));
-        this.retractClimbHooksButton.whenPressed(new RetractClimbHooksCommand(this.container));
-        this.fireButton.whenPressed(new FireCommand(this.container));
+        m_toggleIntakeButton.whenPressed(new IntakeToggleCommand(m_container));
+        m_reverseIntakeButton.whileHeld(new ReverseIntakeCommand(m_container));
+        m_extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(m_container));
+        m_retractClimbHooksButton.whenPressed(new RetractClimbHooksCommand(m_container));
+        m_fireButton.whenPressed(new FireCommand(m_container));
     }
     
     public class DriveState {
-        public final double xMetersPerSecond;
-        public final double yMetersPerSecond;
-        public final double rotationRadiansPerSecond;
+        public final double m_xMetersPerSecond;
+        public final double m_yMetersPerSecond;
+        public final double m_rotationRadiansPerSecond;
         DriveState(double xMetersPerSecond, double yMetersPerSecond, double rotationRadiansPerSecond) {
-            this.xMetersPerSecond = xMetersPerSecond;
-            this.yMetersPerSecond = yMetersPerSecond;
-            this.rotationRadiansPerSecond = rotationRadiansPerSecond;
+            m_xMetersPerSecond = xMetersPerSecond;
+            m_yMetersPerSecond = yMetersPerSecond;
+            m_rotationRadiansPerSecond = rotationRadiansPerSecond;
         }
     }
 
@@ -76,18 +76,18 @@ public class OI {
     public DriveState getDriveState(DriveType driveType) {
         double x = 0, y = 0, rot = 0;
         if(driveType == DriveType.Double) {
-            x = this.leftJoystick.getX();
-            y = this.leftJoystick.getY();
-            rot = this.rightJoystick.getX();
+            x = m_leftJoystick.getX();
+            y = m_leftJoystick.getY();
+            rot = m_rightJoystick.getX();
         }
         else if(driveType == DriveType.Single) {
-            x = this.rightJoystick.getX();
-            y = this.rightJoystick.getY();
-            rot = this.rightJoystick.getTwist();
+            x = m_rightJoystick.getX();
+            y = m_rightJoystick.getY();
+            rot = m_rightJoystick.getTwist();
         }
-        double xSpeed = (-this.xConditioning.condition(x)) * Drivetrain.kMaxSpeedMetersPerSecond;
-        double ySpeed = (this.yConditioning.condition(y)) * Drivetrain.kMaxSpeedMetersPerSecond;
-        double rotationSpeed = (this.rotationConditioning.condition(rot)) * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
+        double xSpeed = (-m_xConditioning.condition(x)) * Drivetrain.kMaxSpeedMetersPerSecond;
+        double ySpeed = (m_yConditioning.condition(y)) * Drivetrain.kMaxSpeedMetersPerSecond;
+        double rotationSpeed = (m_rotationConditioning.condition(rot)) * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
         return new DriveState(xSpeed, ySpeed, rotationSpeed);
     }
 

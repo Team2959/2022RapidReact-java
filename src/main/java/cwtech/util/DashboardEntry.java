@@ -3,47 +3,47 @@ package cwtech.util;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DashboardEntry {
-    private final String key;
+    private final String m_key;
     public DashboardEntry(String key) {
-        this.key = key;
+        m_key = key;
     }
 
     public DashboardEntry(String key, int value) {
-        this.key = key;
+        m_key = key;
         putNumber(value);
     }
 
     public DashboardEntry(String key, String value) {
-        this.key = key;
+        m_key = key;
         putString(value);
     }
 
     public DashboardEntry(String key, boolean value) {
-        this.key = key;
+        m_key = key;
         putBoolean(value);
     }
     
     public void putNumber(double value) {
-        SmartDashboard.putNumber(this.key, value);
+        SmartDashboard.putNumber(m_key, value);
     }
 
     public double getNumber(double defaultValue) {
-        return SmartDashboard.getNumber(this.key, defaultValue);
+        return SmartDashboard.getNumber(m_key, defaultValue);
     }
 
     public void putString(String value) {
-        SmartDashboard.putString(this.key, value);
+        SmartDashboard.putString(m_key, value);
     }
 
     public String getString(String defaultValue) {
-        return SmartDashboard.getString(this.key, defaultValue);
+        return SmartDashboard.getString(m_key, defaultValue);
     }
 
     public void putBoolean(boolean value) {
-        SmartDashboard.putBoolean(this.key, value);
+        SmartDashboard.putBoolean(m_key, value);
     }
 
     public boolean getBoolean(boolean defaultValue) {
-        return SmartDashboard.getBoolean(this.key, defaultValue);
+        return SmartDashboard.getBoolean(m_key, defaultValue);
     }
 }

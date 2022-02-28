@@ -7,7 +7,7 @@ package cwtech.util;
 /** Add your docs here. */
 public class Util {
     public static boolean dcompare(double left, double right) {
-        final double kThreshold = 0.00001;
+        final double kThreshold = 0.001;
         return Math.abs(left - right) < kThreshold;
     }
     public static boolean dcompareMine(double left, double right, double threshold) {

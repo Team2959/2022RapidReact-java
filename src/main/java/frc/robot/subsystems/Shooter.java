@@ -13,51 +13,51 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
-    private final CANSparkMax main;
-    private final CANSparkMax follower;
-    private final SparkMaxPIDController controller;
-    private final SparkMaxRelativeEncoder encoder;
-    private final Solenoid feeder;
-    private final VictorSPX accelarator;
+    private final CANSparkMax m_mainMotor;
+    private final CANSparkMax m_followerMotor;
+    private final SparkMaxPIDController m_mainMotorController;
+    private final SparkMaxRelativeEncoder m_mainMotorEncoder;
+    private final Solenoid m_feeder;
+    private final VictorSPX m_accelarator;
     // TODO implement accelarator Wheels
 
     public Shooter() {
-        this.main = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
-        this.follower = new CANSparkMax(RobotMap.kShooterFollowerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
-        this.controller = this.main.getPIDController();
-        this.encoder = (SparkMaxRelativeEncoder) this.main.getEncoder();
-        this.feeder = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kFeederSolenoid);
+        m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
+        m_followerMotor = new CANSparkMax(RobotMap.kShooterFollowerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
+        m_mainMotorController = m_mainMotor.getPIDController();
+        m_mainMotorEncoder = (SparkMaxRelativeEncoder) m_mainMotor.getEncoder();
+        m_feeder = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kFeederSolenoid);
         
-        this.accelarator = new VictorSPX(RobotMap.kAccelaratorVictorSPX);
+        m_accelarator = new VictorSPX(RobotMap.kAccelaratorVictorSPX);
  
-        this.controller.setFF(0.0008);
-        this.controller.setP(0.0008);
-        this.controller.setD(0);
+        m_mainMotorController.setFF(0.0008);
+        m_mainMotorController.setP(0.0008);
+        m_mainMotorController.setD(0);
     
-        this.follower.follow(this.main, true);
+        m_followerMotor.follow(m_mainMotor, true);
     }
 
     /** @param speed Value between 0 and 4500 */
     public void setVelocity(double rpm) {
         rpm = Math.min(4500, rpm);
-        this.controller.setReference(rpm, CANSparkMax.ControlType.kVelocity);
+        m_mainMotorController.setReference(rpm, CANSparkMax.ControlType.kVelocity);
     }
 
     public double getVelocity() {
-        return this.encoder.getVelocity();
+        return m_mainMotorEncoder.getVelocity();
     }
 
     public void setFeeder(boolean extended) {
-        this.feeder.set(extended);
+        m_feeder.set(extended);
     }
 
     public boolean getFeeder() {
-        return this.feeder.get();
+        return m_feeder.get();
     }
 
     /** @param speed A value between -1.0 and 1.0 */
     public void setAccelarator(double speed) {
-        this.accelarator.set(VictorSPXControlMode.PercentOutput, speed);
+        m_accelarator.set(VictorSPXControlMode.PercentOutput, speed);
     }
 }
 

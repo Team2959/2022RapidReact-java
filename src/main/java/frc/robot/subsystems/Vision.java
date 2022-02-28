@@ -6,8 +6,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Vision extends SubsystemBase {
-    private final NetworkTableEntry txEntry;
-    private final NetworkTableEntry tyEntry;
+    private final NetworkTableEntry m_txEntry;
+    private final NetworkTableEntry m_tyEntry;
 
     /** This is what the limelight's height when mounted */
     private static final double kCameraHeightMeters = 1;
@@ -15,22 +15,22 @@ public class Vision extends SubsystemBase {
     private static final double kCameraAngleDegrees = 0;
 
     public Vision() {
-        this.txEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
-        this.tyEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty");
+        m_txEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
+        m_tyEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty");
     }
 
     /** Gets the 'tx' from the limelight 
      * @return Horizontal offset from crosshair to target -29.8 to 29.8 degrees
     */
     public double getTX() {
-        return (double) this.txEntry.getNumber(0.0);
+        return (double) m_txEntry.getNumber(0.0);
     }
 
     /** Gets the 'ty' from the limelight 
      * @return Vertical offset from cross to target -24.85 to 24.85 degrees
     */
     public double getTY() {
-        return (double) this.tyEntry.getNumber(0.0);
+        return (double) m_tyEntry.getNumber(0.0);
     }
 
     /** Calculates distance from a target.

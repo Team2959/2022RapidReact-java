@@ -4,41 +4,41 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class SetHoodAngleCommand extends CommandBase {
-    private final RobotContainer container;
-    private final double hoodPosition;
-    private boolean backwards;
+    private final RobotContainer m_container;
+    private final double m_hoodPosition;
+    private boolean m_backwards;
     public SetHoodAngleCommand(RobotContainer container, double hoodPosition) { 
-        this.container = container;
-        this.hoodPosition = hoodPosition;
-        this.backwards = false;
+        m_container = container;
+        m_hoodPosition = hoodPosition;
+        m_backwards = false;
 
-        addRequirements(this.container.hood);
+        addRequirements(m_container.hood);
     }
 
     @Override
     public void initialize() {
-        double hoodPosition = this.container.hood.getPosition();
+        double hoodPosition = m_container.hood.getPosition();
 
-        if(hoodPosition < this.hoodPosition) {
-            this.container.hood.setSpeed(.75);
-            this.backwards = false;
+        if(hoodPosition < m_hoodPosition) {
+            m_container.hood.setSpeed(.75);
+            m_backwards = false;
         } 
         else {
-            this.container.hood.setSpeed(-0.75);
-            this.backwards = true;
+            m_container.hood.setSpeed(-0.75);
+            m_backwards = true;
         }
     }
 
     @Override
     public boolean isFinished() {
-        double currentHoodPosition = this.container.hood.getPosition();
+        double currentHoodPosition = m_container.hood.getPosition();
         // Checks to see if at or pass requested hood position and if so stop
-        return this.backwards ? currentHoodPosition <= this.hoodPosition : currentHoodPosition >= this.hoodPosition;
+        return m_backwards ? currentHoodPosition <= m_hoodPosition : currentHoodPosition >= m_hoodPosition;
     }
 
     @Override
     public void end(boolean interrupted) {
-        this.container.hood.setSpeed(0.0);
+        m_container.hood.setSpeed(0.0);
     }
     
 }

@@ -4,14 +4,14 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
 
 public class RetractFeederCommand extends InstantCommand {
-    private final RobotContainer container;
+    private final RobotContainer m_container;
 
     public RetractFeederCommand(RobotContainer container) {
-        this.container = container;
+        m_container = container;
     }
     
     @Override
     public void initialize() {
-        this.container.shooter.setFeeder(false);
+        m_container.shooter.setFeeder(false);
     }
 }

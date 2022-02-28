@@ -4,21 +4,21 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class ReverseIntakeCommand extends CommandBase {
-    private final RobotContainer container;
+    private final RobotContainer m_container;
 
     public ReverseIntakeCommand(RobotContainer container) {
-        this.container = container;
+        m_container = container;
     
-        addRequirements(this.container.intake);
+        addRequirements(m_container.intake);
     }
 
     @Override
     public void initialize() {
-        this.container.intake.reverseIntake();
+        m_container.intake.reverseIntake();
     }
 
     @Override
     public void end(boolean interupt) {
-        this.container.intake.restoreIntakeDirection();
+        m_container.intake.restoreIntakeDirection();
     }
 }

@@ -7,17 +7,17 @@ import frc.robot.RobotMap;
 
 public class Climb extends SubsystemBase {
 
-    private Solenoid climb;
+    private Solenoid m_climb;
 
     public Climb() {
-        this.climb = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kClimbSolenoid);
+        m_climb = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kClimbSolenoid);
     }
 
     public void extendClimbHooks() {
-        this.climb.set(true);
+        m_climb.set(true);
     }
 
     public void retractClimbHooks() {
-        this.climb.set(false);
+        m_climb.set(false);
     }
 }

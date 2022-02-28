@@ -18,52 +18,52 @@ public class Drivetrain extends SubsystemBase {
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
 
 
-    private static final Translation2d frontLeftLocation = new Translation2d(+0.381, -0.381);
-    private static final Translation2d frontRightLocation = new Translation2d(-0.381, -0.381);
-    private static final Translation2d backLeftLocation = new Translation2d(+0.381, +0.381);
-    private static final Translation2d backRightLocation = new Translation2d(-0.381, +0.381);
+    private static final Translation2d kFrontLeftLocation = new Translation2d(+0.381, -0.381);
+    private static final Translation2d kFrontRightLocation = new Translation2d(-0.381, -0.381);
+    private static final Translation2d kBackLeftLocation = new Translation2d(+0.381, +0.381);
+    private static final Translation2d kBackRightLocation = new Translation2d(-0.381, +0.381);
 
 
-    private SwerveModule frontLeft;
-    private SwerveModule frontRight;
-    private SwerveModule backLeft;
-    private SwerveModule backRight;
+    private SwerveModule m_frontLeft;
+    private SwerveModule m_frontRight;
+    private SwerveModule m_backLeft;
+    private SwerveModule m_backRight;
 
-    private AHRS navX;
+    private AHRS m_navX;
 
-    private SwerveDriveKinematics kinematics;
-    private SwerveDriveOdometry odometry;
+    private SwerveDriveKinematics m_kinematics;
+    private SwerveDriveOdometry m_odometry;
 
     public void resetNavX() {
-        this.navX.reset();
+        m_navX.reset();
     }
 
     public Drivetrain() {
-        this.navX = new AHRS(Port.kMXP);
+        m_navX = new AHRS(Port.kMXP);
 
-        this.frontLeft = new SwerveModule(RobotMap.kFrontLeftDriveCANSparkMaxMotor,
+        m_frontLeft = new SwerveModule(RobotMap.kFrontLeftDriveCANSparkMaxMotor,
                 RobotMap.kFrontLeftTurnCANSparkMaxMotor, RobotMap.kFrontLeftTurnPulseWidthDigIO,
                 RobotMap.kZeroedFrontLeft, "Front Left");
-        this.frontRight = new SwerveModule(RobotMap.kFrontRightDriveCANSparkMaxMotor,
+        m_frontRight = new SwerveModule(RobotMap.kFrontRightDriveCANSparkMaxMotor,
                 RobotMap.kFrontRightTurnCANSparkMaxMotor, RobotMap.kFrontRightTurnPulseWidthDigIO,
                 RobotMap.kZeroedFrontRight, "Front Right");
-        this.backLeft = new SwerveModule(RobotMap.kBackLeftDriveCANSparkMaxMotor,
+        m_backLeft = new SwerveModule(RobotMap.kBackLeftDriveCANSparkMaxMotor,
                 RobotMap.kBackLeftTurnCANSparkMaxMotor, RobotMap.kBackLeftTurnPulseWidthDigIO,
                 RobotMap.kZeroedBackLeft, "Back Left");
-        this.backRight = new SwerveModule(RobotMap.kBackRightDriveCANSparkMaxMotor,
+        m_backRight = new SwerveModule(RobotMap.kBackRightDriveCANSparkMaxMotor,
                 RobotMap.kBackRightTurnCANSparkMaxMotor, RobotMap.kBackRightTurnPulseWidthDigIO,
                 RobotMap.kZeroedBackRight, "Back Right");
 
-        this.kinematics = new SwerveDriveKinematics(frontLeftLocation, frontRightLocation, backLeftLocation,
-                backRightLocation);
-        this.odometry = new SwerveDriveOdometry(this.kinematics, this.navX.getRotation2d());
+        m_kinematics = new SwerveDriveKinematics(kFrontLeftLocation, kFrontRightLocation, kBackLeftLocation,
+                kBackRightLocation);
+        m_odometry = new SwerveDriveOdometry(m_kinematics, m_navX.getRotation2d());
     }
 
     public void drive(double xMetersPerSecond, double yMetersPerSecond, double rotationRadiansPerSecond,
             boolean fieldRelative) {
-        SwerveModuleState[] states = this.kinematics.toSwerveModuleStates(fieldRelative
+        SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(fieldRelative
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(xMetersPerSecond, yMetersPerSecond, rotationRadiansPerSecond,
-                        this.navX.getRotation2d())
+                        m_navX.getRotation2d())
                 : new ChassisSpeeds(xMetersPerSecond, yMetersPerSecond, rotationRadiansPerSecond));
 
         SmartDashboard.putNumber("X Meters Per Second", xMetersPerSecond);
@@ -75,29 +75,29 @@ public class Drivetrain extends SubsystemBase {
         SwerveModuleState bl = states[2];
         SwerveModuleState br = states[3];
 
-        this.frontLeft.setDesiredState(fl);
-        this.frontRight.setDesiredState(fr);
-        this.backLeft.setDesiredState(bl);
-        this.backRight.setDesiredState(br);
+        m_frontLeft.setDesiredState(fl);
+        m_frontRight.setDesiredState(fr);
+        m_backLeft.setDesiredState(bl);
+        m_backRight.setDesiredState(br);
     }
 
     //
     @Override
     public void periodic() {
-        this.odometry.update(this.navX.getRotation2d(), frontLeft.getState(), frontRight.getState(),
-                backLeft.getState(), backRight.getState());
+        m_odometry.update(m_navX.getRotation2d(), m_frontLeft.getState(), m_frontRight.getState(),
+                m_backLeft.getState(), m_backRight.getState());
 
-        this.frontLeft.periodic();
-        this.frontRight.periodic();
-        this.backLeft.periodic();
-        this.backRight.periodic();
+        m_frontLeft.periodic();
+        m_frontRight.periodic();
+        m_backLeft.periodic();
+        m_backRight.periodic();
     }
 
     public void setInitalPositions() {
-        this.frontLeft.setInitalPosition();
-        this.frontRight.setInitalPosition();
-        this.backLeft.setInitalPosition();
-        this.backRight.setInitalPosition();
+        m_frontLeft.setInitalPosition();
+        m_frontRight.setInitalPosition();
+        m_backLeft.setInitalPosition();
+        m_backRight.setInitalPosition();
     }
 
     public void initSendable(SendableBuilder builder) {

@@ -8,41 +8,41 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class Intake extends SubsystemBase implements AutoCloseable {
-    private final Solenoid arms;
-    private final CANSparkMax motor;
+    private final Solenoid m_arms;
+    private final CANSparkMax m_motor;
 
     private final double kIntakeSpeed = 0.50;
 
     public Intake() {
-        this.arms = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kIntakeArmsSolenoid);
-        this.motor = new CANSparkMax(RobotMap.kIntakeCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
+        m_arms = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kIntakeArmsSolenoid);
+        m_motor = new CANSparkMax(RobotMap.kIntakeCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
     }
 
     public void toggleIntake() {
-        if (this.arms.get() == true) {
-            this.arms.set(false);
-            this.motor.set(0);
+        if (m_arms.get() == true) {
+            m_arms.set(false);
+            m_motor.set(0);
         } else {
-            this.arms.set(true);
-            this.motor.set(kIntakeSpeed);
+            m_arms.set(true);
+            m_motor.set(kIntakeSpeed);
         }
     }
 
     public void reverseIntake() {
-        if (this.arms.get() == true) {
-            this.motor.set(-kIntakeSpeed);
+        if (m_arms.get() == true) {
+            m_motor.set(-kIntakeSpeed);
         }
     }
 
     public void restoreIntakeDirection() {
-        if(this.arms.get() == true) {
-            this.motor.set(kIntakeSpeed);
+        if(m_arms.get() == true) {
+            m_motor.set(kIntakeSpeed);
         }
     }
 
     @Override
     public void close() {
-        this.arms.close();
-        this.motor.close();
+        m_arms.close();
+        m_motor.close();
     }
 }

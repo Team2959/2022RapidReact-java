@@ -17,9 +17,9 @@ public class HoodTest {
     @Before
     public void setup() {
         assert HAL.initialize(500, 0);
-        this.hood = new Hood();
-        this.left = new PWMSim(RobotMap.kHoodServoLeft);
-        this.right = new PWMSim(RobotMap.kHoodServoRight);
+        hood = new Hood();
+        left = new PWMSim(RobotMap.kHoodServoLeft);
+        right = new PWMSim(RobotMap.kHoodServoRight);
     }
 
     @After
@@ -29,30 +29,30 @@ public class HoodTest {
 
     @Test
     public void resting() {
-        this.hood.setSpeed(0.0);
-        assertEquals(Hood.kMiddle, this.left.getRawValue(), Common.kDelta);
-        assertEquals(Hood.kMiddle, this.right.getRawValue(), Common.kDelta);
+        hood.setSpeed(0.0);
+        assertEquals(Hood.kMiddle, left.getRawValue(), Common.kDelta);
+        assertEquals(Hood.kMiddle, right.getRawValue(), Common.kDelta);
     }
 
     @Test
     public void halfSpeed() {
-        this.hood.setSpeed(0.5);
-        assertEquals(Hood.kMiddle + 50, this.left.getRawValue(), Common.kDelta);
-        assertEquals(Hood.kMiddle - 50, this.right.getRawValue(), Common.kDelta);
+        hood.setSpeed(0.5);
+        assertEquals(Hood.kMiddle + 50, left.getRawValue(), Common.kDelta);
+        assertEquals(Hood.kMiddle - 50, right.getRawValue(), Common.kDelta);
     }
 
     @Test 
     public void fullSpeed() {
-        this.hood.setSpeed(1.0);
-        assertEquals(Hood.kMiddle + 100, this.left.getRawValue(), Common.kDelta);
-        assertEquals(Hood.kMiddle - 100, this.right.getRawValue(), Common.kDelta);
+        hood.setSpeed(1.0);
+        assertEquals(Hood.kMiddle + 100, left.getRawValue(), Common.kDelta);
+        assertEquals(Hood.kMiddle - 100, right.getRawValue(), Common.kDelta);
     }
 
     @Test 
     public void fullSpeedReverse() {
-        this.hood.setSpeed(-1.0);
-        assertEquals(Hood.kMiddle - 100, this.left.getRawValue(), Common.kDelta);
-        assertEquals(Hood.kMiddle + 100, this.right.getRawValue(), Common.kDelta);
+        hood.setSpeed(-1.0);
+        assertEquals(Hood.kMiddle - 100, left.getRawValue(), Common.kDelta);
+        assertEquals(Hood.kMiddle + 100, right.getRawValue(), Common.kDelta);
     }
 
 

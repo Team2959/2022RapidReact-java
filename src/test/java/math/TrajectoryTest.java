@@ -17,8 +17,8 @@ public class TrajectoryTest {
 
     private void basicCheck(double S, double d, double H, double expectedA, double expectedV) {
         TrajectoryCalculation calculation = Trajectory.calculate(S, d, H);
-        double a = calculation.shootingAngleDegrees;
-        double v = calculation.exitVelocityMetersPerSecond;
+        double a = calculation.m_shootingAngleDegrees;
+        double v = calculation.m_exitVelocityMetersPerSecond;
         assertEquals(expectedA, a, kDelta);
         assertEquals(expectedV, v, kDelta);
     }
