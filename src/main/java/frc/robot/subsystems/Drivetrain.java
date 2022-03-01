@@ -1,6 +1,9 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -66,6 +69,8 @@ public class Drivetrain extends SubsystemBase {
                         m_navX.getRotation2d())
                 : new ChassisSpeeds(xMetersPerSecond, yMetersPerSecond, rotationRadiansPerSecond));
 
+        SwerveDriveKinematics.desaturateWheelSpeeds(states, kMaxSpeedMetersPerSecond);
+
         SmartDashboard.putNumber("X Meters Per Second", xMetersPerSecond);
         SmartDashboard.putNumber("Y Meters Per Second", yMetersPerSecond);
         SmartDashboard.putNumber("Rot Radians Per Second", rotationRadiansPerSecond);
@@ -74,6 +79,11 @@ public class Drivetrain extends SubsystemBase {
         SwerveModuleState fr = states[1];
         SwerveModuleState bl = states[2];
         SwerveModuleState br = states[3];
+
+        System.err.println(fl);
+        System.err.println(fr);
+        System.err.println(bl);
+        System.err.println(br);
 
         m_frontLeft.setDesiredState(fl);
         m_frontRight.setDesiredState(fr);
@@ -104,6 +114,30 @@ public class Drivetrain extends SubsystemBase {
         builder.setSmartDashboardType("Drivetrain");
         builder.addDoubleProperty("X", () -> m_odometry.getPoseMeters().getX(), null);
         builder.addDoubleProperty("Y", () -> m_odometry.getPoseMeters().getY(), null);
+    }
+
+    public SwerveDriveKinematics getKinematics() {
+        return m_kinematics;
+    }
+
+    public Pose2d getPose() {
+        return m_odometry.getPoseMeters();
+    }
+
+    public double getGyroAngle() {
+        return m_navX.getAngle();
+    }
+
+    public Rotation2d getHeading() {
+        return m_navX.getRotation2d();
+    }
+
+    public double getGyroRate() {
+        return m_navX.getRate();
+    }
+
+    public void resetOdometry(Pose2d pose) {
+        m_odometry.resetPosition(pose, m_navX.getRotation2d());
     }
 
 }

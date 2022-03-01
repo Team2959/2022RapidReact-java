@@ -9,6 +9,7 @@ public class Conditioning {
     private double m_mult = 0.0;
 
     public Conditioning() {
+        precompute();
     }
 
     public void setDeadband(double deadband) {
@@ -36,7 +37,7 @@ public class Conditioning {
     }
 
     public void precompute() {
-        m_mult = 1.0 / (1.0 / m_deadband);
+        m_mult = 1.0 / (1.0 - m_deadband);
         m_range = m_max - m_min;
     }
 
@@ -65,21 +66,19 @@ public class Conditioning {
     }
 
     static double JSCPower(double base, double power) {
-        long ipart = (long)power;
+        int ipart = (int)power;
         double fpart = power - ipart;
-        if(ipart == 0) {
+        switch(ipart)
+        {
+        case 0:
             return base;
-        }
-        else if(ipart == 1) {
+        case 1:
             return base * (fpart*base + (1-fpart));
-        }
-        else if(ipart == 2) {
+        case 2:
             return base*base * (fpart*base + (1-fpart));
-        }
-        else if(ipart == 3) {
+        case 3:
             return base*base*base * (fpart*base + (1-fpart));
-        }
-        else {
+        default:
             double result = 1.0;
             while (longToBoolean(--ipart)) result *= base;
             return result * (fpart*base + (1-fpart));

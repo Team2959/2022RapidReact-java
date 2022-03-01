@@ -74,21 +74,23 @@ public class OI {
     }
 
     public DriveState getDriveState(DriveType driveType) {
-        double x = 0, y = 0, rot = 0;
+        double xSpeed = 0, ySpeed = 0, rotation = 0;
+
         if(driveType == DriveType.Double) {
-            x = m_leftJoystick.getX();
-            y = m_leftJoystick.getY();
-            rot = m_rightJoystick.getX();
+            double x = m_leftJoystick.getX();
+            x = -m_xConditioning.condition(x);
+            xSpeed = x * Drivetrain.kMaxSpeedMetersPerSecond;
+            
+            double y = m_leftJoystick.getY();
+            y = m_yConditioning.condition(y);
+            ySpeed = y * Drivetrain.kMaxSpeedMetersPerSecond;
+
+            double r = m_rightJoystick.getX();
+            r = m_rotationConditioning.condition(r);
+            rotation = r * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
         }
-        else if(driveType == DriveType.Single) {
-            x = m_rightJoystick.getX();
-            y = m_rightJoystick.getY();
-            rot = m_rightJoystick.getTwist();
-        }
-        double xSpeed = (-m_xConditioning.condition(x)) * Drivetrain.kMaxSpeedMetersPerSecond;
-        double ySpeed = (m_yConditioning.condition(y)) * Drivetrain.kMaxSpeedMetersPerSecond;
-        double rotationSpeed = (m_rotationConditioning.condition(rot)) * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
-        return new DriveState(xSpeed, ySpeed, rotationSpeed);
+
+        return new DriveState(xSpeed, ySpeed, rotation);
     }
 
 }

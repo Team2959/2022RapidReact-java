@@ -49,7 +49,7 @@ public class SwerveModule implements Sendable {
         m_turnPIDController = m_turnMotor.getPIDController();
 
         m_driveEncoder.setPositionConversionFactor(kDrivePositionFactor);
-        m_driveEncoder.setVelocityConversionFactor(kDrivePositionFactor / 60);
+        m_driveEncoder.setVelocityConversionFactor(kDrivePositionFactor / 60.0);
         
         m_drivePIDController.setP(0.0003);
         m_drivePIDController.setI(0.0);
@@ -84,7 +84,9 @@ public class SwerveModule implements Sendable {
     public void setDesiredState(SwerveModuleState referenceState) {
         SwerveModuleState state = SwerveModuleState.optimize(referenceState, new Rotation2d(m_turnEncoder.getPosition()));
         
-        m_drivePIDController.setReference(state.speedMetersPerSecond, CANSparkMax.ControlType.kVelocity);
+        SmartDashboard.putNumber(m_name + "/Drive Speed", state.speedMetersPerSecond);
+        SmartDashboard.putNumber(m_name + "/Drive Reference", state.speedMetersPerSecond / kDrivePositionFactor);
+        m_drivePIDController.setReference(state.speedMetersPerSecond / kDrivePositionFactor, CANSparkMax.ControlType.kVelocity);
         
         double delta = state.angle.getRadians() - new Rotation2d(m_turnEncoder.getPosition()).getRadians();
         double setpoint = m_turnEncoder.getPosition() + delta;
