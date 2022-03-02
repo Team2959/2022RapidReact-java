@@ -1,6 +1,6 @@
 package cwtech.util;
 
-public class Trajectory {
+public class BasicTrajectory {
     /** Class to give exit velocity(degrees) and shooting angle(degrees) */
     static public class TrajectoryCalculation {
         public final double m_shootingAngleDegrees;
@@ -12,7 +12,7 @@ public class Trajectory {
         }
     }
 
-    private Trajectory() {}
+    private BasicTrajectory() {}
 
     /** Calculates the exit velocity and the shooting angle for the shooter
      * @param S angle(degrees) you want to hit the target in

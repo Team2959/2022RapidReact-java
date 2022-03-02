@@ -17,8 +17,8 @@ import frc.robot.RobotMap;
 
 public class Drivetrain extends SubsystemBase {
 
-    public static final double kMaxSpeedMetersPerSecond = 12;
-    public static final double kMaxAngularSpeedRadiansPerSecond = 4 *Math.PI;
+    public static final double kMaxSpeedMetersPerSecond = 12.0;
+    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
 
 
     private static final Translation2d kFrontLeftLocation = new Translation2d(+0.381, -0.381);
@@ -85,6 +85,13 @@ public class Drivetrain extends SubsystemBase {
         m_frontRight.setDesiredState(fr);
         m_backLeft.setDesiredState(bl);
         m_backRight.setDesiredState(br);
+    }
+
+    public void setDesiredState(SwerveModuleState[] states) {
+        m_frontLeft.setDesiredState(states[0]);
+        m_frontRight.setDesiredState(states[1]);
+        m_backLeft.setDesiredState(states[2]);
+        m_backRight.setDesiredState(states[3]);
     }
 
     //
