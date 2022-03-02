@@ -11,7 +11,7 @@ public class TuneShooterAndHoodCommand extends ParallelCommandGroup {
         TrajectoryCalculation calculation = Trajectory.calculate(-69, container.vision.getDistanceFromTargetWithHeight(3), 2);
         addCommands(
             //new SetHoodAngleCommand(container, 0.5),
-            new SetShooterSpeedCommand(container, 3250) // TODO actual calculations
+            new SetShooterSpeedCommand(container, 2500) // TODO actual calculations
         );
     }
 }

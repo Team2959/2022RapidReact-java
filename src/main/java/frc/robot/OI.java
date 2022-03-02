@@ -10,6 +10,7 @@ import frc.robot.commands.FireCommand;
 import frc.robot.commands.IntakeToggleCommand;
 import frc.robot.commands.RetractClimbHooksCommand;
 import frc.robot.commands.ReverseIntakeCommand;
+import frc.robot.commands.SetHoodAngleCommand;
 import frc.robot.subsystems.Drivetrain;
 
 public class OI {
@@ -27,6 +28,7 @@ public class OI {
     private final JoystickButton m_extendClimbHooksButton;
     private final JoystickButton m_retractClimbHooksButton;
     private final JoystickButton m_fireButton;
+    private final JoystickButton m_hoodDownButton;
 
     public OI(RobotContainer container) {
         m_leftJoystick = new Joystick(RobotMap.kLeftJoystick);
@@ -42,6 +44,7 @@ public class OI {
         m_extendClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kExtendClimbHooksButton);
         m_retractClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kRetractClimbHooksButton);
         m_fireButton = new JoystickButton(m_buttonBox, RobotMap.kFireButton);
+        m_hoodDownButton = new JoystickButton(m_buttonBox, RobotMap.kHoodDownButton);
 
         m_xConditioning.setDeadband(0.15);
         m_xConditioning.setExponent(1.3);
@@ -55,6 +58,7 @@ public class OI {
         m_extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(m_container));
         m_retractClimbHooksButton.whenPressed(new RetractClimbHooksCommand(m_container));
         m_fireButton.whenPressed(new FireCommand(m_container));
+        //m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, 0.1));
     }
     
     public class DriveState {
@@ -87,7 +91,7 @@ public class OI {
 
             double r = m_rightJoystick.getX();
             r = m_rotationConditioning.condition(r);
-            rotation = r * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
+            rotation = -r * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
         }
 
         return new DriveState(xSpeed, ySpeed, rotation);

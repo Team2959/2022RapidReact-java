@@ -17,8 +17,8 @@ import frc.robot.RobotMap;
 
 public class Drivetrain extends SubsystemBase {
 
-    public static final double kMaxSpeedMetersPerSecond = 3;
-    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+    public static final double kMaxSpeedMetersPerSecond = 12;
+    public static final double kMaxAngularSpeedRadiansPerSecond = 4 *Math.PI;
 
 
     private static final Translation2d kFrontLeftLocation = new Translation2d(+0.381, -0.381);
@@ -60,6 +60,11 @@ public class Drivetrain extends SubsystemBase {
         m_kinematics = new SwerveDriveKinematics(kFrontLeftLocation, kFrontRightLocation, kBackLeftLocation,
                 kBackRightLocation);
         m_odometry = new SwerveDriveOdometry(m_kinematics, m_navX.getRotation2d());
+    
+        SmartDashboard.putData("Front Left", m_frontLeft);
+        SmartDashboard.putData("Front Right", m_frontRight);
+        SmartDashboard.putData("Back Left", m_backLeft);
+        SmartDashboard.putData("Back Right", m_backRight);
     }
 
     public void drive(double xMetersPerSecond, double yMetersPerSecond, double rotationRadiansPerSecond,
@@ -71,19 +76,10 @@ public class Drivetrain extends SubsystemBase {
 
         SwerveDriveKinematics.desaturateWheelSpeeds(states, kMaxSpeedMetersPerSecond);
 
-        SmartDashboard.putNumber("X Meters Per Second", xMetersPerSecond);
-        SmartDashboard.putNumber("Y Meters Per Second", yMetersPerSecond);
-        SmartDashboard.putNumber("Rot Radians Per Second", rotationRadiansPerSecond);
-
         SwerveModuleState fl = states[0];
         SwerveModuleState fr = states[1];
         SwerveModuleState bl = states[2];
         SwerveModuleState br = states[3];
-
-        System.err.println(fl);
-        System.err.println(fr);
-        System.err.println(bl);
-        System.err.println(br);
 
         m_frontLeft.setDesiredState(fl);
         m_frontRight.setDesiredState(fr);
@@ -114,7 +110,32 @@ public class Drivetrain extends SubsystemBase {
         builder.setSmartDashboardType("Drivetrain");
         builder.addDoubleProperty("X", () -> m_odometry.getPoseMeters().getX(), null);
         builder.addDoubleProperty("Y", () -> m_odometry.getPoseMeters().getY(), null);
+        builder.addDoubleProperty("driveP", () -> m_frontLeft.getDriveController().getP(), (double v) -> { 
+            m_frontLeft.getDriveController().setP(v);
+            m_frontRight.getDriveController().setP(v);
+            m_backLeft.getDriveController().setP(v);
+            m_backRight.getDriveController().setP(v); 
+        } );
+        builder.addDoubleProperty("driveI", () -> m_frontLeft.getDriveController().getI(), (double v) -> { 
+            m_frontLeft.getDriveController().setI(v);
+            m_frontRight.getDriveController().setI(v);
+            m_backLeft.getDriveController().setI(v);
+            m_backRight.getDriveController().setI(v); 
+        } );
+        builder.addDoubleProperty("driveD", () -> m_frontLeft.getDriveController().getD(), (double v) -> { 
+            m_frontLeft.getDriveController().setD(v);
+            m_frontRight.getDriveController().setD(v);
+            m_backLeft.getDriveController().setD(v);
+            m_backRight.getDriveController().setD(v); 
+        } );
+        builder.addDoubleProperty("driveFF", () -> m_frontLeft.getDriveController().getFF(), (double v) -> { 
+            m_frontLeft.getDriveController().setFF(v);
+            m_frontRight.getDriveController().setFF(v);
+            m_backLeft.getDriveController().setFF(v);
+            m_backRight.getDriveController().setFF(v); 
+        } );
     }
+
 
     public SwerveDriveKinematics getKinematics() {
         return m_kinematics;
@@ -139,7 +160,7 @@ public class Drivetrain extends SubsystemBase {
     public void resetOdometry(Pose2d pose) {
         m_odometry.resetPosition(pose, m_navX.getRotation2d());
     }
-
 }
 
 // I'll be back in a little bit
+// gabagoo

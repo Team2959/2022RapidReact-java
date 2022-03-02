@@ -34,6 +34,7 @@ public class SwerveModule implements Sendable {
 
         m_driveMotor = new CANSparkMax(driveMotor, CANSparkMax.MotorType.kBrushless);
         m_turnMotor = new CANSparkMax(turnMotor, CANSparkMax.MotorType.kBrushless);
+        m_driveMotor.restoreFactoryDefaults();
 
         m_name = name;
 
@@ -51,10 +52,10 @@ public class SwerveModule implements Sendable {
         m_driveEncoder.setPositionConversionFactor(kDrivePositionFactor);
         m_driveEncoder.setVelocityConversionFactor(kDrivePositionFactor / 60.0);
         
-        m_drivePIDController.setP(0.0003);
+        m_drivePIDController.setP(0.05);
         m_drivePIDController.setI(0.0);
-        m_drivePIDController.setD(0.0);
-        m_drivePIDController.setFF(0.0002);
+        m_drivePIDController.setD(0.001);
+        m_drivePIDController.setFF(0.02);
         m_drivePIDController.setIZone(600);
 
         m_turnPIDController.setFeedbackDevice(m_turnEncoder);
@@ -88,8 +89,8 @@ public class SwerveModule implements Sendable {
         SmartDashboard.putNumber(m_name + "/Drive Reference", state.speedMetersPerSecond / kDrivePositionFactor);
         m_drivePIDController.setReference(state.speedMetersPerSecond / kDrivePositionFactor, CANSparkMax.ControlType.kVelocity);
         
-        double delta = state.angle.getRadians() - new Rotation2d(m_turnEncoder.getPosition()).getRadians();
-        double setpoint = m_turnEncoder.getPosition() + delta;
+        Rotation2d delta = state.angle.minus(new Rotation2d(m_turnEncoder.getPosition()));
+        double setpoint = m_turnEncoder.getPosition() + delta.getRadians();
 
         m_turnPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
     }
@@ -112,6 +113,10 @@ public class SwerveModule implements Sendable {
         builder.addDoubleProperty("turnI", () -> m_turnPIDController.getI(), (double d) -> m_turnPIDController.setI(d));
         builder.addDoubleProperty("turnD", () -> m_turnPIDController.getD(), (double d) -> m_turnPIDController.setD(d));
         builder.addDoubleProperty("turnFF", () -> m_turnPIDController.getFF(), (double d) -> m_turnPIDController.setFF(d));
+    }
+
+    public SparkMaxPIDController getDriveController() {
+        return m_drivePIDController;
     }
 }
 
