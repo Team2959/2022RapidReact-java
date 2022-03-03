@@ -4,9 +4,7 @@
 
 package frc.robot;
 
-import cwtech.trigger.ModeTrigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.SetHoodAngleCommand;
 import frc.robot.commands.SnapTurretToTarget;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.Climb;
@@ -28,9 +26,9 @@ public class RobotContainer {
     public final OI oi = new OI(this);
 
     public RobotContainer() {
-        configureButtonBindings();
         drivetrain.setDefaultCommand(new TeleopDriveCommand(this, false));
         turret.setDefaultCommand(SnapTurretToTarget.createForever(this));   
+      
         SmartDashboard.putData("Climb", climb);
         SmartDashboard.putData("Drivetrain", drivetrain);
         SmartDashboard.putData("Hood", hood);
@@ -38,8 +36,5 @@ public class RobotContainer {
         SmartDashboard.putData("Turret", turret);
         SmartDashboard.putData("Vision", vision);
         SmartDashboard.putData("Intake", intake);
-    }
-
-    private void configureButtonBindings() {
     }
 }

@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import cwtech.util.Trajectory;
+import cwtech.util.BasicTrajectory;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -40,6 +40,6 @@ public class Vision extends SubsystemBase {
     */
     public double getDistanceFromTargetWithHeight(double heightMeters) {
         double a2 = getTX();
-        return (heightMeters - kCameraHeightMeters) / (Trajectory.tan(kCameraAngleDegrees) + a2);
+        return (heightMeters - kCameraHeightMeters) / (BasicTrajectory.tan(kCameraAngleDegrees) + a2);
     }
 }
