@@ -57,31 +57,22 @@ public class Conditioning {
         return value ? 1.0 : 0.0;
     }
 
-    static boolean longToBoolean(long value) {
-        return value != 0;
-    }
-
     static double JSCSgn(double num) {
         return booleanToDouble(0.0 < num) - booleanToDouble(num < 0.0);
     }
 
     static double JSCPower(double base, double power) {
         int ipart = (int)power;
-        double fpart = power - ipart;
-        switch(ipart)
-        {
-        case 0:
+        if (ipart <= 0)
             return base;
-        case 1:
-            return base * (fpart*base + (1-fpart));
-        case 2:
-            return base*base * (fpart*base + (1-fpart));
-        case 3:
-            return base*base*base * (fpart*base + (1-fpart));
-        default:
-            double result = 1.0;
-            while (longToBoolean(--ipart)) result *= base;
-            return result * (fpart*base + (1-fpart));
-        }
+
+        double fpart = power - ipart;
+        double result = 1.0;
+        while (ipart > 0)
+        {
+            result *= base;
+            ipart--;
+        } 
+        return result * (fpart*base + (1-fpart));
     }
 }

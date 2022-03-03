@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import cwtech.util.Util;
+//import cwtech.util.Util;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
@@ -18,12 +18,12 @@ public class SetShooterSpeedCommand extends CommandBase {
     @Override
     public void initialize() {
         m_container.shooter.setVelocity(m_speed);
-        m_container.shooter.setAccelarator(1.0);
+        m_container.shooter.setAccelarator(m_speed > 0 ? 1.0 : 0.0);
     }
 
     @Override
     public boolean isFinished() {
-        //return Util.dcompareMine(container.shooter.getVelocity(), speed, speed * 0.05);
+        //return Util.dcompareMine(container.shooter.getVelocity(), m_speed, m_speed * 0.05);
         return true;
     }
 }

@@ -9,6 +9,8 @@ public class FeedBallCommand extends InstantCommand {
 
     public FeedBallCommand(RobotContainer container) {
         m_container = container;
+
+        addRequirements(m_container.shooter);
     }
     
     @Override
