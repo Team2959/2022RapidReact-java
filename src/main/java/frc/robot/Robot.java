@@ -5,7 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.SetHoodAngleCommand;
 import cwtech.trigger.ModeTrigger;
 
 // Do code sa java ateema, do chowbaso
@@ -62,12 +64,12 @@ public class Robot extends TimedRobot {
 
     @Override
     public void testInit() {
-        /*SmartDashboard.putBoolean("Test/Run", false);
+        SmartDashboard.putBoolean("Test/Run", false);
         SmartDashboard.putNumber("Test/Speed", 0.0);
         SmartDashboard.putBoolean("Test/Hood Run", false);
         SmartDashboard.putNumber("Test/Hood Position", 0.0);
         ModeTrigger.registerMode(ModeTrigger.Mode.Test);
-        CommandScheduler.getInstance().cancelAll();*/
+        CommandScheduler.getInstance().cancelAll();
     }
 
     //private final DashboardEntry runTest = new DashboardEntry("Test/Run Test", false);
@@ -75,7 +77,6 @@ public class Robot extends TimedRobot {
     //private final DashboardEntry testVelocityFeedback = new DashboardEntry("Test/Feedback", 0);
     @Override
     public void testPeriodic() { 
-        /*
         if(SmartDashboard.getBoolean("Test/Run", false)) {
             double i = SmartDashboard.getNumber("Test/Speed", 0.0);
             System.err.print("Running Motor: ");
@@ -91,6 +92,5 @@ public class Robot extends TimedRobot {
         else {
             m_robotContainer.shooter.setVelocity(0);
         }
-        */
     }
 }

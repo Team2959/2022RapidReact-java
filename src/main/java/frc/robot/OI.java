@@ -58,7 +58,7 @@ public class OI {
         m_extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(m_container));
         m_retractClimbHooksButton.whenPressed(new RetractClimbHooksCommand(m_container));
         m_fireButton.whenPressed(new FireCommand(m_container));
-        m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, 0.1));
+        //m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, 0.1));
     }
     
     public class DriveState {

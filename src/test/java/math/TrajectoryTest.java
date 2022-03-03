@@ -8,15 +8,15 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
-import cwtech.util.BasicTrajectory;
-import cwtech.util.BasicTrajectory.TrajectoryCalculation;
+import cwtech.util.Trajectory;
+import cwtech.util.Trajectory.TrajectoryCalculation;
 
 /** Tests to test the Trajectory calculation */
 public class TrajectoryTest {
     public static final double kDelta = 1e-2;
 
     private void basicCheck(double S, double d, double H, double expectedA, double expectedV) {
-        TrajectoryCalculation calculation = BasicTrajectory.calculate(S, d, H);
+        TrajectoryCalculation calculation = Trajectory.calculate(S, d, H);
         double a = calculation.m_shootingAngleDegrees;
         double v = calculation.m_exitVelocityMetersPerSecond;
         assertEquals(expectedA, a, kDelta);
@@ -32,7 +32,7 @@ public class TrajectoryTest {
 
     @Test
     public void tanAndAtanCheck() {
-        assertEquals(1, BasicTrajectory.tan(45), kDelta);
-        assertEquals(BasicTrajectory.atan(1), 45, kDelta);
+        assertEquals(1, Trajectory.tan(45), kDelta);
+        assertEquals(Trajectory.atan(1), 45, kDelta);
     }
 }

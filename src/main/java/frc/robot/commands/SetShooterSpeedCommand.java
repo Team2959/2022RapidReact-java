@@ -23,6 +23,7 @@ public class SetShooterSpeedCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Util.dcompareMine(m_container.shooter.getVelocity(), m_speed, 0.001);
+        //return Util.dcompareMine(container.shooter.getVelocity(), speed, speed * 0.05);
+        return true;
     }
 }

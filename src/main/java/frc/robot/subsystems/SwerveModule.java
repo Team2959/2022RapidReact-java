@@ -30,10 +30,6 @@ public class SwerveModule implements Sendable {
     private static final double kGearboxRatio = 1.0 / 6.86; // One turn of the wheel is 6.86 turns of the motor
     private static final double kDrivePositionFactor = (2.0 * Math.PI * kWheelRadius * kGearboxRatio);
 
-    // As found in: https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/swervebot/SwerveModule.java
-    private static final double kDrivePositionFactor2 = (2.0 * Math.PI * kWheelRadius / kEncoderResolution);
-    private static final double kTurnPositionFactor2 = (2.0 * Math.PI / kEncoderResolution);
-
     public SwerveModule(int driveMotor, int turnMotor, int dutyCycle, double turnOffset, String name) {
 
         m_driveMotor = new CANSparkMax(driveMotor, CANSparkMax.MotorType.kBrushless);
@@ -53,8 +49,8 @@ public class SwerveModule implements Sendable {
         m_drivePIDController = m_driveMotor.getPIDController();
         m_turnPIDController = m_turnMotor.getPIDController();
 
-        m_driveEncoder.setPositionConversionFactor(kDrivePositionFactor2);
-        m_driveEncoder.setVelocityConversionFactor(kDrivePositionFactor2 / 60.0);
+        m_driveEncoder.setPositionConversionFactor(kDrivePositionFactor);
+        m_driveEncoder.setVelocityConversionFactor(kDrivePositionFactor / 60.0);
         
         m_drivePIDController.setP(0.05);
         m_drivePIDController.setI(0.0);
@@ -68,7 +64,7 @@ public class SwerveModule implements Sendable {
         m_turnPIDController.setD(0.0);
         m_turnPIDController.setIZone(1.0);
 
-        m_turnEncoder.setPositionConversionFactor(kTurnPositionFactor2);
+        m_turnEncoder.setPositionConversionFactor(2.0 * Math.PI);
     }
 
     public void periodic() {
