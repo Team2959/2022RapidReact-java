@@ -8,6 +8,8 @@ public class RetractFeederCommand extends InstantCommand {
 
     public RetractFeederCommand(RobotContainer container) {
         m_container = container;
+
+        addRequirements(m_container.shooter);
     }
     
     @Override

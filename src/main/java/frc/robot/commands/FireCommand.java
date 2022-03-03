@@ -9,10 +9,15 @@ public class FireCommand extends SequentialCommandGroup {
         addCommands(
             new SnapTurretToTarget(container),
             new TuneShooterAndHoodCommand(container),
-            new WaitCommand(2),
+            new WaitCommand(1.5),
             new FeedBallCommand(container),
-            new WaitCommand(1),
-            new RetractFeederCommand(container)
+            new WaitCommand(0.25),
+            new RetractFeederCommand(container),
+            new WaitCommand(0.75),
+            new FeedBallCommand(container),
+            new WaitCommand(0.25),
+            new RetractFeederCommand(container),
+            new SetShooterSpeedCommand(container, 0)
         );
     }
 }

@@ -12,7 +12,7 @@ public class TuneShooterAndHoodCommand extends ParallelCommandGroup {
         System.err.println(calculation);
         addCommands(
             //new SetHoodAngleCommand(container, 0.5),
-            new SetShooterSpeedCommand(container, 2500) // TODO actual calculations
+            new SetShooterSpeedCommand(container, 1750) // TODO actual calculations
         );
     }
 }

@@ -18,11 +18,11 @@ public class SetShooterSpeedCommand extends CommandBase {
     @Override
     public void initialize() {
         m_container.shooter.setVelocity(m_speed);
-        m_container.shooter.setAccelarator(1.0);
+        m_container.shooter.setAccelarator(m_speed > 0 ? 1.0 : 0.0);
     }
 
     @Override
     public boolean isFinished() {
-        return Util.dcompareMine(m_container.shooter.getVelocity(), m_speed, 0.001);
+        return Util.dcompareMine(m_container.shooter.getVelocity(), m_speed, m_speed * 0.05);
     }
 }
