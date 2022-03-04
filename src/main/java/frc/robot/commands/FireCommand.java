@@ -13,10 +13,11 @@ public class FireCommand extends SequentialCommandGroup {
             new FeedBallCommand(container),
             new WaitCommand(0.25),
             new RetractFeederCommand(container),
-            new WaitCommand(1.5),
+            new WaitCommand(0.5),
             new FeedBallCommand(container),
             new WaitCommand(0.25),
             new RetractFeederCommand(container),
+            new WaitCommand(1.5),
             new SetShooterSpeedCommand(container, 0)
         );
     }

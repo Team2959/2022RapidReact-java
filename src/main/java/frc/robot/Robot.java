@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import cwtech.trigger.ModeTrigger;
 
@@ -16,6 +17,8 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         m_robotContainer = new RobotContainer();
+        SmartDashboard.putNumber("Accelarator Speed", 0.85);
+        SmartDashboard.putNumber("Shooter Speed", 3000);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class RobotContainer {
     public final OI oi = new OI(this);
 
     public RobotContainer() {
-        drivetrain.setDefaultCommand(new TeleopDriveCommand(this, false));
+        drivetrain.setDefaultCommand(new TeleopDriveCommand(this, true));
       
         SmartDashboard.putData("Climb", climb);
         SmartDashboard.putData("Drivetrain", drivetrain);

@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import cwtech.util.Util;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -17,8 +18,12 @@ public class SetShooterSpeedCommand extends CommandBase {
 
     @Override
     public void initialize() {
+        
+        //m_container.shooter.setVelocity(m_speed);
+        //m_container.shooter.setAccelaratorVelocity(m_speed * 1.3);
+        
         m_container.shooter.setVelocity(m_speed);
-        m_container.shooter.setAccelarator(m_speed > 0 ? 1.0 : 0.0);
+        m_container.shooter.setAccelarator(m_speed > 0 ? SmartDashboard.getNumber("Accelarator Speed", 0.85) : 0.0);
     }
 
     @Override

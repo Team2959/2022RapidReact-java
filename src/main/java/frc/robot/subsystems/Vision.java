@@ -10,9 +10,9 @@ public class Vision extends SubsystemBase {
     private final NetworkTableEntry m_tyEntry;
 
     /** This is what the limelight's height when mounted */
-    private static final double kCameraHeightMeters = 1;
+    public static final double kCameraHeightInches = 43.5;
     /** This is what the limelight's angle when mounted */
-    private static final double kCameraAngleDegrees = 0;
+    private static final double kCameraAngleDegrees = 30;
 
     public Vision() {
         m_txEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
@@ -40,6 +40,6 @@ public class Vision extends SubsystemBase {
     */
     public double getDistanceFromTargetWithHeight(double heightMeters) {
         double a2 = getTX();
-        return (heightMeters - kCameraHeightMeters) / (BasicTrajectory.tan(kCameraAngleDegrees) + a2);
+        return (heightMeters - kCameraHeightInches) / (BasicTrajectory.tan(kCameraAngleDegrees) + a2);
     }
 }
