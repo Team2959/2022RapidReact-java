@@ -22,16 +22,14 @@ public final class RobotMap {
     public static final int kBackLeftTurnCANSparkMaxMotor = 14;
 
     // PWM motor addresses
-    // public static final int kClimbWheelsPwmSparkMotor = 1;
+    // Servos
+    public static final int kHoodServoRight = 1;
+    public static final int kHoodServoLeft = 0;
 
     // REV Pneumatic Hub solenoid addresses
     public static final int kIntakeArmsSolenoid = 0;
     public static final int kFeederSolenoid = 1;
     public static final int kClimbSolenoid = 2;
-
-    // Servos
-    public static final int kHoodServoRight = 1;
-    public static final int kHoodServoLeft = 0;
 
     // Digital IO addresses
     public static final int kTurretPulseWidthDigIO = 3;
@@ -50,11 +48,12 @@ public final class RobotMap {
     public static final int kFireButton = 1;
     public static final int kExtendClimbHooksButton = 4;
     public static final int kRetractClimbHooksButton = 5;
-    public static final int kReverseIntakeButton = 10; // should be 10
+    public static final int kReverseIntakeButton = 10;
     public static final int kHoodDownButton = 8;
+    public static final int kTestButton = 3;
 
     // Driver Buttons
-    public static final int kToggleIntakeButton = 2; // should be 2
+    public static final int kToggleIntakeButton = 2;
 
     // Zeroed values, should be in radians
     public static final double kZeroedFrontLeft = 3.082;

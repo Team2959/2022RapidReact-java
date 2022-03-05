@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import frc.robot.commands.SnapTurretToTarget;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drivetrain;
@@ -24,15 +24,9 @@ public class RobotContainer {
     public final Intake intake = new Intake();
     public final OI oi = new OI(this);
 
+
     public RobotContainer() {
         drivetrain.setDefaultCommand(new TeleopDriveCommand(this, true));
-      
-        SmartDashboard.putData("Climb", climb);
-        SmartDashboard.putData("Drivetrain", drivetrain);
-        SmartDashboard.putData("Hood", hood);
-        SmartDashboard.putData("Shooter", shooter);
-        SmartDashboard.putData("Turret", turret);
-        SmartDashboard.putData("Vision", vision);
-        SmartDashboard.putData("Intake", intake);
+        // turret.setDefaultCommand(new SnapTurretToTarget(this));
     }
 }

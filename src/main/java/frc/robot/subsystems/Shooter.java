@@ -7,7 +7,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 
-import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,12 +19,7 @@ public class Shooter extends SubsystemBase {
     private final SparkMaxRelativeEncoder m_mainMotorEncoder;
     private final Solenoid m_feeder;
     private final VictorSPX m_accelarator;
-    private double m_accelaratorSpeed = 0.85;
-    private double m_shooterSpeed = 1000;
-    private double m_hoodAngle = 0.1;
-    private boolean m_useCalculations = true;
-    static public final double kWheelRadius = 2.5 * 0.254;
-    // TODO implement accelarator Wheels
+    static public final double kWheelRadius = 2.5 * 0.0254;
 
     public Shooter() {
         m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
@@ -69,31 +63,6 @@ public class Shooter extends SubsystemBase {
     public void setAccelaratorVelocity(double rpm) {
         rpm = Math.max(rpm, 11000);
         m_accelarator.set(VictorSPXControlMode.Velocity, rpm);
-    }
-
-    public double getDashboardAccelaratorSpeed() {
-        return m_accelaratorSpeed;
-    }
-
-    public double getDashboardShooterSpeed() {
-        return m_shooterSpeed;
-    }
-
-    public double getDashboardHoodAngle() {
-        return m_hoodAngle;
-    }
-
-    public boolean getDashboardUseCalculations() {
-        return m_useCalculations;
-    }
-
-    @Override
-    public void initSendable(SendableBuilder builder) {
-        builder.setSmartDashboardType("Shooter");
-        builder.addBooleanProperty("Use Calculations", () -> m_useCalculations, (boolean v) -> m_useCalculations = v);
-        builder.addDoubleProperty("Accelarator Speed", () -> m_accelaratorSpeed, (double s) -> m_accelaratorSpeed = s);
-        builder.addDoubleProperty("Shooter Speed", () -> m_shooterSpeed, (double s) -> m_shooterSpeed = s);
-        builder.addDoubleProperty("Hood Angle", () -> m_hoodAngle, (double s) -> m_hoodAngle = s);
     }
 }
 
