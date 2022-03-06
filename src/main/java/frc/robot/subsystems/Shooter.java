@@ -19,7 +19,7 @@ public class Shooter extends SubsystemBase {
     private final SparkMaxRelativeEncoder m_mainMotorEncoder;
     private final Solenoid m_feeder;
     private final VictorSPX m_accelarator;
-    // TODO implement accelarator Wheels
+    static public final double kWheelRadius = 2.5 * 0.0254;
 
     public Shooter() {
         m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
@@ -58,6 +58,11 @@ public class Shooter extends SubsystemBase {
     /** @param speed A value between -1.0 and 1.0 */
     public void setAccelarator(double speed) {
         m_accelarator.set(VictorSPXControlMode.PercentOutput, speed);
+    }
+
+    public void setAccelaratorVelocity(double rpm) {
+        rpm = Math.max(rpm, 11000);
+        m_accelarator.set(VictorSPXControlMode.Velocity, rpm);
     }
 }
 

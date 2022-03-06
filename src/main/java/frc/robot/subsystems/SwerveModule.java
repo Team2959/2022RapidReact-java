@@ -2,8 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.util.sendable.Sendable;
-import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,7 +11,7 @@ import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 
-public class SwerveModule implements Sendable {
+public class SwerveModule {
     private CANSparkMax m_driveMotor;
     private CANSparkMax m_turnMotor;
     private DigitalInput m_dutyCycleInput;
@@ -103,24 +101,12 @@ public class SwerveModule implements Sendable {
         m_turnEncoder.setPosition(getAbsoluteEncoderPosition());
     }
 
-    public void initSendable(SendableBuilder builder) {
-        builder.setSmartDashboardType("SwerveModule");
-        builder.addDoubleProperty("absoluteAngle", this::getAbsoluteEncoderPosition, null);
-        builder.addDoubleProperty("relativeAngle", () -> m_turnEncoder.getPosition(), null);
-        builder.addDoubleProperty("driveVelocity", () -> m_driveEncoder.getVelocity(), null);
-        builder.addDoubleProperty("turnVelocity", () -> m_turnEncoder.getVelocity(), null);
-        builder.addDoubleProperty("driveP", () -> m_drivePIDController.getP(), (double d) -> m_drivePIDController.setP(d));
-        builder.addDoubleProperty("driveI", () -> m_drivePIDController.getI(), (double d) -> m_drivePIDController.setI(d));
-        builder.addDoubleProperty("driveD", () -> m_drivePIDController.getD(), (double d) -> m_drivePIDController.setD(d));
-        builder.addDoubleProperty("driveFF", () -> m_drivePIDController.getFF(), (double d) -> m_drivePIDController.setFF(d));
-        builder.addDoubleProperty("turnP", () -> m_turnPIDController.getP(), (double d) -> m_turnPIDController.setP(d));
-        builder.addDoubleProperty("turnI", () -> m_turnPIDController.getI(), (double d) -> m_turnPIDController.setI(d));
-        builder.addDoubleProperty("turnD", () -> m_turnPIDController.getD(), (double d) -> m_turnPIDController.setD(d));
-        builder.addDoubleProperty("turnFF", () -> m_turnPIDController.getFF(), (double d) -> m_turnPIDController.setFF(d));
-    }
-
     public SparkMaxPIDController getDriveController() {
         return m_drivePIDController;
+    }
+
+    public SparkMaxPIDController getTurnController() {
+        return m_turnPIDController;
     }
 }
 

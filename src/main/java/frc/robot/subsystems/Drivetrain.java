@@ -9,16 +9,16 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+// import frc.robot.DashboardMap;
 import frc.robot.RobotMap;
 
 public class Drivetrain extends SubsystemBase {
 
     public static final double kMaxSpeedMetersPerSecond = 12.0;
-    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+    public static final double kMaxAngularSpeedRadiansPerSecond = 4 * Math.PI;
 
 
     private static final Translation2d kFrontLeftLocation = new Translation2d(+0.381, -0.381);
@@ -41,6 +41,45 @@ public class Drivetrain extends SubsystemBase {
         m_navX.reset();
     }
 
+    public void onDisabledInit() {
+        // m_frontLeft.getDriveController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveP, 0.0));
+        // m_frontLeft.getDriveController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveI, 0.0));
+        // m_frontLeft.getDriveController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveD, 0.0));
+        // m_frontLeft.getDriveController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveFF, 0.0));
+        // m_frontLeft.getTurnController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnP, 0.0));
+        // m_frontLeft.getTurnController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnI, 0.0));
+        // m_frontLeft.getTurnController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnD, 0.0));
+        // m_frontLeft.getTurnController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnFF, 0.0));
+    
+        // m_frontRight.getDriveController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveP, 0.0));
+        // m_frontRight.getDriveController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveI, 0.0));
+        // m_frontRight.getDriveController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveD, 0.0));
+        // m_frontRight.getDriveController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveFF, 0.0));
+        // m_frontRight.getTurnController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnP, 0.0));
+        // m_frontRight.getTurnController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnI, 0.0));
+        // m_frontRight.getTurnController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnD, 0.0));
+        // m_frontRight.getTurnController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnFF, 0.0));
+
+        // m_backLeft.getDriveController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveP, 0.0));
+        // m_backLeft.getDriveController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveI, 0.0));
+        // m_backLeft.getDriveController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveD, 0.0));
+        // m_backLeft.getDriveController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveFF, 0.0));
+        // m_backLeft.getTurnController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnP, 0.0));
+        // m_backLeft.getTurnController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnI, 0.0));
+        // m_backLeft.getTurnController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnD, 0.0));
+        // m_backLeft.getTurnController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnFF, 0.0));
+    
+        // m_backRight.getDriveController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveP, 0.0));
+        // m_backRight.getDriveController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveI, 0.0));
+        // m_backRight.getDriveController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveD, 0.0));
+        // m_backRight.getDriveController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveFF, 0.0));
+        // m_backRight.getTurnController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnP, 0.0));
+        // m_backRight.getTurnController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnI, 0.0));
+        // m_backRight.getTurnController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnD, 0.0));
+        // m_backRight.getTurnController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnFF, 0.0));
+    }
+
+
     public Drivetrain() {
         m_navX = new AHRS(Port.kMXP);
 
@@ -61,10 +100,6 @@ public class Drivetrain extends SubsystemBase {
                 kBackRightLocation);
         m_odometry = new SwerveDriveOdometry(m_kinematics, m_navX.getRotation2d());
     
-        SmartDashboard.putData("Front Left", m_frontLeft);
-        SmartDashboard.putData("Front Right", m_frontRight);
-        SmartDashboard.putData("Back Left", m_backLeft);
-        SmartDashboard.putData("Back Right", m_backRight);
     }
 
     public void drive(double xMetersPerSecond, double yMetersPerSecond, double rotationRadiansPerSecond,
@@ -113,37 +148,6 @@ public class Drivetrain extends SubsystemBase {
         m_backRight.setInitalPosition();
     }
 
-    public void initSendable(SendableBuilder builder) {
-        builder.setSmartDashboardType("Drivetrain");
-        builder.addDoubleProperty("X", () -> m_odometry.getPoseMeters().getX(), null);
-        builder.addDoubleProperty("Y", () -> m_odometry.getPoseMeters().getY(), null);
-        builder.addDoubleProperty("driveP", () -> m_frontLeft.getDriveController().getP(), (double v) -> { 
-            m_frontLeft.getDriveController().setP(v);
-            m_frontRight.getDriveController().setP(v);
-            m_backLeft.getDriveController().setP(v);
-            m_backRight.getDriveController().setP(v); 
-        } );
-        builder.addDoubleProperty("driveI", () -> m_frontLeft.getDriveController().getI(), (double v) -> { 
-            m_frontLeft.getDriveController().setI(v);
-            m_frontRight.getDriveController().setI(v);
-            m_backLeft.getDriveController().setI(v);
-            m_backRight.getDriveController().setI(v); 
-        } );
-        builder.addDoubleProperty("driveD", () -> m_frontLeft.getDriveController().getD(), (double v) -> { 
-            m_frontLeft.getDriveController().setD(v);
-            m_frontRight.getDriveController().setD(v);
-            m_backLeft.getDriveController().setD(v);
-            m_backRight.getDriveController().setD(v); 
-        } );
-        builder.addDoubleProperty("driveFF", () -> m_frontLeft.getDriveController().getFF(), (double v) -> { 
-            m_frontLeft.getDriveController().setFF(v);
-            m_frontRight.getDriveController().setFF(v);
-            m_backLeft.getDriveController().setFF(v);
-            m_backRight.getDriveController().setFF(v); 
-        } );
-    }
-
-
     public SwerveDriveKinematics getKinematics() {
         return m_kinematics;
     }
@@ -168,6 +172,3 @@ public class Drivetrain extends SubsystemBase {
         m_odometry.resetPosition(pose, m_navX.getRotation2d());
     }
 }
-
-// I'll be back in a little bit
-// gabagoo

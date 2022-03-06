@@ -6,7 +6,7 @@ public class BasicTrajectory {
         public final double m_shootingAngleDegrees;
         public final double m_exitVelocityMetersPerSecond;
 
-        TrajectoryCalculation(double shootingAngleDegrees, double exitVelocityMetersPerSecond) {
+        public TrajectoryCalculation(double shootingAngleDegrees, double exitVelocityMetersPerSecond) {
             m_shootingAngleDegrees = shootingAngleDegrees;
             m_exitVelocityMetersPerSecond = exitVelocityMetersPerSecond;
         }

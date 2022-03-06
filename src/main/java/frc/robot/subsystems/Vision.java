@@ -10,9 +10,14 @@ public class Vision extends SubsystemBase {
     private final NetworkTableEntry m_tyEntry;
 
     /** This is what the limelight's height when mounted */
-    private static final double kCameraHeightMeters = 1;
+    public static final double kCameraHeightMeters = 43.75 * 0.0254;
     /** This is what the limelight's angle when mounted */
-    private static final double kCameraAngleDegrees = 0;
+    private static final double kCameraAngleDegrees = 30;
+
+    private static final double kCameraTYOffset = 5.25;
+    private static final double kHubRadius = (26 * 0.0254);
+    public static final double kHubHeightMeters = (104 * 0.0254);
+    public static final double kDifferenceMeters = kHubHeightMeters - kCameraHeightMeters;
 
     public Vision() {
         m_txEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
@@ -30,7 +35,7 @@ public class Vision extends SubsystemBase {
      * @return Vertical offset from cross to target -24.85 to 24.85 degrees
     */
     public double getTY() {
-        return (double) m_tyEntry.getNumber(0.0);
+        return (double) m_tyEntry.getNumber(0.0) - kCameraTYOffset;
     }
 
     /** Calculates distance from a target.
@@ -38,8 +43,12 @@ public class Vision extends SubsystemBase {
      * @param heightMeters Height of the target in meters
      * @return Distance from target in meters
     */
-    public double getDistanceFromTargetWithHeight(double heightMeters) {
-        double a2 = getTX();
-        return (heightMeters - kCameraHeightMeters) / (BasicTrajectory.tan(kCameraAngleDegrees) + a2);
+    private double getDistanceFromTargetWithHeight(double heightMeters) {
+        double a2 = getTY();
+        return (heightMeters - kCameraHeightMeters) / BasicTrajectory.tan(kCameraAngleDegrees + a2);
+    }
+
+    public double getDistanceToHubCenterWithHeight(double heightMeters) {
+        return getDistanceFromTargetWithHeight(heightMeters) + kHubRadius;
     }
 }
