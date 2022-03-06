@@ -6,7 +6,7 @@ import frc.robot.RobotContainer;
 public class TuneShooterAndHoodCommand extends ParallelCommandGroup {
     public TuneShooterAndHoodCommand(RobotContainer container) {
         addCommands(
-            new TurnTurretToPositionCommand(container),
+            new SnapTurretToTarget(container),
             new SetHoodAngleCommand(container),
             new SetShooterSpeedCommand(container)
         );

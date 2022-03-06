@@ -20,6 +20,10 @@ public class FireCommand extends SequentialCommandGroup {
                 container.shooter.setVelocity(0);
                 container.shooter.setAccelarator(0);
             }, container.shooter)
+
+            // KFR: potentially refactor to this
+            // new TuneShooterAndHoodCommand(container),
+            // new PostShooterPrepFiringCommandGroup(container)
         );
     }
 }

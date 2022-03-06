@@ -7,7 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import cwtech.trigger.ModeTrigger;
+// import cwtech.trigger.ModeTrigger;
 
 // Do code sa java ateema, do chowbaso
 
@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putNumber("Trajectory/TY Offset", 5.25);
         // SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
         // SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
-        SmartDashboard.putNumber(DashboardMap.kTurretPosition, 0.0);
+        SmartDashboard.putNumber(DashboardMap.kTurretManualAnagle, 0.0);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledInit() {
-        ModeTrigger.registerMode(ModeTrigger.Mode.Disabled);
+        // ModeTrigger.registerMode(ModeTrigger.Mode.Disabled);
         m_robotContainer.drivetrain.onDisabledInit();
         m_robotContainer.oi.onDisabledInit();
         m_robotContainer.intake.onDisabledInit();
@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        ModeTrigger.registerMode(ModeTrigger.Mode.Autonomous);
+        // ModeTrigger.registerMode(ModeTrigger.Mode.Autonomous);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        ModeTrigger.registerMode(ModeTrigger.Mode.Teleop);
+        // ModeTrigger.registerMode(ModeTrigger.Mode.Teleop);
     }
 
     @Override

@@ -20,6 +20,8 @@ public final class RobotMap {
     public static final int kFrontRightTurnCANSparkMaxMotor = 12;
     public static final int kBackRightTurnCANSparkMaxMotor = 13;
     public static final int kBackLeftTurnCANSparkMaxMotor = 14;
+    public static final int kLeftClimbCANSparkMaxMotor = 15;
+    public static final int kRightClimbCANSparkMaxMotor = 16;
 
     // PWM motor addresses
     // Servos
@@ -51,6 +53,8 @@ public final class RobotMap {
     public static final int kReverseIntakeButton = 10;
     public static final int kHoodDownButton = 8;
     public static final int kTestButton = 3;
+    // public static final int kSafeZoneShotButton = ?;
+    // public static final int kWallShotButton = ?;
 
     // Driver Buttons
     public static final int kToggleIntakeButton = 2;

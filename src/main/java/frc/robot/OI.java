@@ -4,7 +4,6 @@ package frc.robot;
 
 import cwtech.util.Conditioning;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.simulation.JoystickSim;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendClimbHooksCommand;
@@ -34,6 +33,8 @@ public class OI {
     private final JoystickButton m_fireButton;
     private final JoystickButton m_hoodDownButton;
     private final JoystickButton m_testButton;
+    // private final JoystickButton m_safeZoneShotButton;
+    // private final JoystickButton m_wallShotButton;
 
     public OI(RobotContainer container) {
         m_container = container;
@@ -60,6 +61,8 @@ public class OI {
         m_fireButton = new JoystickButton(m_buttonBox, RobotMap.kFireButton);
         m_hoodDownButton = new JoystickButton(m_buttonBox, RobotMap.kHoodDownButton);
         m_testButton = new JoystickButton(m_buttonBox, RobotMap.kTestButton);
+        // m_safeZoneShotButton = new JoystickButton(m_buttonBox, RobotMap.kSafeZoneShotButton);
+        // m_wallShotButton = new JoystickButton(m_buttonBox, RobotMap.kWallShotButton);
 
         m_toggleIntakeButton.whenPressed(new IntakeToggleCommand(m_container));
         m_reverseIntakeButton.whileHeld(new ReverseIntakeCommand(m_container));
@@ -67,7 +70,9 @@ public class OI {
         m_retractClimbHooksButton.whenPressed(new RetractClimbHooksCommand(m_container));
         m_fireButton.whenPressed(new FireCommand(m_container));
         m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, Hood.kMinDegrees));
-        m_testButton.whenPressed(new TurnTurretToPositionCommand(m_container));
+        // m_safeZoneShotButton.whenPressed(new SafeZoneShotCommandGroup(m_container));
+        // m_wallShotButton.whenPressed(new LowGoalWallShotCommandGroup(m_container));
+        m_testButton.whenPressed(new TurnTurretToPositionCommand(m_container, 0));
     }
     
     public class DriveState {

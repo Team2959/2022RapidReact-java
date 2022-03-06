@@ -26,7 +26,8 @@ public class DashboardMap {
     public static final String kIntakeSpeed = "Intake/Speed";
 
     public static final String kTurret = "Turret";
-    public static final String kTurretPosition = key("Position", kTurret);
+    public static final String kTurretUseManualAngle = key("Use Specified Angle", kTurret);
+    public static final String kTurretManualAnagle = key("Set Angle", kTurret);
 
     private static String key(String key, String parent) {
         if(parent == null) {

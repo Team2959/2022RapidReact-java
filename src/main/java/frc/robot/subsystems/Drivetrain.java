@@ -165,6 +165,3 @@ public class Drivetrain extends SubsystemBase {
         m_odometry.resetPosition(pose, m_navX.getRotation2d());
     }
 }
-
-// I'll be back in a little bit
-// gabagoo

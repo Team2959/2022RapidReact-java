@@ -5,7 +5,7 @@ import com.revrobotics.REVLibError;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.SparkMaxPIDController;
 
-import edu.wpi.first.util.sendable.SendableBuilder;
+// import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -57,10 +57,24 @@ public class Turret extends SubsystemBase {
         return m_turretEncoder.getPosition();
     }
 
-    @Override
-    public void initSendable(SendableBuilder builder) {
-        builder.setSmartDashboardType("Turret");
-        builder.addDoubleProperty("Encoder", () -> getAngleDegrees(), null);
+    public void setSpeedToTargetAngle(double targetAngle){
+        setSpeed(targetAngle > getAngleDegrees() ? 0.2 : -0.2);
     }
+
+    private final double kVisionError = 2;
+    public boolean isCloseEnoughToTarget(double targetAngle){
+        double current = getAngleDegrees();
+        if (targetAngle < 0 && current < targetAngle)
+          return true;
+          if (targetAngle > 0 && current > targetAngle)
+          return true;
+      return Math.abs(current - targetAngle) < kVisionError;
+      }
+
+    // @Override
+    // public void initSendable(SendableBuilder builder) {
+    //     builder.setSmartDashboardType("Turret");
+    //     builder.addDoubleProperty("Encoder", () -> getAngleDegrees(), null);
+    // }
 
 }

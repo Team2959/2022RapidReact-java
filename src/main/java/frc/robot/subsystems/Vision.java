@@ -15,9 +15,9 @@ public class Vision extends SubsystemBase {
     private static final double kCameraAngleDegrees = 30;
 
     private static final double kCameraTYOffset = 5.25;
+    private static final double kHubRadius = (26 * 0.0254);
     public static final double kHubHeightMeters = (104 * 0.0254);
     public static final double kDifferenceMeters = kHubHeightMeters - kCameraHeightMeters;
-    public static final double kHubRadius = (26 * 0.0254);
 
     public Vision() {
         m_txEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
@@ -43,8 +43,12 @@ public class Vision extends SubsystemBase {
      * @param heightMeters Height of the target in meters
      * @return Distance from target in meters
     */
-    public double getDistanceFromTargetWithHeight(double heightMeters) {
+    private double getDistanceFromTargetWithHeight(double heightMeters) {
         double a2 = getTY();
         return (heightMeters - kCameraHeightMeters) / BasicTrajectory.tan(kCameraAngleDegrees + a2);
+    }
+
+    public double getDistanceToHubCenterWithHeight(double heightMeters) {
+        return getDistanceFromTargetWithHeight(heightMeters) + kHubRadius;
     }
 }
