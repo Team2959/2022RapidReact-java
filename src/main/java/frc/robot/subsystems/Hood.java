@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -78,10 +78,10 @@ public class Hood extends SubsystemBase implements AutoCloseable {
         return m_dutyCycle.getOutput();
     }
 
-    @Override
-    public void periodic() {
-        SmartDashboard.putNumber("Hood/Position", getPosition());
-    }
+    // @Override
+    // public void periodic() {
+    //     SmartDashboard.putNumber("Hood/Position", getPosition());
+    // }
 
     @Override
     public void close() throws Exception{

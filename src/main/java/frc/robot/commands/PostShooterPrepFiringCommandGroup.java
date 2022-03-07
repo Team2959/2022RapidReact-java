@@ -20,7 +20,6 @@ public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
       new WaitCommand(1.2),
       new FeedCargoAndRetractCommand(container.shooter, 0.25),
       new WaitCommand(1.5),
-      //new SetShooterSpeedCommand(container, 0)
       new RunCommand(() -> {
           container.shooter.setVelocity(0);
           container.shooter.setAccelarator(0);
