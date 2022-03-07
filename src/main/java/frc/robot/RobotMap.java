@@ -15,7 +15,7 @@ public final class RobotMap {
     public static final int kShooterFollowerCANSparkMaxMotor = 5;
     public static final int kTurretCANSparkMaxMotor = 7;
     public static final int kIntakeCANSparkMaxMotor = 8;
-    public static final int kAccelaratorVictorSPX = 9;
+    public static final int kAcceleratorVictorSPX = 9;
     public static final int kFrontLeftTurnCANSparkMaxMotor = 11;
     public static final int kFrontRightTurnCANSparkMaxMotor = 12;
     public static final int kBackRightTurnCANSparkMaxMotor = 13;

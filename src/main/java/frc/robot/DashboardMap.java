@@ -27,7 +27,15 @@ public class DashboardMap {
 
     public static final String kTurret = "Turret";
     public static final String kTurretUseManualAngle = key("Use Specified Angle", kTurret);
-    public static final String kTurretManualAnagle = key("Set Angle", kTurret);
+    public static final String kTurretManualAngle = key("Set Angle", kTurret);
+
+    public static final String kShooter = "Shooter";
+    public static final String kShooterUseManualSpeed = key("Use Specified Speed", kShooter);
+    public static final String kShooterManualSpeed = key("Set Speed", kShooter);
+    public static final String kShooterAcceleratorSpeed = key("Accelarator Speed", kShooter);
+
+    public static final String kTrajectory = "Trajectory";
+    public static final String kTrajectoryTyOffset = key("TY Offset", kTrajectory);
 
     private static String key(String key, String parent) {
         if(parent == null) {

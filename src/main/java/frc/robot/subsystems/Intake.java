@@ -10,10 +10,11 @@ import frc.robot.DashboardMap;
 import frc.robot.RobotMap;
 
 public class Intake extends SubsystemBase implements AutoCloseable {
+    public static final double kIntakeSpeed = 0.4;
     private final Solenoid m_arms;
     private final CANSparkMax m_motor;
 
-    private double kIntakeSpeed = 0.40;
+    private double m_intakeSpeed = kIntakeSpeed;
 
     public Intake() {
         m_arms = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kIntakeArmsSolenoid);
@@ -26,19 +27,19 @@ public class Intake extends SubsystemBase implements AutoCloseable {
             m_motor.set(0);
         } else {
             m_arms.set(true);
-            m_motor.set(kIntakeSpeed);
+            m_motor.set(m_intakeSpeed);
         }
     }
 
     public void reverseIntake() {
         if (m_arms.get() == true) {
-            m_motor.set(-kIntakeSpeed);
+            m_motor.set(-m_intakeSpeed);
         }
     }
 
     public void restoreIntakeDirection() {
         if(m_arms.get() == true) {
-            m_motor.set(kIntakeSpeed);
+            m_motor.set(m_intakeSpeed);
         }
     }
 
@@ -49,6 +50,6 @@ public class Intake extends SubsystemBase implements AutoCloseable {
     }
 
     public void onDisabledInit() {
-        kIntakeSpeed = SmartDashboard.getNumber(DashboardMap.kIntakeSpeed, 0.4);
+        m_intakeSpeed = SmartDashboard.getNumber(DashboardMap.kIntakeSpeed, kIntakeSpeed);
     }
 }

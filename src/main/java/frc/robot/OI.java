@@ -17,6 +17,13 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Hood;
 
 public class OI {
+    public static final double kDriverXdeadband = 0.15;
+    public static final double kDriverXexponent = 1.7;
+    public static final double kDriverYdeadband = 0.15;
+    public static final double kDriverYexponent = 1.4;
+    public static final double kDriverRotationDeadband = 0.2;
+    public static final double kDriverRotationExponent = 0.9;
+
     private Joystick m_leftJoystick;
     private Joystick m_rightJoystick;
     private Joystick m_buttonBox;
@@ -43,12 +50,12 @@ public class OI {
         m_yConditioning = new Conditioning();
         m_rotationConditioning = new Conditioning();
 
-        m_xConditioning.setDeadband(0.15);
-        m_xConditioning.setExponent(1.7);
-        m_yConditioning.setDeadband(0.15);
-        m_yConditioning.setExponent(1.4);
-        m_rotationConditioning.setDeadband(0.2);
-        m_rotationConditioning.setExponent(0.9);
+        m_xConditioning.setDeadband(kDriverXdeadband);
+        m_xConditioning.setExponent(kDriverXexponent);
+        m_yConditioning.setDeadband(kDriverYdeadband);
+        m_yConditioning.setExponent(kDriverYexponent);
+        m_rotationConditioning.setDeadband(kDriverRotationDeadband);
+        m_rotationConditioning.setExponent(kDriverRotationExponent);
 
         m_leftJoystick = new Joystick(RobotMap.kLeftJoystick);
         m_rightJoystick = new Joystick(RobotMap.kRightJoystick);
@@ -103,11 +110,11 @@ public class OI {
     }
 
     public void onDisabledInit() {
-        // m_xConditioning.setExponent(SmartDashboard.getNumber(DashboardMap.kOIXExponent, 0.8));
-        // m_xConditioning.setDeadband(SmartDashboard.getNumber(DashboardMap.kOIXDeadband, 0.15));
-        // m_yConditioning.setExponent(SmartDashboard.getNumber(DashboardMap.kOIYExponent, 0.8));
-        // m_yConditioning.setDeadband(SmartDashboard.getNumber(DashboardMap.kOIYDeadband, 0.15));
-        // m_rotationConditioning.setExponent(SmartDashboard.getNumber(DashboardMap.kOITurnExponent, 0.8));
-        // m_rotationConditioning.setDeadband(SmartDashboard.getNumber(DashboardMap.kOITurnDeadband, 0.25));
+        // m_xConditioning.setExponent(SmartDashboard.getNumber(DashboardMap.kOIXExponent, kDriverXexponent));
+        // m_xConditioning.setDeadband(SmartDashboard.getNumber(DashboardMap.kOIXDeadband, kDriverXdeadband));
+        // m_yConditioning.setExponent(SmartDashboard.getNumber(DashboardMap.kOIYExponent, kDriverYexponent));
+        // m_yConditioning.setDeadband(SmartDashboard.getNumber(DashboardMap.kOIYDeadband, kDriverYdeadband));
+        // m_rotationConditioning.setExponent(SmartDashboard.getNumber(DashboardMap.kOITurnExponent, kDriverRotationExponent));
+        // m_rotationConditioning.setDeadband(SmartDashboard.getNumber(DashboardMap.kOITurnDeadband, kDriverRotationDeadband));
     }
 }

@@ -42,41 +42,10 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void onDisabledInit() {
-        // m_frontLeft.getDriveController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveP, 0.0));
-        // m_frontLeft.getDriveController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveI, 0.0));
-        // m_frontLeft.getDriveController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveD, 0.0));
-        // m_frontLeft.getDriveController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveFF, 0.0));
-        // m_frontLeft.getTurnController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnP, 0.0));
-        // m_frontLeft.getTurnController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnI, 0.0));
-        // m_frontLeft.getTurnController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnD, 0.0));
-        // m_frontLeft.getTurnController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnFF, 0.0));
-    
-        // m_frontRight.getDriveController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveP, 0.0));
-        // m_frontRight.getDriveController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveI, 0.0));
-        // m_frontRight.getDriveController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveD, 0.0));
-        // m_frontRight.getDriveController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveFF, 0.0));
-        // m_frontRight.getTurnController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnP, 0.0));
-        // m_frontRight.getTurnController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnI, 0.0));
-        // m_frontRight.getTurnController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnD, 0.0));
-        // m_frontRight.getTurnController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnFF, 0.0));
-
-        // m_backLeft.getDriveController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveP, 0.0));
-        // m_backLeft.getDriveController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveI, 0.0));
-        // m_backLeft.getDriveController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveD, 0.0));
-        // m_backLeft.getDriveController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveFF, 0.0));
-        // m_backLeft.getTurnController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnP, 0.0));
-        // m_backLeft.getTurnController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnI, 0.0));
-        // m_backLeft.getTurnController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnD, 0.0));
-        // m_backLeft.getTurnController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnFF, 0.0));
-    
-        // m_backRight.getDriveController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveP, 0.0));
-        // m_backRight.getDriveController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveI, 0.0));
-        // m_backRight.getDriveController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveD, 0.0));
-        // m_backRight.getDriveController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveFF, 0.0));
-        // m_backRight.getTurnController().setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnP, 0.0));
-        // m_backRight.getTurnController().setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnI, 0.0));
-        // m_backRight.getTurnController().setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnD, 0.0));
-        // m_backRight.getTurnController().setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnFF, 0.0));
+        m_frontLeft.onDisabledInit();
+        m_frontRight.onDisabledInit();
+        m_backLeft.onDisabledInit();
+        m_backRight.onDisabledInit();
     }
 
 

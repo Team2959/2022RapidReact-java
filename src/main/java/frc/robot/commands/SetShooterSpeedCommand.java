@@ -5,6 +5,7 @@ import cwtech.util.BasicTrajectory.TrajectoryCalculation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import cwtech.util.Util;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.DashboardMap;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
@@ -33,6 +34,10 @@ public class SetShooterSpeedCommand extends CommandBase {
         {
             m_targetRpm = m_desiredRpm;
         }
+        // else if (SmartDashboard.getBoolean(DashboardMap.kShooterUseManualSpeed, false))
+        // {
+        //     m_targetRpm = SmartDashboard.getNumber(DashboardMap.kShooterManualSpeed, 0.0);
+        // }
         else
         {
             double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
@@ -50,7 +55,7 @@ public class SetShooterSpeedCommand extends CommandBase {
         //m_container.shooter.setAccelaratorVelocity(m_targetRpm * 1.3);
         
         m_container.shooter.setVelocity(m_targetRpm);
-        m_container.shooter.setAccelarator(m_targetRpm > 0 ? SmartDashboard.getNumber("Accelarator Speed", 0.85) : 0.0);
+        m_container.shooter.setAccelarator(m_targetRpm > 0 ? SmartDashboard.getNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed) : 0.0);
     }
 
     @Override

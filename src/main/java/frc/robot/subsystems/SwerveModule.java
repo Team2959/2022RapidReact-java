@@ -5,6 +5,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import frc.robot.DashboardMap;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxAlternateEncoder;
@@ -12,6 +13,17 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 
 public class SwerveModule {
+    public static final double kDriveKp = 0.05;
+    public static final double kDriveKi = 0.0;
+    public static final double kDriveKd = 0.001;
+    public static final double kDriveFf = 0.02;
+    public static final double kDriveIzone = 600;
+    public static final double kTurnKp = 0.4;
+    public static final double kTurnKi = 0.00001;
+    public static final double kTurnKd = 0.0;
+    public static final double kTurnFf = 0.0;
+    public static final double kTurnIzone = 1.0;
+
     private CANSparkMax m_driveMotor;
     private CANSparkMax m_turnMotor;
     private DigitalInput m_dutyCycleInput;
@@ -54,19 +66,30 @@ public class SwerveModule {
         m_driveEncoder.setPositionConversionFactor(kDrivePositionFactor2);
         m_driveEncoder.setVelocityConversionFactor(kDrivePositionFactor2 / 60.0);
         
-        m_drivePIDController.setP(0.05);
-        m_drivePIDController.setI(0.0);
-        m_drivePIDController.setD(0.001);
-        m_drivePIDController.setFF(0.02);
-        m_drivePIDController.setIZone(600);
+        m_drivePIDController.setP(kDriveKp);
+        m_drivePIDController.setI(kDriveKi);
+        m_drivePIDController.setD(kDriveKd);
+        m_drivePIDController.setFF(kDriveFf);
+        m_drivePIDController.setIZone(kDriveIzone);
 
         m_turnPIDController.setFeedbackDevice(m_turnEncoder);
-        m_turnPIDController.setP(0.4);
-        m_turnPIDController.setI(0.00001);
-        m_turnPIDController.setD(0.0);
-        m_turnPIDController.setIZone(1.0);
+        m_turnPIDController.setP(kTurnKp);
+        m_turnPIDController.setI(kTurnKi);
+        m_turnPIDController.setD(kTurnKd);
+        m_turnPIDController.setIZone(kTurnIzone);
 
         m_turnEncoder.setPositionConversionFactor(kTurnPositionFactor2);
+    }
+
+    public void onDisabledInit() {
+        // m_drivePIDController.setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveP, kDriveKp));
+        // m_drivePIDController.setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveI, kDriveKi));
+        // m_drivePIDController.setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveD, kDriveKd));
+        // m_drivePIDController.setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainDriveFF, kDriveFf));
+        // m_turnPIDController.setP(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnP, kTurnKp));
+        // m_turnPIDController.setI(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnI, kTurnKi));
+        // m_turnPIDController.setD(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnD, kTurnKd));
+        // m_turnPIDController.setFF(SmartDashboard.getNumber(DashboardMap.kDrivetrainTurnFF, kTurnFf));
     }
 
     public void periodic() {
@@ -99,14 +122,6 @@ public class SwerveModule {
 
     public void setInitalPosition() {
         m_turnEncoder.setPosition(getAbsoluteEncoderPosition());
-    }
-
-    public SparkMaxPIDController getDriveController() {
-        return m_drivePIDController;
-    }
-
-    public SparkMaxPIDController getTurnController() {
-        return m_turnPIDController;
     }
 }
 
