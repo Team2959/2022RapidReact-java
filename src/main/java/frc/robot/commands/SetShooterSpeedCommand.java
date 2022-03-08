@@ -48,6 +48,7 @@ public class SetShooterSpeedCommand extends CommandBase {
             
             // Rough estimate (Possibly times .25)
             // m_targetRpm += 400;
+            m_targetRpm *= 1.33;
             
             SmartDashboard.putNumber("Trajectory/RPMs", m_targetRpm);
             SmartDashboard.putNumber("Trajectory/Distance", distanceMeters);

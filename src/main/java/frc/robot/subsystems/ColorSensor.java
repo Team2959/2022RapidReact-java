@@ -44,7 +44,7 @@ public final class ColorSensor extends SubsystemBase {
         SmartDashboard.putNumber("Matched Blue", matchedColor.color.blue);
         SmartDashboard.putNumber("Confidence", matchedColor.confidence);
 
-        if(matchedColor.confidence > 0.95)
+        if(matchedColor.confidence > 0.92)
         {
             if(matchedColor.color.red > 0.4){
                 SmartDashboard.putString("Matched Color", "Red");
@@ -60,4 +60,8 @@ public final class ColorSensor extends SubsystemBase {
         return ColorType.None;
     }
     
+    @Override
+    public void periodic() {
+        readColor();
+    }
 }
