@@ -7,6 +7,7 @@ package frc.robot;
 // import frc.robot.commands.SnapTurretToTarget;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Intake;
@@ -22,6 +23,7 @@ public class RobotContainer {
     public final Turret turret = new Turret();
     public final Vision vision = new Vision();
     public final Intake intake = new Intake();
+    public final ColorSensor colorSensor = new ColorSensor();
     public final OI oi = new OI(this);
 
 

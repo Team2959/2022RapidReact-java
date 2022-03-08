@@ -12,8 +12,8 @@ public class Hood extends SubsystemBase implements AutoCloseable {
     public static final double kMinEncoderOffset = 0.05;
     public static final double kMaxEncoderOffset = 0.79;
     public static final double kMaxEncoder = 0.98;
-    public static final double kMinDegrees = 32;
-    public static final double kMaxDegress = 58;
+    public static final double kMinDegrees = (90 - 32);
+    public static final double kMaxDegress = (90 - 58);
     private double m_EncoderPerDegreeSlope = 1;
     private double m_EncoderPerDegreeOffset = 0;
     private double m_minEncoder = 0;

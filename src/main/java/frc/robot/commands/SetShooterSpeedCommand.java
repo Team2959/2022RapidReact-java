@@ -3,7 +3,7 @@ package frc.robot.commands;
 import cwtech.util.BasicTrajectory;
 import cwtech.util.BasicTrajectory.TrajectoryCalculation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import cwtech.util.Util;
+// import cwtech.util.Util;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DashboardMap;
 import frc.robot.RobotContainer;
@@ -34,10 +34,10 @@ public class SetShooterSpeedCommand extends CommandBase {
         {
             m_targetRpm = m_desiredRpm;
         }
-        // else if (SmartDashboard.getBoolean(DashboardMap.kShooterUseManualSpeed, false))
-        // {
-        //     m_targetRpm = SmartDashboard.getNumber(DashboardMap.kShooterManualSpeed, 0.0);
-        // }
+        else if (SmartDashboard.getBoolean(DashboardMap.kShooterUseManualSpeed, false))
+        {
+            m_targetRpm = SmartDashboard.getNumber(DashboardMap.kShooterManualSpeed, 0.0);
+        }
         else
         {
             double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
@@ -45,6 +45,10 @@ public class SetShooterSpeedCommand extends CommandBase {
             SmartDashboard.putNumber("Trajectory/Hood Angle", calculation.m_shootingAngleDegrees);
             SmartDashboard.putNumber("Trajectory/Exit Velocity", calculation.m_exitVelocityMetersPerSecond);
             m_targetRpm = (calculation.m_exitVelocityMetersPerSecond / (2 * Math.PI * Shooter.kWheelRadius)) * 60.0;
+            
+            // Rough estimate (Possibly times .25)
+            // m_targetRpm += 400;
+            
             SmartDashboard.putNumber("Trajectory/RPMs", m_targetRpm);
             SmartDashboard.putNumber("Trajectory/Distance", distanceMeters);
             double ty = m_container.vision.getTY();
@@ -60,6 +64,7 @@ public class SetShooterSpeedCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Util.dcompareMine(m_container.shooter.getVelocity(), m_targetRpm, 500);
+        // return Util.dcompareMine(m_container.shooter.getVelocity(), m_targetRpm, 300);
+        return true;
     }
 }

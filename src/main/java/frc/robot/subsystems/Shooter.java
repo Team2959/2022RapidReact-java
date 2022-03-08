@@ -9,6 +9,7 @@ import com.revrobotics.SparkMaxRelativeEncoder;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -37,6 +38,11 @@ public class Shooter extends SubsystemBase {
         m_mainMotorController.setD(0);
     
         m_followerMotor.follow(m_mainMotor, true);
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Shooter/Velocity", getVelocity());
     }
 
     /** @param speed Value between 0 and 4500 */

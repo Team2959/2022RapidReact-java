@@ -39,12 +39,12 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putNumber(DashboardMap.kOITurnExponent, OI.kDriverRotationExponent);
         SmartDashboard.putNumber(DashboardMap.kIntakeSpeed, Intake.kIntakeSpeed);
         // SmartDashboard.putNumber(DashboardMap.kTrajectoryTyOffset, Vision.kCameraTYOffset);
-        // SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
-        // SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
-        // SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
+        SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
+        SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
+        SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
         SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
-        // SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
-        // SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
+        SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
+        SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
         SmartDashboard.putNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed);
     }
 

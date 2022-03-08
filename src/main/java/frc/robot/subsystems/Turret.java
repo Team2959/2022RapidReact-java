@@ -58,7 +58,7 @@ public class Turret extends SubsystemBase {
     }
 
     public void setSpeedToTargetAngle(double targetAngle){
-        setSpeed(targetAngle > getAngleDegrees() ? 0.2 : -0.2);
+        setSpeed(targetAngle > getAngleDegrees() ? 0.5 : -0.5);
     }
 
     private final double kVisionError = 2;

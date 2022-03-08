@@ -14,7 +14,7 @@ public class SafeZoneShotCommandGroup extends SequentialCommandGroup {
   /** Creates a new SafeZoneShotCommandGroup. */
   public SafeZoneShotCommandGroup(RobotContainer container) {
     addCommands(
-      new SetFixedTurretHoodAndShooterCommandGroup(container, 0.0, 40.0, 2000.0),
+      new SetFixedTurretHoodAndShooterCommandGroup(container, 25.0, 90.0, 1800.0),
       new PostShooterPrepFiringCommandGroup(container)
     );
   }

@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Hood;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -15,7 +14,7 @@ public class LowGoalWallShotCommandGroup extends SequentialCommandGroup {
   /** Creates a new LowGoalWallShotCommandGroup. */
   public LowGoalWallShotCommandGroup(RobotContainer container) {
     addCommands(
-      new SetFixedTurretHoodAndShooterCommandGroup(container, 0.0, Hood.kMaxDegress, 1500.0),
+      new SetFixedTurretHoodAndShooterCommandGroup(container, 0.0, 40, 650.0),
       new PostShooterPrepFiringCommandGroup(container)
     );
   }
