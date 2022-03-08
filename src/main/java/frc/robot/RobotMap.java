@@ -61,7 +61,7 @@ public final class RobotMap {
 
     // Zeroed values, should be in radians
     public static final double kZeroedFrontLeft = 3.082;
-    public static final double kZeroedFrontRight = 0.000;
+    public static final double kZeroedFrontRight = 1.571;
     public static final double kZeroedBackLeft = 0.520;
     public static final double kZeroedBackRight = -0.230;
     public static final double kZeroedTurret = 0.0;
