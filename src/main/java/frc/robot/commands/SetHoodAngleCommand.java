@@ -14,7 +14,7 @@ public class SetHoodAngleCommand extends CommandBase {
     private double m_hoodPositionDegrees = 0.0;
     private double m_hoodPosition = 0.0;
     private boolean m_backwards;
-    private final double kSpeed = 0.75;
+    private final double kSpeed = 1.0;
 
     public SetHoodAngleCommand(RobotContainer container) { 
         m_container = container;

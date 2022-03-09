@@ -76,7 +76,7 @@ public class OI {
         m_toggleIntakeButton.whenPressed(new IntakeToggleCommand(m_container));
         m_reverseIntakeButton.whileHeld(new ReverseIntakeCommand(m_container));
         m_extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(m_container));
-        m_retractClimbHooksButton.whenPressed(new RetractClimbHooksCommand(m_container));
+        m_retractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container));
         m_fireButton.whenPressed(new FireCommand(m_container));
         m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, Hood.kMinDegrees));
         m_safeZoneShotButton.whenPressed(new SafeZoneShotCommandGroup(m_container));

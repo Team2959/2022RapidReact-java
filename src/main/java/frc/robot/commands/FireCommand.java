@@ -15,8 +15,8 @@ public class FireCommand extends SequentialCommandGroup {
             new TuneShooterAndHoodCommand(container),
             new WaitCommand(2),
             new FeedCargoAndRetractCommand(container.shooter, 0.25),
-            new WaitCommand(2),
-            // new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None),
+            // new WaitCommand(1),
+            new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None),
             new FeedCargoAndRetractCommand(container.shooter, 0.25),
             new WaitCommand(1.5),
             //new SetShooterSpeedCommand(container, 0)

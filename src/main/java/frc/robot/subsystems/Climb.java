@@ -5,7 +5,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import com.revrobotics.CANSparkMax;
-// import com.revrobotics.RelativeEncoder;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,11 +16,11 @@ public class Climb extends SubsystemBase {
     private final CANSparkMax m_leftMotor;
     private final SparkMaxPIDController m_rightController;
     private final SparkMaxPIDController m_leftController;
-    // private RelativeEncoder m_rightEncoder;
-    // private RelativeEncoder m_leftEncoder;
+    private RelativeEncoder m_rightEncoder;
+    private RelativeEncoder m_leftEncoder;
 
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
-    public double kExtendPosition, kContractPosition;
+    public double kExtendPosition = 70, kContractPosition = 5; // POSITION IS IN MOTOR ROTATIONS
 
 
     // private Solenoid m_climb;
@@ -32,8 +32,8 @@ public class Climb extends SubsystemBase {
         m_leftController =m_leftMotor.getPIDController();
         m_rightMotor.restoreFactoryDefaults();
         m_leftMotor.restoreFactoryDefaults();
-        // m_rightEncoder = m_rightMotor.getEncoder();
-        // m_leftEncoder = m_leftMotor.getEncoder();
+        m_rightEncoder = m_rightMotor.getEncoder();
+        m_leftEncoder = m_leftMotor.getEncoder();
 
         m_leftMotor.setInverted(true);
 
@@ -98,6 +98,10 @@ public class Climb extends SubsystemBase {
         // m_climb.set(false);
         m_rightController.setReference(kContractPosition, CANSparkMax.ControlType.kSmartMotion);
         m_leftController.setReference(kContractPosition, CANSparkMax.ControlType.kSmartMotion);
+    }
 
+    public void keepCurrentPosition() {
+        m_rightController.setReference(m_rightEncoder.getPosition(),  CANSparkMax.ControlType.kSmartMotion);
+        m_leftController.setReference(m_leftEncoder.getPosition(),  CANSparkMax.ControlType.kSmartMotion);
     }
 }
