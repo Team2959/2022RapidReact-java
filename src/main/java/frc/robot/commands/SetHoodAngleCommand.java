@@ -14,7 +14,7 @@ public class SetHoodAngleCommand extends CommandBase {
     private double m_hoodPositionDegrees = 0.0;
     private double m_hoodPosition = 0.0;
     private boolean m_backwards;
-    private final double kSpeed = 1.0;
+    private final double kSpeed = 0.65;
 
     public SetHoodAngleCommand(RobotContainer container) { 
         m_container = container;
@@ -72,6 +72,14 @@ public class SetHoodAngleCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         double currentHoodPosition = m_container.hood.getPosition();
+        double diff = Math.abs(currentHoodPosition - m_hoodPosition);
+        /*if(diff > 0.008) {
+            if(m_backwards) {
+                m_container.hood.setSpeed(kSpeed);
+            } else {
+                m_container.hood.setSpeed(-kSpeed);
+            }
+        }*/
         // Checks to see if at or pass requested hood position and if so stop
         return m_backwards ? currentHoodPosition <= m_hoodPosition : currentHoodPosition >= m_hoodPosition;
     }

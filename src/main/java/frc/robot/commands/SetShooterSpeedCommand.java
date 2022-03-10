@@ -48,7 +48,7 @@ public class SetShooterSpeedCommand extends CommandBase {
             
             // Rough estimate (Possibly times .25)
             // m_targetRpm += 400;
-            m_targetRpm *= 1.33;
+            m_targetRpm *= SmartDashboard.getNumber("Shooter/Multi", 1.195);
             
             SmartDashboard.putNumber("Trajectory/RPMs", m_targetRpm);
             SmartDashboard.putNumber("Trajectory/Distance", distanceMeters);
@@ -66,6 +66,6 @@ public class SetShooterSpeedCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         // return Util.dcompareMine(m_container.shooter.getVelocity(), m_targetRpm, 300);
-        return true;
+        return m_container.shooter.getVelocity() - 300 >= m_targetRpm;
     }
 }

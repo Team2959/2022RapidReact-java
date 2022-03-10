@@ -14,7 +14,7 @@ public class LowGoalWallShotCommandGroup extends SequentialCommandGroup {
   /** Creates a new LowGoalWallShotCommandGroup. */
   public LowGoalWallShotCommandGroup(RobotContainer container) {
     addCommands(
-      new SetFixedTurretHoodAndShooterCommandGroup(container, 0.0, 40, 600.0),
+      new SetFixedTurretHoodAndShooterCommandGroup(container, 0.0, 10, 400.0),
       new PostShooterPrepFiringCommandGroup(container)
     );
   }

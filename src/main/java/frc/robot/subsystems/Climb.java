@@ -37,6 +37,9 @@ public class Climb extends SubsystemBase {
 
         m_leftMotor.setInverted(true);
 
+        m_leftMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        m_rightMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+
         // m_climb = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kClimbSolenoid);
 
         kP = 5e-5;

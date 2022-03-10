@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
-    public static final double kAcceleratorSpeed = 0.85;
+    public static final double kAcceleratorSpeed = 0.60;
 
     private final CANSparkMax m_mainMotor;
     private final CANSparkMax m_followerMotor;
@@ -43,6 +43,11 @@ public class Shooter extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Shooter/Velocity", getVelocity());
+
+        m_mainMotorController.setP(SmartDashboard.getNumber("Shooter/P", 0.0004));
+        m_mainMotorController.setFF(SmartDashboard.getNumber("Shooter/FF", 0.0008));
+        m_mainMotorController.setI(SmartDashboard.getNumber("Shooter/I", 0.0));
+        m_mainMotorController.setD(SmartDashboard.getNumber("Shooter/D", 0.00002));
     }
 
     /** @param speed Value between 0 and 4500 */

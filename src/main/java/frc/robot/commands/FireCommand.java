@@ -13,10 +13,12 @@ public class FireCommand extends SequentialCommandGroup {
             // new TurnTurretToPositionCommand(container)
             // new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None),
             new TuneShooterAndHoodCommand(container),
-            new WaitCommand(2),
+            new WaitCommand(0),
             new FeedCargoAndRetractCommand(container.shooter, 0.25),
-            // new WaitCommand(1),
-            new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None),
+            new SetShooterSpeedCommand(container),
+            new SnapTurretToTarget(container),
+            new WaitCommand(.85),
+            new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()),
             new FeedCargoAndRetractCommand(container.shooter, 0.25),
             new WaitCommand(1.5),
             //new SetShooterSpeedCommand(container, 0)
