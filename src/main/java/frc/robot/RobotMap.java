@@ -55,8 +55,11 @@ public final class RobotMap {
     public static final int kTestButton = 3;
     public static final int kSafeZoneShotButton = 12;
     public static final int kWallShotButton = 9;
-    public static final int kGloryShotButton = 0;
-    public static final int kReverseAccButton = 0;
+    public static final int kGloryShotButton = 7;
+    public static final int kReverseAccButton = 6;
+    public static final int kResetNavXButton = 11;
+    public static final int kFireOverrideButton = 3;
+
 
     // Driver Buttons
     public static final int kToggleIntakeButton = 2;
@@ -68,8 +71,6 @@ public final class RobotMap {
     public static final double kZeroedBackLeft = 0.520;
     public static final double kZeroedBackRight = -0.230;
     public static final double kZeroedTurret = 0.0;
-    public static final int kResetNavXButton = 0;
-    public static final int kFireOverrideButton = 0;
-
+    
 
 }

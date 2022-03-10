@@ -4,7 +4,8 @@ package frc.robot;
 
 import cwtech.util.Conditioning;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+// import edu.wpi.first.wpilibj2.command.InstantCommand;
+// import edu.wpi.first.wpilibj2.command.RunCommand;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendClimbHooksCommand;
@@ -49,7 +50,7 @@ public class OI {
     private final JoystickButton m_wallShotButton;
     private final JoystickButton m_gloryShotButton;
     private final JoystickButton m_reverseAccButton;
-    private final JoystickButton m_resetNavX;
+    // private final JoystickButton m_resetNavX;
     private final JoystickButton m_fireOverride;
 
     public OI(RobotContainer container) {
@@ -81,7 +82,7 @@ public class OI {
         m_wallShotButton = new JoystickButton(m_buttonBox, RobotMap.kWallShotButton);
         m_gloryShotButton = new JoystickButton(m_buttonBox, RobotMap.kGloryShotButton);
         m_reverseAccButton = new JoystickButton(m_buttonBox, RobotMap.kReverseAccButton);
-        m_resetNavX = new JoystickButton(m_buttonBox, RobotMap.kResetNavXButton);
+        // m_resetNavX = new JoystickButton(m_buttonBox, RobotMap.kResetNavXButton);
         m_fireOverride = new JoystickButton(m_buttonBox, RobotMap.kFireOverrideButton);
 
         m_toggleIntakeButton.whenPressed(new IntakeToggleCommand(m_container));
@@ -95,7 +96,7 @@ public class OI {
         m_testButton.whenPressed(new TurnTurretToPositionCommand(m_container, 0));
         m_gloryShotButton.whenPressed(new GloryShotCommand(m_container));
         m_reverseAccButton.whileHeld(new ReverseAccelaratorCommand(m_container));
-        m_resetNavX.whenPressed(new RunCommand(() -> m_container.drivetrain.resetNavX(), m_container.drivetrain));
+        //m_resetNavX.whenPressed(new InstantCommand(() -> m_container.drivetrain.resetNavX(), m_container.drivetrain));
     }
 
     public boolean getFireOverrided() {
