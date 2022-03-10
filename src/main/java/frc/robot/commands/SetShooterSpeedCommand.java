@@ -66,6 +66,9 @@ public class SetShooterSpeedCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         // return Util.dcompareMine(m_container.shooter.getVelocity(), m_targetRpm, 300);
-        return m_container.shooter.getVelocity() - 300 >= m_targetRpm;
+        if (m_targetRpm > 300)
+            return m_container.shooter.getVelocity() - 300 >= m_targetRpm;
+        else
+            return m_container.shooter.getVelocity() < m_targetRpm + 300;
     }
 }

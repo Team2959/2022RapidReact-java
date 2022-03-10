@@ -72,7 +72,7 @@ public class SetHoodAngleCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         double currentHoodPosition = m_container.hood.getPosition();
-        double diff = Math.abs(currentHoodPosition - m_hoodPosition);
+        // double diff = Math.abs(currentHoodPosition - m_hoodPosition);
         /*if(diff > 0.008) {
             if(m_backwards) {
                 m_container.hood.setSpeed(kSpeed);
