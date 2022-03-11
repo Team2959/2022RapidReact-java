@@ -42,7 +42,7 @@ public class SetHoodAngleCommand extends CommandBase {
             }
             else {
                 double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
-                TrajectoryCalculation calculation = BasicTrajectory.calculate(-70, distanceMeters, Vision.kDifferenceMeters);
+                TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber("Shooter/Entry Angle", -70), distanceMeters, Vision.kDifferenceMeters);
                 m_hoodPositionDegrees = calculation.m_shootingAngleDegrees;
                 SmartDashboard.putNumber("Hood Target Angle From Vision", m_hoodPositionDegrees);
             }

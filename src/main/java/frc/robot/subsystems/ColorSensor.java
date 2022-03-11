@@ -4,7 +4,7 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.util.Color;
-
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -58,6 +58,19 @@ public final class ColorSensor extends SubsystemBase {
             return ColorType.None;
         }
         return ColorType.None;
+    }
+
+    /** Assumes that it detects a ball and returns true or false if it matches driverstation color */
+    public boolean ballIsForTeam() {
+        if(DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+            return readColor() == ColorType.Red;
+        }
+        else if(DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+            return readColor() == ColorType.Blue;
+        }
+        else {
+            return true;
+        }
     }
     
     @Override

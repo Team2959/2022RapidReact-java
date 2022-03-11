@@ -41,7 +41,7 @@ public class SetShooterSpeedCommand extends CommandBase {
         else
         {
             double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
-            TrajectoryCalculation calculation = BasicTrajectory.calculate(-70, distanceMeters, Vision.kDifferenceMeters);
+            TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber("Shooter/Entry Angle", -70), distanceMeters, Vision.kDifferenceMeters);
             SmartDashboard.putNumber("Trajectory/Hood Angle", calculation.m_shootingAngleDegrees);
             SmartDashboard.putNumber("Trajectory/Exit Velocity", calculation.m_exitVelocityMetersPerSecond);
             m_targetRpm = (calculation.m_exitVelocityMetersPerSecond / (2 * Math.PI * Shooter.kWheelRadius)) * 60.0;
@@ -59,6 +59,12 @@ public class SetShooterSpeedCommand extends CommandBase {
         //m_container.shooter.setVelocity(m_targetRpm);
         //m_container.shooter.setAccelaratorVelocity(m_targetRpm * 1.3);
         
+        /*
+        if(!m_container.colorSensor.ballIsForTeam()) {
+            m_targetRpm = 500;
+        }
+        */
+
         m_container.shooter.setVelocity(m_targetRpm);
         m_container.shooter.setAccelarator(m_targetRpm > 0 ? SmartDashboard.getNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed) : 0.0);
     }

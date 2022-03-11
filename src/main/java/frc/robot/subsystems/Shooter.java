@@ -44,7 +44,7 @@ public class Shooter extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Shooter/Velocity", getVelocity());
 
-        m_mainMotorController.setP(SmartDashboard.getNumber("Shooter/P", 0.0004));
+        m_mainMotorController.setP(SmartDashboard.getNumber("Shooter/P", 0.0005));
         m_mainMotorController.setFF(SmartDashboard.getNumber("Shooter/FF", 0.0008));
         m_mainMotorController.setI(SmartDashboard.getNumber("Shooter/I", 0.0));
         m_mainMotorController.setD(SmartDashboard.getNumber("Shooter/D", 0.00002));

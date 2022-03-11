@@ -5,9 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoCommand;
+import frc.robot.commands.DriveOnlyAutoCommand;
+// import frc.robot.commands.SnapTurretToTarget;
 import frc.robot.subsystems.Intake;
 // import cwtech.trigger.ModeTrigger;
 // import frc.robot.subsystems.SwerveModule;
@@ -19,10 +22,14 @@ import frc.robot.subsystems.Shooter;
 public class Robot extends TimedRobot {
     private RobotContainer m_robotContainer = new RobotContainer();
     private AutoCommand m_autoCommand = new AutoCommand(m_robotContainer);
+    private DriveOnlyAutoCommand m_autoCommandOnly = new DriveOnlyAutoCommand(m_robotContainer);
     private int m_initTicks = 1;
 
     @Override
     public void robotInit() {
+        LiveWindow.disableAllTelemetry();
+        SmartDashboard.putString("MESSAGE", "started");
+        // SmartDashboard.putData(CommandScheduler.getInstance());
 
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveP, SwerveModule.kDriveKp);
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveI, SwerveModule.kDriveKi);
@@ -47,11 +54,14 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
         SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
         SmartDashboard.putNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed);
-        SmartDashboard.putNumber("Shooter/P", 0.0004);
+        SmartDashboard.putNumber("Shooter/P", 0.0005);
         SmartDashboard.putNumber("Shooter/FF", 0.0008);
         SmartDashboard.putNumber("Shooter/I", 0.0);
         SmartDashboard.putNumber("Shooter/D", 0.00002);
+        SmartDashboard.putBoolean("Field Centric", true);
         SmartDashboard.putNumber("Shooter/Multi", 1.195);
+        SmartDashboard.putNumber("Shooter/Entry Angle", -70);
+        SmartDashboard.putBoolean("Only Drive Auto", false);
     }
 
     @Override
@@ -59,13 +69,14 @@ public class Robot extends TimedRobot {
         if (m_initTicks > 0)
         {
             m_initTicks++;
-            if (m_initTicks == 500)
+            if (m_initTicks == 100)
             {
                 m_initTicks = -1;
                 m_robotContainer.hood.initialization();
                 m_robotContainer.drivetrain.setInitalPositions();
                 m_robotContainer.drivetrain.resetNavX();
                 m_robotContainer.turret.resetEncoder();
+                SmartDashboard.putString("MESSAGE", "initialized");
             }
         }
 
@@ -86,7 +97,12 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        m_autoCommand.schedule();
+        if(SmartDashboard.getBoolean("Only Drive Auto", false)) {
+            m_autoCommandOnly.schedule();
+        } else {
+
+            m_autoCommand.schedule();
+        }
         // ModeTrigger.registerMode(ModeTrigger.Mode.Autonomous);
     }
 

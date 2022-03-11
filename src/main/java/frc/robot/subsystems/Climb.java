@@ -20,7 +20,7 @@ public class Climb extends SubsystemBase {
     private RelativeEncoder m_leftEncoder;
 
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
-    public double kExtendPosition = 70, kContractPosition = 5; // POSITION IS IN MOTOR ROTATIONS
+    public double kExtendPosition = 70, kContractPosition = 1; // POSITION IS IN MOTOR ROTATIONS
 
 
     // private Solenoid m_climb;
@@ -50,8 +50,8 @@ public class Climb extends SubsystemBase {
         kMaxOutput = 1;
         kMinOutput = -1;
         maxRPM = 4500;
-        maxVel = 2000;
-        maxAcc = 1500;
+        maxVel = 3500;
+        maxAcc = 3500;
 
         m_rightController.setI(kI);
         m_rightController.setD(kD);

@@ -17,7 +17,7 @@ public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
   public PostShooterPrepFiringCommandGroup(RobotContainer container) {
     addCommands(
       new FeedCargoAndRetractCommand(container.shooter, 0.25),
-      new WaitCommand(1.2),
+      new WaitCommand(1.9),
       new FeedCargoAndRetractCommand(container.shooter, 0.25),
       new WaitCommand(1.5),
       new RunCommand(() -> {
