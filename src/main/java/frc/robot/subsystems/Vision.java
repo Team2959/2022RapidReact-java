@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import cwtech.util.BasicTrajectory;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Vision extends SubsystemBase {
@@ -14,7 +15,7 @@ public class Vision extends SubsystemBase {
     /** This is what the limelight's angle when mounted */
     private static final double kCameraAngleDegrees = 30;
 
-    public static final double kCameraTYOffset = 5.25;
+    public static final double kCameraTYOffset = 5.5;
     private static final double kHubRadius = (26 * 0.0254);
     public static final double kHubHeightMeters = (104 * 0.0254);
     public static final double kDifferenceMeters = kHubHeightMeters - kCameraHeightMeters;
@@ -35,7 +36,7 @@ public class Vision extends SubsystemBase {
      * @return Vertical offset from cross to target -24.85 to 24.85 degrees
     */
     public double getTY() {
-        return (double) m_tyEntry.getNumber(0.0) - kCameraTYOffset;
+        return (double) m_tyEntry.getNumber(0.0) - SmartDashboard.getNumber("Shooter/TY Offset", Vision.kCameraTYOffset);
     }
 
     /** Calculates distance from a target.

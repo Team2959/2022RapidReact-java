@@ -16,6 +16,7 @@ import frc.robot.subsystems.Intake;
 // import frc.robot.subsystems.SwerveModule;
 // import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Vision;
 
 // Do code sa java ateema, do chowbaso
 
@@ -62,6 +63,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Shooter/Multi", 1.195);
         SmartDashboard.putNumber("Shooter/Entry Angle", -70);
         SmartDashboard.putBoolean("Only Drive Auto", false);
+        SmartDashboard.putNumber("Shooter/TY Offset", Vision.kCameraTYOffset);
     }
 
     @Override

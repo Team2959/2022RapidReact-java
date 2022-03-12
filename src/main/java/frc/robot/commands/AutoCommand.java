@@ -11,7 +11,7 @@ import frc.robot.RobotContainer;
 public class AutoCommand extends SequentialCommandGroup {
     public AutoCommand(RobotContainer container) {
         addCommands(
-            new WaitCommand(.25),
+            new WaitCommand(1),
             new InstantCommand(() -> {
                 container.drivetrain.drive(0, -3, 0, false);
             }, container.drivetrain),
