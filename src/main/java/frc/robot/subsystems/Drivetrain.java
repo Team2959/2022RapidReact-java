@@ -17,7 +17,7 @@ import frc.robot.RobotMap;
 
 public class Drivetrain extends SubsystemBase {
 
-    public static final double kMaxSpeedMetersPerSecond = 12;
+    public static final double kMaxSpeedMetersPerSecond = 25;
     public static final double kMaxAngularSpeedRadiansPerSecond = 4 * Math.PI;
 
 

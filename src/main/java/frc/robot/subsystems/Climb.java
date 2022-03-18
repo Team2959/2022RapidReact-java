@@ -20,7 +20,7 @@ public class Climb extends SubsystemBase {
     private RelativeEncoder m_leftEncoder;
 
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
-    public double kExtendPosition = 70, kContractPosition = 1; // POSITION IS IN MOTOR ROTATIONS
+    public double kExtendPosition = 70, kContractPosition = -25; // POSITION IS IN MOTOR ROTATIONS
 
 
     // private Solenoid m_climb;
