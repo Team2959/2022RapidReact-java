@@ -18,8 +18,7 @@ import frc.robot.commands.ReverseAccelaratorCommand;
 import frc.robot.commands.ReverseIntakeCommand;
 import frc.robot.commands.SafeZoneShotCommandGroup;
 import frc.robot.commands.SetHoodAngleCommand;
-import frc.robot.commands.TurnTurretToPositionCommand;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.DrivetrainOld;
 import frc.robot.subsystems.Hood;
 
 public class OI {
@@ -117,15 +116,15 @@ public class OI {
     public DriveState getDriveState() {
         double x = m_leftJoystick.getX();
         x = -m_xConditioning.condition(x);
-        double xSpeed = x * Drivetrain.kMaxSpeedMetersPerSecond;
+        double xSpeed = x * DrivetrainOld.kMaxSpeedMetersPerSecond;
         
         double y = m_leftJoystick.getY();
         y = m_yConditioning.condition(y);
-        double ySpeed = y * Drivetrain.kMaxSpeedMetersPerSecond;
+        double ySpeed = y * DrivetrainOld.kMaxSpeedMetersPerSecond;
 
         double r = m_rightJoystick.getX();
         r = m_rotationConditioning.condition(r);
-        double rotation = -r * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
+        double rotation = -r * DrivetrainOld.kMaxAngularSpeedRadiansPerSecond;
 
         return new DriveState(xSpeed, ySpeed, rotation);
     }

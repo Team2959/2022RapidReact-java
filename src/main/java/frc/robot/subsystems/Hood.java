@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -37,7 +39,7 @@ public class Hood extends SubsystemBase implements AutoCloseable {
 
         setSpeed(0.0);
     }
-
+    
     public void initialization()
     {
         double currentPosition = getPosition();

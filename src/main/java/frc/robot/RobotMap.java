@@ -78,12 +78,19 @@ public final class RobotMap {
     public static final int kToggleIntakeButton = 2;
 
     // Zeroed values, should be in radians
-    //private static final double kOffsetZeroed = Math.PI / 2;
-    public static final double kZeroedFrontLeft = 3.082;
-    public static final double kZeroedFrontRight = 0.000;
-    public static final double kZeroedBackLeft = 0.520;
-    public static final double kZeroedBackRight = -0.230;
-    public static final double kZeroedTurret = 0.0;
+    // //private static final double kOffsetZeroed = Math.PI / 2;
+    // public static final double kZeroedFrontLeft = 3.082;
+    // public static final double kZeroedFrontRight = 0.000;
+    // public static final double kZeroedBackLeft = 0.520;
+    // public static final double kZeroedBackRight = -0.230;
+    // public static final double kZeroedTurret = 0.0;
     
 
+    // TODO may have to flip the negatives
+    public static final double kZeroedFrontLeft = -3.082;
+    public static final double kZeroedFrontRight = -0.000;
+    public static final double kZeroedBackLeft = -0.520;
+    public static final double kZeroedBackRight = 0.230;
+    public static final double kZeroedTurret = 0.0;
+   
 }
