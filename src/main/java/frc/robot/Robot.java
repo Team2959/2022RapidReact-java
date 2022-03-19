@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
             {
                 m_initTicks = -1;
                 m_robotContainer.hood.initialization();
-                m_robotContainer.drivetrain.setInitalPositions();
+                //m_robotContainer.drivetrain.setInitalPositions();
                 m_robotContainer.drivetrain.resetNavX();
                 m_robotContainer.turret.resetEncoder();
                 SmartDashboard.putString("MESSAGE", "initialized");
@@ -88,7 +88,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         // ModeTrigger.registerMode(ModeTrigger.Mode.Disabled);
-        m_robotContainer.drivetrain.onDisabledInit();
+        //m_robotContainer.drivetrain.onDisabledInit();
         m_robotContainer.oi.onDisabledInit();
         m_robotContainer.intake.onDisabledInit();
     }

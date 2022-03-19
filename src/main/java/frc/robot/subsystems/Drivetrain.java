@@ -138,4 +138,8 @@ public class Drivetrain extends SubsystemBase {
         m_backLeftModule.set(states[2].speedMetersPerSecond / kVelocityMetersPerSecond * kMaxVoltage, states[2].angle.getRadians());
         m_backRightModule.set(states[3].speedMetersPerSecond / kVelocityMetersPerSecond * kMaxVoltage, states[3].angle.getRadians());
     }
+
+    public void resetNavX() {
+        m_gyroscope.reset();
+    }
 }
