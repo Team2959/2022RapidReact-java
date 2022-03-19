@@ -1,10 +1,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DutyCycle;
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.DigitalInput;
+// import edu.wpi.first.wpilibj.DutyCycle;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -24,15 +24,19 @@ public class Hood extends SubsystemBase implements AutoCloseable {
     private final PWM m_left;
     private final PWM m_right;
 
-    private final DigitalInput m_dutyCycleInput;
-    private final DutyCycle m_dutyCycle;
+    // private final DigitalInput m_dutyCycleInput;
+    // private final DutyCycle m_dutyCycle;
+    // gives 0 to 1
+    private final AnalogPotentiometer m_potentiometer;
 
     public Hood() {
         m_left = new PWM(RobotMap.kHoodServoLeft);
         m_right = new PWM(RobotMap.kHoodServoRight);
 
-        m_dutyCycleInput = new DigitalInput(RobotMap.kHoodPulseWidthDigIO);
-        m_dutyCycle = new DutyCycle(m_dutyCycleInput);
+        // m_dutyCycleInput = new DigitalInput(RobotMap.kHoodPulseWidthDigIO);
+        // m_dutyCycle = new DutyCycle(m_dutyCycleInput);
+
+        m_potentiometer = new AnalogPotentiometer(RobotMap.kHoodPulseWidthDigIO);
 
         m_left.setPeriodMultiplier(PWM.PeriodMultiplier.k4X);
         m_right.setPeriodMultiplier(PWM.PeriodMultiplier.k4X);
@@ -77,19 +81,19 @@ public class Hood extends SubsystemBase implements AutoCloseable {
 
     // returns 0.0 to 1.0
     public double getPosition() {
-        return m_dutyCycle.getOutput();
+        // return m_dutyCycle.getOutput();
+        return m_potentiometer.get();
     }
 
-    // @Override
-    // public void periodic() {
-    //     SmartDashboard.putNumber("Hood/Position", getPosition());
-    // }
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Hood/Position", getPosition());
+    }
 
     @Override
     public void close() throws Exception{
         m_left.close();
         m_right.close();
-        m_dutyCycleInput.close();
-        m_dutyCycle.close();
+        m_potentiometer.close();
     }
 }
