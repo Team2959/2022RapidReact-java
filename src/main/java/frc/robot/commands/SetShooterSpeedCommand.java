@@ -30,6 +30,7 @@ public class SetShooterSpeedCommand extends CommandBase {
 
     @Override
     public void initialize() {
+        SmartDashboard.putString("Shooter Speed MESSAGE", "started");
         if (m_desiredRpm >= 0.0)
         {
             m_targetRpm = m_desiredRpm;
@@ -76,5 +77,10 @@ public class SetShooterSpeedCommand extends CommandBase {
             return m_container.shooter.getVelocity() >= m_targetRpm - 300;
         else
             return m_container.shooter.getVelocity() < m_targetRpm + 300;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        SmartDashboard.putString("Shooter Speed MESSAGE", "ended");
     }
 }
