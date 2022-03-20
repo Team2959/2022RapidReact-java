@@ -33,6 +33,7 @@ public class SetHoodAngleCommand extends CommandBase {
 
     @Override
     public void initialize() {
+        SmartDashboard.putString("Hood Angle MESSAGE", "started");
 
         if (m_hoodPositionDegrees <= 0)
         {
@@ -72,6 +73,8 @@ public class SetHoodAngleCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         double currentHoodPosition = m_container.hood.getPosition();
+
+        // KFR:  This does not belong in isFinished if try to restore, put in execute override code
         // double diff = Math.abs(currentHoodPosition - m_hoodPosition);
         /*if(diff > 0.008) {
             if(m_backwards) {
@@ -80,6 +83,7 @@ public class SetHoodAngleCommand extends CommandBase {
                 m_container.hood.setSpeed(-kSpeed);
             }
         }*/
+
         // Checks to see if at or pass requested hood position and if so stop
         return m_backwards ? currentHoodPosition <= m_hoodPosition : currentHoodPosition >= m_hoodPosition;
     }
@@ -87,6 +91,7 @@ public class SetHoodAngleCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_container.hood.setSpeed(0.0);
+        SmartDashboard.putString("Shooter Speed MESSAGE", "ended");
     }
     
 }

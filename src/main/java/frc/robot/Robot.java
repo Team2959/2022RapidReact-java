@@ -30,6 +30,9 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         LiveWindow.disableAllTelemetry();
         SmartDashboard.putString("MESSAGE", "started");
+        SmartDashboard.putString("Snap Turret MESSAGE", "");
+        SmartDashboard.putString("Hood Angle MESSAGE", "");
+        SmartDashboard.putString("Shooter Speed MESSAGE", "");
         // SmartDashboard.putData(CommandScheduler.getInstance());
 
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveP, SwerveModule.kDriveKp);

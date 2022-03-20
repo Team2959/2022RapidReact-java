@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
@@ -19,6 +20,7 @@ public class SnapTurretToTarget extends CommandBase {
         // System.err.println("Started SnapToTarget");
         m_target = m_container.turret.getAngleDegrees() + m_container.vision.getTX();
         m_container.turret.setSpeedToTargetAngle(m_target);
+        SmartDashboard.putString("Snap Turret MESSAGE", "started");
     }
 
     @Override
@@ -45,5 +47,6 @@ public class SnapTurretToTarget extends CommandBase {
     public void end(boolean interupt) {
         // System.err.println("Ended SnapToTarget");
         m_container.turret.setSpeed(0.0);
+        SmartDashboard.putString("Snap Turret MESSAGE", "ended");
     }
 }
