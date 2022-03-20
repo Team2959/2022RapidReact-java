@@ -94,6 +94,8 @@ public class Hood extends SubsystemBase implements AutoCloseable {
     public void close() throws Exception{
         m_left.close();
         m_right.close();
+        // m_dutyCycleInput.close();
+        // m_dutyCycle.close();
         m_potentiometer.close();
     }
 }
