@@ -8,13 +8,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.AutoCommand;
-import frc.robot.commands.DriveOnlyAutoCommand;
-// import frc.robot.commands.SnapTurretToTarget;
 import frc.robot.subsystems.Intake;
 // import cwtech.trigger.ModeTrigger;
-// import frc.robot.subsystems.SwerveModule;
-// import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 
@@ -22,8 +17,6 @@ import frc.robot.subsystems.Vision;
 
 public class Robot extends TimedRobot {
     private RobotContainer m_robotContainer = new RobotContainer();
-    private AutoCommand m_autoCommand = new AutoCommand(m_robotContainer);
-    private DriveOnlyAutoCommand m_autoCommandOnly = new DriveOnlyAutoCommand(m_robotContainer);
     private int m_initTicks = 1;
 
     @Override
@@ -34,7 +27,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putString("Hood Angle MESSAGE", "");
         SmartDashboard.putString("Shooter Speed MESSAGE", "");
         SmartDashboard.putData("CS", CommandScheduler.getInstance());
-        // SmartDashboard.putData(CommandScheduler.getInstance());
 
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveP, SwerveModule.kDriveKp);
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveI, SwerveModule.kDriveKi);
@@ -50,24 +42,28 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putNumber(DashboardMap.kOIYExponent, OI.kDriverYexponent);
         // SmartDashboard.putNumber(DashboardMap.kOITurnDeadband, OI.kDriverRotationDeadband);
         // SmartDashboard.putNumber(DashboardMap.kOITurnExponent, OI.kDriverRotationExponent);
+
         SmartDashboard.putNumber(DashboardMap.kIntakeSpeed, Intake.kIntakeSpeed);
-        // SmartDashboard.putNumber(DashboardMap.kTrajectoryTyOffset, Vision.kCameraTYOffset);
+
+        SmartDashboard.putNumber(DashboardMap.kTrajectoryTyOffset, Vision.kCameraTYOffset);
+
         SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
         SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
+
         SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
         SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
+
         SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
         SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
         SmartDashboard.putNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed);
-        SmartDashboard.putNumber("Shooter/P", 0.0005);
-        SmartDashboard.putNumber("Shooter/FF", 0.0008);
-        SmartDashboard.putNumber("Shooter/I", 0.0);
-        SmartDashboard.putNumber("Shooter/D", 0.00002);
-        SmartDashboard.putBoolean("Field Centric", true);
-        SmartDashboard.putNumber("Shooter/Multi", 1.195);
-        SmartDashboard.putNumber("Shooter/Entry Angle", -70);
-        SmartDashboard.putBoolean("Only Drive Auto", false);
-        SmartDashboard.putNumber("Shooter/TY Offset", Vision.kCameraTYOffset);
+        SmartDashboard.putNumber(DashboardMap.kShooterFf, Shooter.kShooterFf);
+        SmartDashboard.putNumber(DashboardMap.kShooterP, Shooter.kShooterKp);
+        SmartDashboard.putNumber(DashboardMap.kShooterI, Shooter.kShooterKi);
+        SmartDashboard.putNumber(DashboardMap.kShooterD, Shooter.kShooterKd);
+        SmartDashboard.putNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
+        SmartDashboard.putNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle);
+
+        SmartDashboard.putBoolean(DashboardMap.kFieldCentric, true);
     }
 
     @Override
@@ -78,7 +74,6 @@ public class Robot extends TimedRobot {
             if (m_initTicks == 100)
             {
                 m_initTicks = -1;
-                m_robotContainer.hood.initialization();
                 m_robotContainer.drivetrain.setInitalPositions();
                 m_robotContainer.drivetrain.resetNavX();
                 m_robotContainer.turret.resetEncoder();

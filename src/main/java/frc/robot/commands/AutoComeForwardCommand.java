@@ -21,18 +21,11 @@ public class AutoComeForwardCommand extends SequentialCommandGroup {
             new InstantCommand(() -> {
                 container.drivetrain.drive(0, 3, 0, false);
             }, container.drivetrain),
-            new WaitCommand(3),
+            new WaitCommand(2),
             new InstantCommand(() -> {
                 container.drivetrain.drive(0, 0, 0, false);
             }, container.drivetrain),
             new FireCommand(container),
-            new InstantCommand(() -> {
-                container.drivetrain.drive(0, -3, 0, false);
-            }, container.drivetrain),
-            new WaitCommand(3),
-            new InstantCommand(() -> {
-                container.drivetrain.drive(0, 0, 0, false);
-            }, container.drivetrain),
             new SetHoodAngleCommand(container, 1)
         );
     }

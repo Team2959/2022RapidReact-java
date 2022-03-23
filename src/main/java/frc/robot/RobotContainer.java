@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.AutoComeForwardCommand;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriveOnlyAutoCommand;
-// import frc.robot.commands.SnapTurretToTarget;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.ColorSensor;
@@ -43,6 +42,5 @@ public class RobotContainer {
         m_autoChooser.addOption("2 Ball Close", m_autoComeForwardCommand);
         m_autoChooser.setDefaultOption("Drive", m_driveOnlyAutoCommand);
         SmartDashboard.putData("Auto", m_autoChooser);
-        // turret.setDefaultCommand(new SnapTurretToTarget(this));
     }
 }

@@ -11,10 +11,17 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.DashboardMap;
 import frc.robot.RobotMap;
 
 public class Shooter extends SubsystemBase {
     public static final double kAcceleratorSpeed = 0.60;
+    public static final double kShooterFf = 0.0008;
+    public static final double kShooterKp = 0.0008;
+    public static final double kShooterKi = 0.0;
+    public static final double kShooterKd = 0.0;
+    public static final double kShooterEntryAngle = -70;
+    public static final double kShooterMulti = 1.195;
 
     private final CANSparkMax m_mainMotor;
     private final CANSparkMax m_followerMotor;
@@ -33,21 +40,22 @@ public class Shooter extends SubsystemBase {
         
         m_accelerator = new VictorSPX(RobotMap.kAcceleratorVictorSPX);
  
-        m_mainMotorController.setFF(0.0008);
-        m_mainMotorController.setP(0.0008);
-        m_mainMotorController.setD(0);
+        m_mainMotorController.setFF(kShooterFf);
+        m_mainMotorController.setP(kShooterKp);
+        m_mainMotorController.setI(kShooterKi);
+        m_mainMotorController.setD(kShooterKd);
     
         m_followerMotor.follow(m_mainMotor, true);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Shooter/Velocity", getVelocity());
+        SmartDashboard.putNumber(DashboardMap.kShooterVelocity, getVelocity());
 
-        m_mainMotorController.setP(SmartDashboard.getNumber("Shooter/P", 0.0005));
-        m_mainMotorController.setFF(SmartDashboard.getNumber("Shooter/FF", 0.0008));
-        m_mainMotorController.setI(SmartDashboard.getNumber("Shooter/I", 0.0));
-        m_mainMotorController.setD(SmartDashboard.getNumber("Shooter/D", 0.00002));
+        m_mainMotorController.setFF(SmartDashboard.getNumber(DashboardMap.kShooterFf, kShooterFf));
+        m_mainMotorController.setP(SmartDashboard.getNumber(DashboardMap.kShooterP, kShooterKp));
+        m_mainMotorController.setI(SmartDashboard.getNumber(DashboardMap.kShooterI, kShooterKi));
+        m_mainMotorController.setD(SmartDashboard.getNumber(DashboardMap.kShooterD, kShooterKd));
     }
 
     /** @param speed Value between 0 and 4500 */

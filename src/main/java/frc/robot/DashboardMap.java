@@ -33,9 +33,18 @@ public class DashboardMap {
     public static final String kShooterUseManualSpeed = key("Use Specified Speed", kShooter);
     public static final String kShooterManualSpeed = key("Set Speed", kShooter);
     public static final String kShooterAcceleratorSpeed = key("Accelarator Speed", kShooter);
+    public static final String kShooterP = key("Shooter P", kShooter);
+    public static final String kShooterI = key("Shooter I", kShooter);
+    public static final String kShooterD = key("Shooter D", kShooter);
+    public static final String kShooterFf = key("Shooter FF", kShooter);
+    public static final String kShooterVelocity = key("Velocity", kShooter);
+    public static final String kShooterEntryAngle = key("Entry Angle", kShooter);
+    public static final String kShooterMulti = key("Multi", kShooter);
 
     public static final String kTrajectory = "Trajectory";
     public static final String kTrajectoryTyOffset = key("TY Offset", kTrajectory);
+
+    public static final String kFieldCentric = "Field Centric";
 
     private static String key(String key, String parent) {
         if(parent == null) {

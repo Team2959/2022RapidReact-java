@@ -4,8 +4,6 @@ package frc.robot;
 
 import cwtech.util.Conditioning;
 import edu.wpi.first.wpilibj.Joystick;
-// import edu.wpi.first.wpilibj2.command.InstantCommand;
-// import edu.wpi.first.wpilibj2.command.RunCommand;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendClimbHooksCommand;
@@ -18,7 +16,6 @@ import frc.robot.commands.ReverseAccelaratorCommand;
 import frc.robot.commands.ReverseIntakeCommand;
 import frc.robot.commands.SafeZoneShotCommandGroup;
 import frc.robot.commands.SetHoodAngleCommand;
-import frc.robot.commands.SetHoodAnglePIDCommand;
 // import frc.robot.commands.TurnTurretToPositionCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Hood;

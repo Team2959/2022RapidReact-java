@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DashboardMap;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 
 public class SetHoodAngleCommand extends CommandBase {
@@ -43,7 +44,7 @@ public class SetHoodAngleCommand extends CommandBase {
             }
             else {
                 double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
-                TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber("Shooter/Entry Angle", -70), distanceMeters, Vision.kDifferenceMeters);
+                TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle), distanceMeters, Vision.kDifferenceMeters);
                 m_hoodPositionDegrees = calculation.m_shootingAngleDegrees;
                 SmartDashboard.putNumber("Hood Target Angle From Vision", m_hoodPositionDegrees);
             }
@@ -93,5 +94,4 @@ public class SetHoodAngleCommand extends CommandBase {
         m_container.hood.setSpeed(0.0);
         SmartDashboard.putString("Shooter Speed MESSAGE", "ended");
     }
-    
 }
