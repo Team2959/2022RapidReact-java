@@ -4,6 +4,7 @@ package frc.robot;
 
 import cwtech.util.Conditioning;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendClimbHooksCommand;
@@ -43,7 +44,7 @@ public class OI {
     private final JoystickButton m_retractClimbHooksButton;
     private final JoystickButton m_fireButton;
     private final JoystickButton m_hoodDownButton;
-    // private final JoystickButton m_testButton;
+    private final JoystickButton m_testButton;
     private final JoystickButton m_safeZoneShotButton;
     private final JoystickButton m_wallShotButton;
     private final JoystickButton m_gloryShotButton;
@@ -75,7 +76,7 @@ public class OI {
         m_retractClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kRetractClimbHooksButton);
         m_fireButton = new JoystickButton(m_buttonBox, RobotMap.kFireButton);
         m_hoodDownButton = new JoystickButton(m_buttonBox, RobotMap.kHoodDownButton);
-        // m_testButton = new JoystickButton(m_buttonBox, RobotMap.kTestButton);
+        m_testButton = new JoystickButton(m_buttonBox, RobotMap.kTestButton);
         m_safeZoneShotButton = new JoystickButton(m_buttonBox, RobotMap.kSafeZoneShotButton);
         m_wallShotButton = new JoystickButton(m_buttonBox, RobotMap.kWallShotButton);
         m_gloryShotButton = new JoystickButton(m_buttonBox, RobotMap.kGloryShotButton);
@@ -91,7 +92,9 @@ public class OI {
         m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, Hood.kMinDegrees));
         m_safeZoneShotButton.whenPressed(new SafeZoneShotCommandGroup(m_container));
         m_wallShotButton.whenPressed(new LowGoalWallShotCommandGroup(m_container));
-        // m_testButton.whenPressed(new TurnTurretToPositionCommand(m_container, 0));
+        m_testButton.whenPressed(new InstantCommand(() -> {
+            m_container.shooter.setVelocity(300);
+        }, m_container.shooter));
         m_gloryShotButton.whenPressed(new GloryShotCommand(m_container));
         m_reverseAccButton.whileHeld(new ReverseAccelaratorCommand(m_container));
         m_hoodUpButton.whenPressed(new SetHoodAngleCommand(m_container, 1));

@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
@@ -22,7 +22,7 @@ public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
       new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(2),
       new FeedCargoAndRetractCommand(container.shooter, 0.25),
       new WaitCommand(1.5),
-      new RunCommand(() -> {
+      new InstantCommand(() -> {
           container.shooter.setVelocity(0);
           container.shooter.setAccelarator(0);
       }, container.shooter)

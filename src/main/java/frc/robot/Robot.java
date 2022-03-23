@@ -23,10 +23,10 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         LiveWindow.disableAllTelemetry();
         SmartDashboard.putString("MESSAGE", "started");
-        SmartDashboard.putString("Snap Turret MESSAGE", "");
-        SmartDashboard.putString("Hood Angle MESSAGE", "");
-        SmartDashboard.putString("Shooter Speed MESSAGE", "");
-        SmartDashboard.putData("CS", CommandScheduler.getInstance());
+        // SmartDashboard.putString("Snap Turret MESSAGE", "");
+        // SmartDashboard.putString("Hood Angle MESSAGE", "");
+        // SmartDashboard.putString("Shooter Speed MESSAGE", "");
+        // SmartDashboard.putData("CS", CommandScheduler.getInstance());
 
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveP, SwerveModule.kDriveKp);
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveI, SwerveModule.kDriveKi);
@@ -47,15 +47,15 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber(DashboardMap.kTrajectoryTyOffset, Vision.kCameraTYOffset);
 
-        SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
-        SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
+        // SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
+        // SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
 
-        SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
-        SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
+        // SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
+        // SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
 
-        SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
-        SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
-        SmartDashboard.putNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed);
+        // SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
+        // SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
+        // SmartDashboard.putNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed);
         SmartDashboard.putNumber(DashboardMap.kShooterFf, Shooter.kShooterFf);
         SmartDashboard.putNumber(DashboardMap.kShooterP, Shooter.kShooterKp);
         SmartDashboard.putNumber(DashboardMap.kShooterI, Shooter.kShooterKi);
@@ -94,6 +94,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
+        m_robotContainer.shooter.onDisabledPeriodic();
     }
 
     @Override

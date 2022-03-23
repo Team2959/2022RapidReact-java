@@ -30,15 +30,15 @@ public class SetShooterSpeedCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        SmartDashboard.putString("Shooter Speed MESSAGE", "started");
+        // SmartDashboard.putString("Shooter Speed MESSAGE", "started");
         if (m_desiredRpm >= 0.0)
         {
             m_targetRpm = m_desiredRpm;
         }
-        else if (SmartDashboard.getBoolean(DashboardMap.kShooterUseManualSpeed, false))
-        {
-            m_targetRpm = SmartDashboard.getNumber(DashboardMap.kShooterManualSpeed, 0.0);
-        }
+        // else if (SmartDashboard.getBoolean(DashboardMap.kShooterUseManualSpeed, false))
+        // {
+        //     m_targetRpm = SmartDashboard.getNumber(DashboardMap.kShooterManualSpeed, 0.0);
+        // }
         else
         {
             double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
@@ -67,7 +67,8 @@ public class SetShooterSpeedCommand extends CommandBase {
         */
 
         m_container.shooter.setVelocity(m_targetRpm);
-        m_container.shooter.setAccelarator(m_targetRpm > 0 ? SmartDashboard.getNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed) : 0.0);
+        // m_container.shooter.setAccelarator(m_targetRpm > 0 ? SmartDashboard.getNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed) : 0.0);
+        m_container.shooter.setAccelarator(m_targetRpm > 0 ? Shooter.kAcceleratorSpeed : 0.0);
     }
 
     @Override
@@ -79,8 +80,8 @@ public class SetShooterSpeedCommand extends CommandBase {
             return m_container.shooter.getVelocity() < m_targetRpm + 100;
     }
 
-    @Override
-    public void end(boolean interrupted) {
-        SmartDashboard.putString("Shooter Speed MESSAGE", "ended");
-    }
+    // @Override
+    // public void end(boolean interrupted) {
+    //     SmartDashboard.putString("Shooter Speed MESSAGE", "ended");
+    // }
 }
