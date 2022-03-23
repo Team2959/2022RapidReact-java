@@ -4,6 +4,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.AutoComeForwardCommand;
+import frc.robot.commands.AutoCommand;
+import frc.robot.commands.DriveOnlyAutoCommand;
 // import frc.robot.commands.SnapTurretToTarget;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.Climb;
@@ -26,9 +32,17 @@ public class RobotContainer {
     public final ColorSensor colorSensor = new ColorSensor();
     public final OI oi = new OI(this);
 
+    private final AutoCommand m_autoCommand = new AutoCommand(this);
+    private final AutoComeForwardCommand m_autoComeForwardCommand = new AutoComeForwardCommand(this);
+    private final DriveOnlyAutoCommand m_driveOnlyAutoCommand = new DriveOnlyAutoCommand(this);
+    public final SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
 
     public RobotContainer() {
         drivetrain.setDefaultCommand(new TeleopDriveCommand(this, true));
+        m_autoChooser.addOption("2 Ball Away", m_autoCommand);
+        m_autoChooser.addOption("2 Ball Close", m_autoComeForwardCommand);
+        m_autoChooser.setDefaultOption("Drive", m_driveOnlyAutoCommand);
+        SmartDashboard.putData("Auto", m_autoChooser);
         // turret.setDefaultCommand(new SnapTurretToTarget(this));
     }
 }

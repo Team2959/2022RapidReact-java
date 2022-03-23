@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putString("Snap Turret MESSAGE", "");
         SmartDashboard.putString("Hood Angle MESSAGE", "");
         SmartDashboard.putString("Shooter Speed MESSAGE", "");
+        SmartDashboard.putData("CS", CommandScheduler.getInstance());
         // SmartDashboard.putData(CommandScheduler.getInstance());
 
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveP, SwerveModule.kDriveKp);
@@ -102,12 +103,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        if(SmartDashboard.getBoolean("Only Drive Auto", false)) {
-            m_autoCommandOnly.schedule();
-        } else {
-
-            m_autoCommand.schedule();
-        }
+        m_robotContainer.m_autoChooser.getSelected().schedule();
         // ModeTrigger.registerMode(ModeTrigger.Mode.Autonomous);
     }
 

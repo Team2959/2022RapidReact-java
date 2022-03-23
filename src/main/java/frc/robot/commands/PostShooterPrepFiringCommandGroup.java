@@ -7,7 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.ColorSensor.ColorType;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,7 +19,7 @@ public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
   public PostShooterPrepFiringCommandGroup(RobotContainer container) {
     addCommands(
       new FeedCargoAndRetractCommand(container.shooter, 0.25),
-      new WaitCommand(1.9),
+      new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(2),
       new FeedCargoAndRetractCommand(container.shooter, 0.25),
       new WaitCommand(1.5),
       new RunCommand(() -> {

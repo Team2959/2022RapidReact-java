@@ -10,7 +10,7 @@ import frc.robot.DashboardMap;
 import frc.robot.RobotMap;
 
 public class Intake extends SubsystemBase implements AutoCloseable {
-    public static final double kIntakeSpeed = 0.60;
+    public static final double kIntakeSpeed = 0.80;
     private final Solenoid m_arms;
     private final CANSparkMax m_motor;
 

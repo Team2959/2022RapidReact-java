@@ -14,7 +14,7 @@ public class SetHoodAngleCommand extends CommandBase {
     private double m_hoodPositionDegrees = 0.0;
     private double m_hoodPosition = 0.0;
     private boolean m_backwards;
-    private final double kSpeed = 0.65;
+    private final double kSpeed = 1.0;
 
     public SetHoodAngleCommand(RobotContainer container) { 
         m_container = container;
@@ -53,7 +53,7 @@ public class SetHoodAngleCommand extends CommandBase {
         SmartDashboard.putNumber("Hood Target Debug", m_hoodPosition);
 
         m_hoodPosition = Math.max(m_hoodPosition, m_container.hood.getMinEncoder());
-        m_hoodPosition = Math.min(m_hoodPosition, Hood.kMaxEncoder);
+        m_hoodPosition = Math.min(m_hoodPosition, m_container.hood.getMaxEncoder());
 
         SmartDashboard.putNumber("Hood Target Debug Limited", m_hoodPosition);
         double hoodPosition = m_container.hood.getPosition();
