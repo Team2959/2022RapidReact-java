@@ -5,6 +5,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.DashboardMap;
 
 public class Vision extends SubsystemBase {
     private final NetworkTableEntry m_txEntry;
@@ -36,7 +37,7 @@ public class Vision extends SubsystemBase {
      * @return Vertical offset from cross to target -24.85 to 24.85 degrees
     */
     public double getTY() {
-        return (double) m_tyEntry.getNumber(0.0) - SmartDashboard.getNumber("Shooter/TY Offset", Vision.kCameraTYOffset);
+        return (double) m_tyEntry.getNumber(0.0) - SmartDashboard.getNumber(DashboardMap.kTrajectoryTyOffset, Vision.kCameraTYOffset);
     }
 
     /** Calculates distance from a target.
