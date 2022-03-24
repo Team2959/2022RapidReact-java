@@ -17,11 +17,11 @@ import frc.robot.RobotMap;
 public class Shooter extends SubsystemBase {
     public static final double kAcceleratorSpeed = 0.60;
     public static final double kShooterFf = 0.0013;
-    public static final double kShooterKp = 0.00045;
+    public static final double kShooterKp = 0.00046;
     public static final double kShooterKi = 0.0;
     public static final double kShooterKd = 0.00007;
     public static final double kShooterEntryAngle = -70;
-    public static final double kShooterMulti = 0.97;
+    public static final double kShooterMulti = 0.85;
 
     private final CANSparkMax m_mainMotor;
     private final CANSparkMax m_followerMotor;
