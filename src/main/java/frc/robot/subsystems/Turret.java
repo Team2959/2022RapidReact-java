@@ -63,12 +63,12 @@ public class Turret extends SubsystemBase {
 
     private final double kVisionError = 2;
     public boolean isCloseEnoughToTarget(double targetAngle){
-        double current = getAngleDegrees();
-        if (targetAngle < 0 && current < targetAngle)
-          return true;
-          if (targetAngle > 0 && current > targetAngle)
-          return true;
-      return Math.abs(current - targetAngle) < kVisionError;
+        // double current = getAngleDegrees();
+        // if (targetAngle < 0 && current < targetAngle)
+        //   return true;
+        //   if (targetAngle > 0 && current > targetAngle)
+        //   return true;
+      return Math.abs(getAngleDegrees() - targetAngle) < kVisionError;
       }
 
     // @Override
