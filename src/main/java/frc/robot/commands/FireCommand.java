@@ -17,8 +17,8 @@ public class FireCommand extends SequentialCommandGroup {
             new FeedCargoAndRetractCommand(container.shooter, 0.25),
             new SnapTurretToTarget(container),
             new WaitCommand(.25),
-            new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(2),
-            new WaitCommand(.5),
+            new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(1),
+            new WaitCommand(1),
             new FeedCargoAndRetractCommand(container.shooter, 0.25),
             new WaitCommand(1.5),
             new InstantCommand(() -> {

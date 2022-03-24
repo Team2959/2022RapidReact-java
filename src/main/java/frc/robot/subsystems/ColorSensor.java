@@ -14,7 +14,7 @@ public final class ColorSensor extends SubsystemBase {
     private final ColorSensorV3 m_colorSensor;
     private final ColorMatch m_colorMatcher;
     private final Color m_blueTarget = new Color(0.2, 0.45, 0.3);
-    private final Color m_redTarget = new Color(0.6, 0.3, 0.05);
+    private final Color m_redTarget = new Color(0.5, 0.35, 0.05);
 
     
     public ColorSensor() {
