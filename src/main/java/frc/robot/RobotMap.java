@@ -54,7 +54,7 @@ public final class RobotMap {
     public static final int kRetractClimbHooksButton = 5;
     public static final int kReverseIntakeButton = 10;
     public static final int kHoodDownButton = 8;
-    public static final int kTestButton = 3;
+    public static final int kTestButton = 2;
     public static final int kSafeZoneShotButton = 12;
     public static final int kWallShotButton = 9;
     public static final int kGloryShotButton = 7;

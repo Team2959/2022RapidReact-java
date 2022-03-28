@@ -19,9 +19,10 @@ public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
   public PostShooterPrepFiringCommandGroup(RobotContainer container) {
     addCommands(
       new FeedCargoAndRetractCommand(container.shooter, 0.25),
-      new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(2),
+      new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(1),
+      new WaitCommand(0.75),
       new FeedCargoAndRetractCommand(container.shooter, 0.25),
-      new WaitCommand(1.5),
+      new WaitCommand(1.0),
       new InstantCommand(() -> {
           container.shooter.setVelocity(0);
           container.shooter.setAccelarator(0);

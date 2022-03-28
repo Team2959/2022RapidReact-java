@@ -21,7 +21,7 @@ public class Shooter extends SubsystemBase {
     public static final double kShooterKi = 0.0;
     public static final double kShooterKd = 0.00007;
     public static final double kShooterEntryAngle = -70;
-    public static final double kShooterMulti = 0.85;
+    public static final double kShooterMulti = 0.805;
 
     private final CANSparkMax m_mainMotor;
     private final CANSparkMax m_followerMotor;
@@ -30,6 +30,7 @@ public class Shooter extends SubsystemBase {
     private final Solenoid m_feeder;
     private final VictorSPX m_accelerator;
     static public final double kWheelRadius = 2.5 * 0.0254;
+    public static final double kIdleSpeed = 100;
 
     public Shooter() {
         m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);

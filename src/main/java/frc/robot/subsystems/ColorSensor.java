@@ -13,8 +13,8 @@ public final class ColorSensor extends SubsystemBase {
 
     private final ColorSensorV3 m_colorSensor;
     private final ColorMatch m_colorMatcher;
-    private final Color m_blueTarget = new Color(0.2, 0.45, 0.3);
-    private final Color m_redTarget = new Color(0.5, 0.35, 0.05);
+    private final Color m_blueTarget = new Color(0.19, 0.43, 0.38);
+    private final Color m_redTarget = new Color(0.44, 0.39, 0.17);
 
     
     public ColorSensor() {
@@ -46,10 +46,10 @@ public final class ColorSensor extends SubsystemBase {
 
         if(matchedColor.confidence > 0.92)
         {
-            if(matchedColor.color.red > 0.4){
+            if(matchedColor.color.red >= 0.3){
                 SmartDashboard.putString("Matched Color", "Red");
                 return ColorType.Red;
-            } else if(matchedColor.color.red < 0.4){
+            } else if(matchedColor.color.red < 0.3){
                 SmartDashboard.putString("Matched Color", "Blue");
                 return ColorType.Blue;
             }
