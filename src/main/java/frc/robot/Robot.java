@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle);
 
         SmartDashboard.putBoolean(DashboardMap.kFieldCentric, true);
+        m_robotContainer.init();
     }
 
     @Override
@@ -82,6 +83,7 @@ public class Robot extends TimedRobot {
         }
 
         CommandScheduler.getInstance().run();
+        m_robotContainer.periodic();
     }
 
     @Override

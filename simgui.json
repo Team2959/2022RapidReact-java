@@ -1,10 +1,5 @@
 {
   "HALProvider": {
-    "Analog Inputs": {
-      "window": {
-        "visible": true
-      }
-    },
     "DIO": {
       "window": {
         "visible": true
@@ -33,16 +28,40 @@
       "window": {
         "visible": true
       }
+    },
+    "Timing": {
+      "window": {
+        "visible": false
+      }
     }
   },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Auto": "String Chooser",
       "/SmartDashboard/Scheduler": "Scheduler"
     }
   },
   "NetworkTables": {
-    "FMSInfo": {
+    "Drivetrain": {
+      "Back Left": {
+        "open": true
+      },
+      "Back Right": {
+        "open": true
+      },
+      "Front Left": {
+        "open": true
+      },
+      "Front Right": {
+        "open": true
+      },
+      "Odometry": {
+        "open": true
+      },
+      "open": true
+    },
+    "SmartDashboard": {
       "open": true
     }
   }

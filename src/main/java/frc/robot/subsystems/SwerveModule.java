@@ -12,6 +12,10 @@ import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 
+import cwtech.telemetry.Observer;
+import cwtech.telemetry.Telemetry;
+
+@Telemetry
 public class SwerveModule {
     public static final double kDriveKp = 0.05;
     public static final double kDriveKi = 0.0;
@@ -89,9 +93,9 @@ public class SwerveModule {
     }
 
     public void periodic() {
-        SmartDashboard.putNumber(m_name + "/Encoder", getAbsoluteEncoderPosition());
     }
 
+    @Observer(key = "Absolute Encoder")
     public double getAbsoluteEncoderPosition() {
         double initalPosition = m_dutyCycleEncoder.getOutput();
         double initalPositionInRadians = initalPosition * 2.0 * Math.PI;

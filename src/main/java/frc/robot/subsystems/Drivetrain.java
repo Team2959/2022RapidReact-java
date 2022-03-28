@@ -2,6 +2,9 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import cwtech.telemetry.Entry;
+import cwtech.telemetry.Observer;
+import cwtech.telemetry.Telemetry;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -15,7 +18,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import frc.robot.DashboardMap;
 import frc.robot.RobotMap;
 
+@Telemetry
 public class Drivetrain extends SubsystemBase {
+
+    @Entry(key = "hello")
+    double m_hello = 0.0;
 
     public static final double kMaxSpeedMetersPerSecond = 25;
     public static final double kMaxAngularSpeedRadiansPerSecond = 4 * Math.PI;
@@ -27,9 +34,13 @@ public class Drivetrain extends SubsystemBase {
     private static final Translation2d kBackRightLocation = new Translation2d(-0.381, +0.381);
 
 
+    @Entry(key = "Front Left")
     private SwerveModule m_frontLeft;
+    @Entry(key = "Front Right")
     private SwerveModule m_frontRight;
+    @Entry(key = "Back Left")
     private SwerveModule m_backLeft;
+    @Entry(key = "Back Right")
     private SwerveModule m_backRight;
 
     private AHRS m_navX;
@@ -118,6 +129,7 @@ public class Drivetrain extends SubsystemBase {
         return m_odometry.getPoseMeters();
     }
 
+    @Observer(key = "Angle")
     public double getGyroAngle() {
         return m_navX.getAngle();
     }
@@ -132,5 +144,15 @@ public class Drivetrain extends SubsystemBase {
 
     public void resetOdometry(Pose2d pose) {
         m_odometry.resetPosition(pose, m_navX.getRotation2d());
+    }
+
+    @Observer(key = "Odometry/X")
+    private double m_X() {
+        return m_odometry.getPoseMeters().getX();
+    }
+
+    @Observer(key = "Odometry/Y")
+    private double m_Y() {
+        return m_odometry.getPoseMeters().getY();
     }
 }
