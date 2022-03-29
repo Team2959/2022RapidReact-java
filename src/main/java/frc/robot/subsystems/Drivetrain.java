@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import frc.robot.DashboardMap;
@@ -21,10 +22,10 @@ public class Drivetrain extends SubsystemBase {
     public static final double kMaxAngularSpeedRadiansPerSecond = 4 * Math.PI;
 
 
-    private static final Translation2d kFrontLeftLocation = new Translation2d(+0.381, -0.381);
-    private static final Translation2d kFrontRightLocation = new Translation2d(-0.381, -0.381);
-    private static final Translation2d kBackLeftLocation = new Translation2d(+0.381, +0.381);
-    private static final Translation2d kBackRightLocation = new Translation2d(-0.381, +0.381);
+    private final Translation2d kFrontLeftLocation = new Translation2d(0.381, 0.381);
+    private final Translation2d kFrontRightLocation = new Translation2d(0.381, -0.381);
+    private final Translation2d kBackLeftLocation = new Translation2d(-0.381, 0.381);
+    private final Translation2d kBackRightLocation = new Translation2d(-0.381, -0.381);
 
 
     private SwerveModule m_frontLeft;
@@ -48,6 +49,12 @@ public class Drivetrain extends SubsystemBase {
         m_backRight.onDisabledInit();
     }
 
+    public void setDesiredState(SwerveModuleState[] states) {
+        m_frontLeft.setDesiredState(states[0]);
+        m_frontRight.setDesiredState(states[1]);
+        m_backLeft.setDesiredState(states[2]);
+        m_backRight.setDesiredState(states[3]);
+    }
 
     public Drivetrain() {
         m_navX = new AHRS(Port.kMXP);
@@ -101,6 +108,10 @@ public class Drivetrain extends SubsystemBase {
         m_frontRight.periodic();
         m_backLeft.periodic();
         m_backRight.periodic();
+
+        var pos = m_odometry.getPoseMeters();
+        SmartDashboard.putNumber("Odometry/X", pos.getX());
+        SmartDashboard.putNumber("Odometry/Y", pos.getY());
     }
 
     public void setInitalPositions() {

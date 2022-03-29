@@ -4,6 +4,7 @@ package frc.robot;
 
 import cwtech.util.Conditioning;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -53,6 +54,7 @@ public class OI {
     private final JoystickButton m_reverseAccButton;
     private final JoystickButton m_hoodUpButton;
     private final JoystickButton m_fireOverride;
+    private final JoystickButton m_toggleIntakeButtonLeft;
 
     public OI(RobotContainer container) {
         m_container = container;
@@ -85,8 +87,10 @@ public class OI {
         m_reverseAccButton = new JoystickButton(m_buttonBox, RobotMap.kReverseAccButton);
         m_hoodUpButton = new JoystickButton(m_buttonBox, RobotMap.kHoodUpButton);
         m_fireOverride = new JoystickButton(m_buttonBox, RobotMap.kFireOverrideButton);
+        m_toggleIntakeButtonLeft = new JoystickButton(m_leftJoystick, 1);
 
         m_toggleIntakeButton.whenPressed(new IntakeToggleCommand(m_container));
+        m_toggleIntakeButtonLeft.whenPressed(new IntakeToggleCommand(m_container));
         m_reverseIntakeButton.whileHeld(new ReverseIntakeCommand(m_container));
         m_extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(m_container));
         m_retractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container));
@@ -119,17 +123,18 @@ public class OI {
     }
 
     public DriveState getDriveState() {
-        double x = m_leftJoystick.getX();
-        x = -m_xConditioning.condition(x);
+        double multiplier = Math.min(1.0, SmartDashboard.getNumber("Drive Reducer", 0.75));
+        double x = m_leftJoystick.getY() * multiplier;
+        x = m_xConditioning.condition(x);
         double xSpeed = x * Drivetrain.kMaxSpeedMetersPerSecond;
         
-        double y = m_leftJoystick.getY();
+        double y = m_leftJoystick.getX() * multiplier;
         y = m_yConditioning.condition(y);
         double ySpeed = y * Drivetrain.kMaxSpeedMetersPerSecond;
 
         double r = m_rightJoystick.getX();
         r = m_rotationConditioning.condition(r);
-        double rotation = -r * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
+            double rotation = r * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
 
         return new DriveState(xSpeed, ySpeed, rotation);
     }

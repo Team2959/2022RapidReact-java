@@ -62,6 +62,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber(DashboardMap.kShooterD, Shooter.kShooterKd);
         SmartDashboard.putNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
         SmartDashboard.putNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle);
+        SmartDashboard.putNumber("Drive Reducer", 0.75);
 
         SmartDashboard.putBoolean(DashboardMap.kFieldCentric, true);
     }

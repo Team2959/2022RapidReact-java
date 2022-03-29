@@ -67,9 +67,9 @@ public final class RobotMap {
 
     // Zeroed values, should be in radians
     //private static final double kOffsetZeroed = Math.PI / 2;
-    public static final double kZeroedFrontLeft = 3.082;
-    public static final double kZeroedFrontRight = 0; // -3.12;
-    public static final double kZeroedBackLeft = 0.520;
-    public static final double kZeroedBackRight = -0.230;
+    public static final double kZeroedFrontLeft = 3.082 + Math.toRadians(90);
+    public static final double kZeroedFrontRight = 0 + Math.toRadians(90); // -3.12;
+    public static final double kZeroedBackLeft = 0.520 + Math.toRadians(90);
+    public static final double kZeroedBackRight = -0.230 + Math.toRadians(90);
     public static final double kZeroedTurret = 0.0;
 }
