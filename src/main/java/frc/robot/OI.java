@@ -136,6 +136,10 @@ public class OI {
         r = m_rotationConditioning.condition(r);
             double rotation = r * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
 
+        SmartDashboard.putNumber("OI/X Speed", xSpeed);
+        SmartDashboard.putNumber("OI/Y Speed", ySpeed);
+        SmartDashboard.putNumber("OI/Rotation Speed", rotation);
+
         return new DriveState(xSpeed, ySpeed, rotation);
     }
 

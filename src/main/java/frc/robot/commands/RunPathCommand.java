@@ -13,13 +13,14 @@ import frc.robot.RobotContainer;
 
 public class RunPathCommand extends SequentialCommandGroup {
     public RunPathCommand(RobotContainer container, String path) {
-        PathPlannerTrajectory trajectory = PathPlanner.loadPath(path, 8, 5);
+        PathPlannerTrajectory trajectory = PathPlanner.loadPath(path, 1, 0.5);
+        container.drivetrain.resetOdometry(trajectory.getInitialPose());
         PPSwerveControllerCommand command = new PPSwerveControllerCommand(trajectory,
                 () -> container.drivetrain.getPose(),
                 container.drivetrain.getKinematics(),
-                new PIDController(1, 0, 0),
-                new PIDController(1, 0, 0),
-                new ProfiledPIDController(1, 0, 0, new Constraints(8, 5)),
+                new PIDController(3, 0, 0),
+                new PIDController(3, 0, 0),
+                new ProfiledPIDController(3, 0, 0, new Constraints(Math.PI, Math.PI)),
                 (SwerveModuleState[] states) -> container.drivetrain.setDesiredState(states),
                 container.drivetrain);
         addCommands(command);

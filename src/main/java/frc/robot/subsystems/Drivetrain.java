@@ -17,11 +17,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
 public class Drivetrain extends SubsystemBase {
-
-    public static final double kMaxSpeedMetersPerSecond = 25;
-    public static final double kMaxAngularSpeedRadiansPerSecond = 4 * Math.PI;
-
-
+    public static final double kMaxSpeedMetersPerSecond = 4;
+    public static final double kMaxAngularSpeedRadiansPerSecond = kMaxSpeedMetersPerSecond / Math.hypot(0.381, 0.381);
+    
     private final Translation2d kFrontLeftLocation = new Translation2d(0.381, 0.381);
     private final Translation2d kFrontRightLocation = new Translation2d(0.381, -0.381);
     private final Translation2d kBackLeftLocation = new Translation2d(-0.381, 0.381);
@@ -50,6 +48,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void setDesiredState(SwerveModuleState[] states) {
+        SmartDashboard.putNumber("SM/MPS", states[0].speedMetersPerSecond);
         m_frontLeft.setDesiredState(states[0]);
         m_frontRight.setDesiredState(states[1]);
         m_backLeft.setDesiredState(states[2]);
@@ -91,6 +90,8 @@ public class Drivetrain extends SubsystemBase {
         SwerveModuleState fr = states[1];
         SwerveModuleState bl = states[2];
         SwerveModuleState br = states[3];
+
+        SmartDashboard.putNumber("SM/MPS", fl.speedMetersPerSecond);
 
         m_frontLeft.setDesiredState(fl);
         m_frontRight.setDesiredState(fr);

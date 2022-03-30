@@ -35,7 +35,7 @@ public class RobotContainer {
     private final AutoCommand m_autoCommand = new AutoCommand(this);
     private final AutoComeForwardCommand m_autoComeForwardCommand = new AutoComeForwardCommand(this);
     private final DriveOnlyAutoCommand m_driveOnlyAutoCommand = new DriveOnlyAutoCommand(this);
-    private final RunPathCommand m_autoPathCommand = new RunPathCommand(this, "Basic");
+    private final RunPathCommand m_autoPathCommand = new RunPathCommand(this, "S-CURVE");
     public final SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
 
     public RobotContainer() {
