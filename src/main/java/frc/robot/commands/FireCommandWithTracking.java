@@ -21,7 +21,7 @@ public class FireCommandWithTracking extends SequentialCommandGroup {
 
     addCommands(
       new TuneShooterAndHoodCommand(container),
-      new WaitCommand(0.75),
+      new WaitCommand(1.0),
       new ActiveTargetTrackingAndFire(container)
       );
   }

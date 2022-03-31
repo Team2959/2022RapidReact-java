@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendClimbHooksCommand;
-import frc.robot.commands.FireCommand;
+// import frc.robot.commands.FireCommand;
 import frc.robot.commands.FireCommandWithTracking;
 import frc.robot.commands.GloryShotCommand;
 import frc.robot.commands.IntakeToggleCommand;
