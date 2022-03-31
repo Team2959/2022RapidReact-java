@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendClimbHooksCommand;
 import frc.robot.commands.FireCommand;
+import frc.robot.commands.FireCommandWithTracking;
 import frc.robot.commands.GloryShotCommand;
 import frc.robot.commands.IntakeToggleCommand;
 import frc.robot.commands.LowGoalWallShotCommandGroup;
@@ -94,7 +95,8 @@ public class OI {
         m_reverseIntakeButton.whileHeld(new ReverseIntakeCommand(m_container));
         m_extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(m_container));
         m_retractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container));
-        m_fireButton.whenPressed(new FireCommand(m_container));
+        // m_fireButton.whenPressed(new FireCommand(m_container));
+        m_fireButton.whenPressed(new FireCommandWithTracking(m_container));
         m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, Hood.kMinDegrees));
         // m_safeZoneShotButton.whenPressed(new SafeZoneShotCommandGroup(m_container));
         m_safeZoneShotButton.whenPressed(new PreloadDoubleCargoCommandGroup(m_container));
@@ -102,6 +104,7 @@ public class OI {
         m_testButton.whenPressed(new InstantCommand(() -> {
             m_container.shooter.setVelocity(Shooter.kIdleSpeed);
         }, m_container.shooter));
+        // m_testButton.whenPressed(new TurnTurretToPositionCommand(m_container, 0.0));
         m_gloryShotButton.whenPressed(new GloryShotCommand(m_container));
         m_reverseAccButton.whileHeld(new ReverseAccelaratorCommand(m_container));
         m_hoodUpButton.whenPressed(new SetHoodAngleCommand(m_container, 1));
@@ -136,9 +139,9 @@ public class OI {
         r = m_rotationConditioning.condition(r);
             double rotation = r * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
 
-        SmartDashboard.putNumber("OI/X Speed", xSpeed);
-        SmartDashboard.putNumber("OI/Y Speed", ySpeed);
-        SmartDashboard.putNumber("OI/Rotation Speed", rotation);
+        // SmartDashboard.putNumber("OI/X Speed", xSpeed);
+        // SmartDashboard.putNumber("OI/Y Speed", ySpeed);
+        // SmartDashboard.putNumber("OI/Rotation Speed", rotation);
 
         return new DriveState(xSpeed, ySpeed, rotation);
     }

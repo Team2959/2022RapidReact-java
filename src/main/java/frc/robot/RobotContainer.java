@@ -12,6 +12,7 @@ import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriveOnlyAutoCommand;
 import frc.robot.commands.RunPathCommand;
 import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.subsystems.CargoFeeder;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drivetrain;
@@ -30,7 +31,10 @@ public class RobotContainer {
     public final Vision vision = new Vision();
     public final Intake intake = new Intake();
     public final ColorSensor colorSensor = new ColorSensor();
+    public final CargoFeeder cargoFeeder = new CargoFeeder();
     public final OI oi = new OI(this);
+
+    public boolean m_activeTracking = false;
 
     private final AutoCommand m_autoCommand = new AutoCommand(this);
     private final AutoComeForwardCommand m_autoComeForwardCommand = new AutoComeForwardCommand(this);

@@ -6,28 +6,23 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.ColorSensor.ColorType;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
+public class FireCommandWithTracking extends SequentialCommandGroup {
 
   private final RobotContainer m_container;
 
-  public PostShooterPrepFiringCommandGroup(RobotContainer container) {
+  public FireCommandWithTracking(RobotContainer container) {
     m_container = container;
 
     addCommands(
-      new FeedCargoAndRetractCommand(container.cargoFeeder, 0.25),
-      new WaitCommand(.25),
-      new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(1),
+      new TuneShooterAndHoodCommand(container),
       new WaitCommand(0.75),
-      new FeedCargoAndRetractCommand(container.cargoFeeder, 0.25),
-      new WaitCommand(1.0)
+      new ActiveTargetTrackingAndFire(container)
       );
   }
 

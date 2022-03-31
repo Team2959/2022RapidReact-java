@@ -18,7 +18,7 @@ import frc.robot.RobotMap;
 
 public class Drivetrain extends SubsystemBase {
     public static final double kMaxSpeedMetersPerSecond = 4;
-    public static final double kMaxAngularSpeedRadiansPerSecond = kMaxSpeedMetersPerSecond / Math.hypot(0.381, 0.381);
+    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;// kMaxSpeedMetersPerSecond / Math.hypot(0.381, 0.381);
     
     private final Translation2d kFrontLeftLocation = new Translation2d(0.381, 0.381);
     private final Translation2d kFrontRightLocation = new Translation2d(0.381, -0.381);

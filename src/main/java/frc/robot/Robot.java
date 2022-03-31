@@ -52,6 +52,11 @@ public class Robot extends TimedRobot {
 
         // SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
         // SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
+        // SmartDashboard.putNumber(DashboardMap.kTurretP, Turret.kTurretP);
+        // SmartDashboard.putNumber(DashboardMap.kTurretI, Turret.kTurretI);
+        // SmartDashboard.putNumber(DashboardMap.kTurretD, Turret.kTurretD);
+        // SmartDashboard.putNumber(DashboardMap.kTurretFF, Turret.kTurretFF);
+        // SmartDashboard.putNumber(DashboardMap.kTurretIZon, Turret.kTurretIZone);
 
         // SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
         // SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
@@ -96,6 +101,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         m_robotContainer.shooter.onDisabledPeriodic();
+        m_robotContainer.turret.onDisabledPeriodic();
     }
 
     @Override

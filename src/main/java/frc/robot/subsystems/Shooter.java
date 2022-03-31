@@ -7,8 +7,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.DashboardMap;
@@ -21,13 +19,12 @@ public class Shooter extends SubsystemBase {
     public static final double kShooterKi = 0.0;
     public static final double kShooterKd = 0.00007;
     public static final double kShooterEntryAngle = -70;
-    public static final double kShooterMulti = 0.805;
+    public static final double kShooterMulti = 0.821;
 
     private final CANSparkMax m_mainMotor;
     private final CANSparkMax m_followerMotor;
     private final SparkMaxPIDController m_mainMotorController;
     private final SparkMaxRelativeEncoder m_mainMotorEncoder;
-    private final Solenoid m_feeder;
     private final VictorSPX m_accelerator;
     static public final double kWheelRadius = 2.5 * 0.0254;
     public static final double kIdleSpeed = 100;
@@ -37,7 +34,6 @@ public class Shooter extends SubsystemBase {
         m_followerMotor = new CANSparkMax(RobotMap.kShooterFollowerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
         m_mainMotorController = m_mainMotor.getPIDController();
         m_mainMotorEncoder = (SparkMaxRelativeEncoder) m_mainMotor.getEncoder();
-        m_feeder = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kFeederSolenoid);
         
         m_accelerator = new VictorSPX(RobotMap.kAcceleratorVictorSPX);
  
@@ -69,14 +65,6 @@ public class Shooter extends SubsystemBase {
 
     public double getVelocity() {
         return m_mainMotorEncoder.getVelocity();
-    }
-
-    public void setFeeder(boolean extended) {
-        m_feeder.set(extended);
-    }
-
-    public boolean getFeeder() {
-        return m_feeder.get();
     }
 
     /** @param speed A value between -1.0 and 1.0 */
