@@ -77,7 +77,7 @@ public class SetShooterSpeedCommand extends CommandBase {
         if (m_targetRpm > 100)
             return m_container.shooter.getVelocity() >= m_targetRpm - 100;
         else
-            return m_container.shooter.getVelocity() < m_targetRpm + 100;
+            return m_container.shooter.getVelocity() < m_targetRpm + 600;
     }
 
     // @Override

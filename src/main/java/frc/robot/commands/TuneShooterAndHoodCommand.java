@@ -8,7 +8,7 @@ public class TuneShooterAndHoodCommand extends ParallelCommandGroup {
         addCommands(
             new SnapTurretToTarget(container),
             new SetHoodAngleCommand(container),
-            new SetShooterSpeedCommand(container)
+            new SetShooterSpeedCommand(container).withTimeout(1)
         );
     }
 }

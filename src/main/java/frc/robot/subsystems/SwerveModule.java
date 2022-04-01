@@ -95,8 +95,8 @@ public class SwerveModule {
     }
 
     public void periodic() {
-        SmartDashboard.putNumber(m_name + "/Encoder", getAbsoluteEncoderPosition());
-        SmartDashboard.putNumber(m_name + "/Velocity", m_driveEncoder.getVelocity());
+        // SmartDashboard.putNumber(m_name + "/Encoder", getAbsoluteEncoderPosition());
+        // SmartDashboard.putNumber(m_name + "/Velocity", m_driveEncoder.getVelocity());
     }
 
     public double getAbsoluteEncoderPosition() {

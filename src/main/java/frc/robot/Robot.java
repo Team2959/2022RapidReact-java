@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putString("Snap Turret MESSAGE", "");
         // SmartDashboard.putString("Hood Angle MESSAGE", "");
         // SmartDashboard.putString("Shooter Speed MESSAGE", "");
-        // SmartDashboard.putData("CS", CommandScheduler.getInstance());
+        SmartDashboard.putData("CS", CommandScheduler.getInstance());
 
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveP, SwerveModule.kDriveKp);
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveI, SwerveModule.kDriveKi);

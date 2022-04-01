@@ -15,11 +15,11 @@ import frc.robot.RobotMap;
 public class Shooter extends SubsystemBase {
     public static final double kAcceleratorSpeed = 0.60;
     public static final double kShooterFf = 0.0013;
-    public static final double kShooterKp = 0.00046;
+    public static final double kShooterKp = 0.000465;
     public static final double kShooterKi = 0.0;
     public static final double kShooterKd = 0.00007;
     public static final double kShooterEntryAngle = -70;
-    public static final double kShooterMulti = 0.821;
+    public static final double kShooterMulti = 0.805; // 0.821;
 
     private final CANSparkMax m_mainMotor;
     private final CANSparkMax m_followerMotor;
@@ -46,10 +46,10 @@ public class Shooter extends SubsystemBase {
     }
 
     public void onDisabledPeriodic() {
-        m_mainMotorController.setFF(SmartDashboard.getNumber(DashboardMap.kShooterFf, kShooterFf));
-        m_mainMotorController.setP(SmartDashboard.getNumber(DashboardMap.kShooterP, kShooterKp));
-        m_mainMotorController.setI(SmartDashboard.getNumber(DashboardMap.kShooterI, kShooterKi));
-        m_mainMotorController.setD(SmartDashboard.getNumber(DashboardMap.kShooterD, kShooterKd));
+        // m_mainMotorController.setFF(SmartDashboard.getNumber(DashboardMap.kShooterFf, kShooterFf));
+        // m_mainMotorController.setP(SmartDashboard.getNumber(DashboardMap.kShooterP, kShooterKp));
+        // m_mainMotorController.setI(SmartDashboard.getNumber(DashboardMap.kShooterI, kShooterKi));
+        // m_mainMotorController.setD(SmartDashboard.getNumber(DashboardMap.kShooterD, kShooterKd));
     }
 
     @Override

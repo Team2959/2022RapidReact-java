@@ -20,6 +20,7 @@ import frc.robot.commands.ReverseAccelaratorCommand;
 import frc.robot.commands.ReverseIntakeCommand;
 // import frc.robot.commands.SafeZoneShotCommandGroup;
 import frc.robot.commands.SetHoodAngleCommand;
+import frc.robot.commands.TurnTurretToPositionCommand;
 // import frc.robot.commands.TurnTurretToPositionCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Hood;
@@ -99,7 +100,8 @@ public class OI {
         m_fireButton.whenPressed(new FireCommandWithTracking(m_container));
         m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, Hood.kMinDegrees));
         // m_safeZoneShotButton.whenPressed(new SafeZoneShotCommandGroup(m_container));
-        m_safeZoneShotButton.whenPressed(new PreloadDoubleCargoCommandGroup(m_container));
+        // m_safeZoneShotButton.whenPressed(new PreloadDoubleCargoCommandGroup(m_container));
+        m_safeZoneShotButton.whenPressed(new TurnTurretToPositionCommand(m_container, 0.0));
         m_wallShotButton.whenPressed(new LowGoalWallShotCommandGroup(m_container));
         m_testButton.whenPressed(new InstantCommand(() -> {
             m_container.shooter.setVelocity(Shooter.kIdleSpeed);
