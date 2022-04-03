@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.AutoComeForwardCommand;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriveOnlyAutoCommand;
+import frc.robot.commands.RunPathCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.ColorSensor;
@@ -35,6 +36,7 @@ public class RobotContainer {
     private final AutoCommand m_autoCommand = new AutoCommand(this);
     private final AutoComeForwardCommand m_autoComeForwardCommand = new AutoComeForwardCommand(this);
     private final DriveOnlyAutoCommand m_driveOnlyAutoCommand = new DriveOnlyAutoCommand(this);
+    private final RunPathCommand m_autoPathCommand = new RunPathCommand(this, "Basic");
     public final SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
 
     private final TelemetryManager m_telemetryManager = new TelemetryManager();
@@ -44,6 +46,7 @@ public class RobotContainer {
         m_autoChooser.addOption("2 Ball Away", m_autoCommand);
         m_autoChooser.addOption("2 Ball Close", m_autoComeForwardCommand);
         m_autoChooser.setDefaultOption("Drive", m_driveOnlyAutoCommand);
+        m_autoChooser.addOption("Path", m_autoPathCommand);
         SmartDashboard.putData("Auto", m_autoChooser);
 
         m_telemetryManager.register(drivetrain);

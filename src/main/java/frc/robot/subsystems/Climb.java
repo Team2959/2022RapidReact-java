@@ -50,8 +50,8 @@ public class Climb extends SubsystemBase {
         kMaxOutput = 1;
         kMinOutput = -1;
         maxRPM = 4500;
-        maxVel = 3500;
-        maxAcc = 3500;
+        maxVel = 4500;        
+        maxAcc = 4500;
 
         m_rightController.setI(kI);
         m_rightController.setD(kD);
