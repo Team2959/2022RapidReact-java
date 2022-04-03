@@ -22,6 +22,9 @@ public class Climb extends SubsystemBase {
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
     public double kExtendPosition = 70, kContractPosition = -25; // POSITION IS IN MOTOR ROTATIONS
 
+    public boolean isExtended() {
+        return m_leftEncoder.getPosition() > 10;
+    }
 
     // private Solenoid m_climb;
 
@@ -97,10 +100,10 @@ public class Climb extends SubsystemBase {
 
     }
 
-    public void retractClimbHooks() {
+    public void retractClimbHooks(boolean safe) {
         // m_climb.set(false);
         m_rightController.setReference(kContractPosition, CANSparkMax.ControlType.kSmartMotion);
-        m_leftController.setReference(kContractPosition, CANSparkMax.ControlType.kSmartMotion);
+        m_leftController.setReference(safe ? 0 : kContractPosition, CANSparkMax.ControlType.kSmartMotion);
     }
 
     public void keepCurrentPosition() {

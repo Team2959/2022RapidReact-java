@@ -5,16 +5,19 @@ import frc.robot.RobotContainer;
 
 public class RetractClimbHooksCommand extends CommandBase {
     private final RobotContainer m_container;
+    private final boolean m_safe;
 
-    public RetractClimbHooksCommand(RobotContainer container) {
+    public RetractClimbHooksCommand(RobotContainer container, boolean safe) {
         m_container = container;
-    
-        addRequirements(m_container.climb);
+        m_safe = safe;
+        
+        addRequirements(m_container.climb, m_container.turret);
     }
 
     @Override
     public void initialize() {
-        m_container.climb.retractClimbHooks();
+        m_container.turret.setDesiredAngle(0.0);
+        m_container.climb.retractClimbHooks(m_safe);
     }
 
     @Override

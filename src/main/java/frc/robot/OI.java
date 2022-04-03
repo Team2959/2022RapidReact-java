@@ -6,6 +6,7 @@ import cwtech.util.Conditioning;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.Button;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendClimbHooksCommand;
@@ -56,6 +57,8 @@ public class OI {
     private final JoystickButton m_fireOverride;
     private final JoystickButton m_toggleIntakeButtonLeft;
 
+    private final Button m_autoClimbTrigger;
+
     public OI(RobotContainer container) {
         m_container = container;
 
@@ -88,12 +91,16 @@ public class OI {
         m_hoodUpButton = new JoystickButton(m_buttonBox, RobotMap.kHoodUpButton);
         m_fireOverride = new JoystickButton(m_buttonBox, RobotMap.kFireOverrideButton);
         m_toggleIntakeButtonLeft = new JoystickButton(m_leftJoystick, 1);
+        m_autoClimbTrigger = new Button(() -> {
+            return Math.abs(m_container.drivetrain.getGyroPitch()) > 5;
+        });
 
+        m_autoClimbTrigger.whenPressed(new RetractClimbHooksCommand(m_container, true));
         m_toggleIntakeButton.whenPressed(new IntakeToggleCommand(m_container));
         m_toggleIntakeButtonLeft.whenPressed(new IntakeToggleCommand(m_container));
         m_reverseIntakeButton.whileHeld(new ReverseIntakeCommand(m_container));
         m_extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(m_container));
-        m_retractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container));
+        m_retractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container, false));
         m_fireButton.whenPressed(new FireCommand(m_container));
         m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, Hood.kMinDegrees));
         // m_safeZoneShotButton.whenPressed(new SafeZoneShotCommandGroup(m_container));

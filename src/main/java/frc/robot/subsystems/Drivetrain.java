@@ -137,6 +137,10 @@ public class Drivetrain extends SubsystemBase {
         return m_navX.getRotation2d();
     }
 
+    public double getGyroPitch() {
+        return m_navX.getPitch();
+    }
+
     public double getGyroRate() {
         return m_navX.getRate();
     }
