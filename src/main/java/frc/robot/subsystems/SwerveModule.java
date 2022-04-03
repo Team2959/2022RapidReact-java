@@ -12,7 +12,7 @@ import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 
-import cwtech.telemetry.Observer;
+import cwtech.telemetry.Observable;
 import cwtech.telemetry.Telemetry;
 
 @Telemetry
@@ -70,7 +70,6 @@ public class SwerveModule {
 
         m_driveEncoder.setPositionConversionFactor(kDrivePositionFactor);
         m_driveEncoder.setVelocityConversionFactor(kDrivePositionFactor / 60.0);
-        // m_driveEncoder.setVelocityConversionFactor(0.0);
         
         m_drivePIDController.setP(kDriveKp);
         m_drivePIDController.setI(kDriveKi);
@@ -99,16 +98,19 @@ public class SwerveModule {
     }
 
     public void periodic() {
-        // SmartDashboard.putNumber(m_name + "/Encoder", getAbsoluteEncoderPosition());
-        // SmartDashboard.putNumber(m_name + "/Velocity", m_driveEncoder.getVelocity());
     }
 
-    @Observer(key = "Absolute Encoder")
+    @Observable(key = "Absolute Encoder")
     public double getAbsoluteEncoderPosition() {
         double initalPosition = m_dutyCycleEncoder.getOutput();
         double initalPositionInRadians = initalPosition * 2.0 * Math.PI;
         double initalPositionInRadiansScaled = new Rotation2d(initalPositionInRadians - m_turnOffset).getRadians();
         return initalPositionInRadiansScaled;
+    }
+
+    @Observable(key = "Velocity")
+    public double getVelocity() {
+        return m_driveEncoder.getVelocity();
     }
 
     public SwerveModuleState getState() {

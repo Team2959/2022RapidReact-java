@@ -6,7 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Observer {
+@Target( { ElementType.METHOD, ElementType.FIELD })
+public @interface Updateable {
     public String key();
+    public String defaultString() default "";
+    public double defaultNumber() default 0.0;
+    public boolean defaultBoolean() default false;
 }

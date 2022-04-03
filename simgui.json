@@ -10,6 +10,16 @@
         "header": {
           "open": true
         }
+      },
+      "SPARK MAX [15]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [16]": {
+        "header": {
+          "open": true
+        }
       }
     },
     "RoboRIO": {
@@ -39,6 +49,7 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Auto": "String Chooser",
+      "/SmartDashboard/CS": "Scheduler",
       "/SmartDashboard/Scheduler": "Scheduler"
     }
   },
@@ -62,6 +73,18 @@
       "open": true
     },
     "SmartDashboard": {
+      "Auto": {
+        "open": true
+      },
+      "Odometry": {
+        "open": true
+      },
+      "Shooter": {
+        "open": true
+      },
+      "Trajectory": {
+        "open": true
+      },
       "open": true
     }
   }
