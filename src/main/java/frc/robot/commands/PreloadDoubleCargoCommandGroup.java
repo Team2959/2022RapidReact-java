@@ -8,17 +8,23 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorSensor.ColorType;
 
 public class PreloadDoubleCargoCommandGroup extends SequentialCommandGroup {
+    private final RobotContainer m_container;
+
     public PreloadDoubleCargoCommandGroup(RobotContainer container) {
+        m_container = container;
+
         addCommands(
             new InstantCommand(() -> {
                 container.shooter.setAccelarator(0.3);
             }, container.shooter),
-            new FeedCargoAndRetractCommand(container.shooter, .25),
+            new FeedCargoAndRetractCommand(container.cargoFeeder, .25),
             new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(1),
-            new WaitCommand(0.5),
-            new InstantCommand(() -> {
-                container.shooter.setAccelarator(0.0);
-            }, container.shooter)
+            new WaitCommand(0.5)
         );
     }
-}
+
+    @Override
+    public void end(boolean interupt) {
+      m_container.shooter.setAccelarator(0);
+    }
+  }

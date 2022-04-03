@@ -28,6 +28,11 @@ public class DashboardMap {
     public static final String kTurret = "Turret";
     public static final String kTurretUseManualAngle = key("Use Specified Angle", kTurret);
     public static final String kTurretManualAngle = key("Set Angle", kTurret);
+    public static final String kTurretP = key("P", kTurret);
+    public static final String kTurretI = key("I", kTurret);
+    public static final String kTurretD = key("D", kTurret);
+    public static final String kTurretFF = key("FF", kTurret);
+    public static final String kTurretIZon = key("IZone", kTurret);
 
     public static final String kShooter = "Shooter";
     public static final String kShooterUseManualSpeed = key("Use Specified Speed", kShooter);

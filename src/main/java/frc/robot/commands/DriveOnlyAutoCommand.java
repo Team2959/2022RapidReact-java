@@ -13,16 +13,13 @@ import frc.robot.RobotContainer;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class DriveOnlyAutoCommand extends SequentialCommandGroup {
-  /** Creates a new DriveOnlyAutoCommand. */
   public DriveOnlyAutoCommand(RobotContainer container) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new WaitCommand(.25),
             new InstantCommand(() -> {
-                container.drivetrain.drive(0, -3, 0, false);
+                container.drivetrain.drive(-1.35, 0, 0, false);
             }, container.drivetrain),
-            new WaitCommand(3),
+            new WaitCommand(1.25),
             new InstantCommand(() -> {
                 container.drivetrain.drive(0, 0, 0, false);
             }, container.drivetrain)

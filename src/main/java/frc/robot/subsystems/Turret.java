@@ -5,7 +5,6 @@ import com.revrobotics.REVLibError;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.SparkMaxPIDController;
 
-// import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -17,6 +16,12 @@ public class Turret extends SubsystemBase {
 
     static public final double kMaxDegreesForwards = 130;
     static public final double kMaxDegreesBackwards = -130;
+
+    static public final double kTurretP = 0.04;
+    static public final double kTurretI = 0.00001;
+    static public final double kTurretD = 0.0;
+    static public final double kTurretFF = 0.01;
+    static public final double kTurretIZone = 1.0;
     
     public Turret() {
         m_turretMotor = new CANSparkMax(RobotMap.kTurretCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
@@ -24,17 +29,25 @@ public class Turret extends SubsystemBase {
         m_turretController = m_turretMotor.getPIDController();
 
         m_turretController.setFeedbackDevice(m_turretEncoder);
-        // m_turretController.setP(0.04);
-        // m_turretController.setI(0.00001);
-        // m_turretController.setD(0.0);
-        // m_turretController.setIZone(1.0);
-        m_turretController.setOutputRange(-0.5, 0.5);
-        m_turretController.setFF(0.01);
+        m_turretController.setP(kTurretP);
+        m_turretController.setI(kTurretI);
+        m_turretController.setD(kTurretD);
+        m_turretController.setIZone(kTurretIZone);
+        m_turretController.setOutputRange(-0.8, 0.8);
+        m_turretController.setFF(kTurretFF);
     
-        m_turretController.setSmartMotionMaxVelocity(2000, 0);
-        m_turretController.setSmartMotionMaxAccel(1500, 0);
+        m_turretController.setSmartMotionMaxVelocity(3000, 0);
+        m_turretController.setSmartMotionMaxAccel(2000, 0);
 
         m_turretEncoder.setPositionConversionFactor(360);
+    }
+
+    public void onDisabledPeriodic() {
+        // m_turretController.setP(SmartDashboard.getNumber(DashboardMap.kTurretP, kTurretP));
+        // m_turretController.setI(SmartDashboard.getNumber(DashboardMap.kTurretI, kTurretI));
+        // m_turretController.setD(SmartDashboard.getNumber(DashboardMap.kTurretD, kTurretD));
+        // m_turretController.setFF(SmartDashboard.getNumber(DashboardMap.kTurretFF, kTurretFF));
+        // m_turretController.setIZone(SmartDashboard.getNumber(DashboardMap.kTurretIZon, kTurretIZone));
     }
 
     public void resetEncoder() {
@@ -42,7 +55,8 @@ public class Turret extends SubsystemBase {
     }
 
     public void setDesiredAngle(double degrees) {
-        REVLibError error = m_turretController.setReference(degrees, CANSparkMax.ControlType.kPosition);
+        double newTarget = Math.min(kMaxDegreesForwards ,Math.max(degrees, kMaxDegreesBackwards));
+        REVLibError error = m_turretController.setReference(newTarget, CANSparkMax.ControlType.kPosition);
         if(error != REVLibError.kOk) {
             System.err.println("Returned error on setDesiredAngle");
         }
@@ -58,16 +72,12 @@ public class Turret extends SubsystemBase {
     }
 
     public void setSpeedToTargetAngle(double targetAngle){
-        setSpeed(targetAngle > getAngleDegrees() ? 0.80 : -0.80);
+        double newTarget = Math.min(kMaxDegreesForwards ,Math.max(targetAngle, kMaxDegreesBackwards));
+        setSpeed(newTarget > getAngleDegrees() ? 0.80 : -0.80);
     }
 
     private final double kVisionError = 2;
     public boolean isCloseEnoughToTarget(double targetAngle){
-        // double current = getAngleDegrees();
-        // if (targetAngle < 0 && current < targetAngle)
-        //   return true;
-        //   if (targetAngle > 0 && current > targetAngle)
-        //   return true;
       return Math.abs(getAngleDegrees() - targetAngle) < kVisionError;
       }
 

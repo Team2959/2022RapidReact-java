@@ -10,18 +10,18 @@ public class AutoComeForwardCommand extends SequentialCommandGroup {
         addCommands(
             new WaitCommand(1),
             new InstantCommand(() -> {
-                container.drivetrain.drive(0, -3, 0, false);
+                container.drivetrain.drive(-1.35, 0, 0, false);
             }, container.drivetrain),
             new IntakeToggleCommand(container),
-            new WaitCommand(3),
+            new WaitCommand(1.75),
             new InstantCommand(() -> {
                 container.drivetrain.drive(0, 0, 0, false);
             }, container.drivetrain),
             new WaitCommand(1),
             new InstantCommand(() -> {
-                container.drivetrain.drive(0, 3, 0, false);
+                container.drivetrain.drive(1.35, 0, 0, false);
             }, container.drivetrain),
-            new WaitCommand(2),
+            new WaitCommand(.75),
             new InstantCommand(() -> {
                 container.drivetrain.drive(0, 0, 0, false);
             }, container.drivetrain),

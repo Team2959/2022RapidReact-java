@@ -39,16 +39,21 @@ public class SwerveModule {
     private final double m_turnOffset;
     private final String m_name;
 
-    private static final double kWheelRadius = 2.0 * 0.254; // 2" * 0.254 m / inch
+    private static final double kWheelRadius = 2.0 * 0.0254; // 2" * 0.0254 m / inch
     private static final int kEncoderResolution = 4096;
     private static final double kGearboxRatio = 1.0 / 6.86; // One turn of the wheel is 6.86 turns of the motor
-    private static final double kDrivePositionFactor = (Math.PI * kWheelRadius * kGearboxRatio);
+    private static final double kDrivePositionFactor = (2.0 * Math.PI * kWheelRadius * kGearboxRatio);
+    private static final double kDriveCurrentLimitAmps = 80.0;
+    private static final double kTurnCurrentLimitAmps = 20.0; 
 
     public SwerveModule(int driveMotor, int turnMotor, int dutyCycle, double turnOffset, String name) {
 
         m_driveMotor = new CANSparkMax(driveMotor, CANSparkMax.MotorType.kBrushless);
         m_turnMotor = new CANSparkMax(turnMotor, CANSparkMax.MotorType.kBrushless);
         m_driveMotor.restoreFactoryDefaults();
+
+        m_driveMotor.setSmartCurrentLimit((int) kDriveCurrentLimitAmps);
+        m_turnMotor.setSmartCurrentLimit((int) kTurnCurrentLimitAmps);
 
         m_name = name;
 
@@ -65,6 +70,7 @@ public class SwerveModule {
 
         m_driveEncoder.setPositionConversionFactor(kDrivePositionFactor);
         m_driveEncoder.setVelocityConversionFactor(kDrivePositionFactor / 60.0);
+        // m_driveEncoder.setVelocityConversionFactor(0.0);
         
         m_drivePIDController.setP(kDriveKp);
         m_drivePIDController.setI(kDriveKi);
@@ -93,6 +99,8 @@ public class SwerveModule {
     }
 
     public void periodic() {
+        // SmartDashboard.putNumber(m_name + "/Encoder", getAbsoluteEncoderPosition());
+        // SmartDashboard.putNumber(m_name + "/Velocity", m_driveEncoder.getVelocity());
     }
 
     @Observer(key = "Absolute Encoder")
@@ -112,8 +120,8 @@ public class SwerveModule {
         
         SmartDashboard.putNumber(m_name + "/Drive Speed", state.speedMetersPerSecond);
         SmartDashboard.putNumber(m_name + "/Drive Reference", state.speedMetersPerSecond / kDrivePositionFactor);
-        m_drivePIDController.setReference(state.speedMetersPerSecond / kDrivePositionFactor, CANSparkMax.ControlType.kVelocity);
-        
+        m_drivePIDController.setReference(state.speedMetersPerSecond * 4, CANSparkMax.ControlType.kVelocity);
+
         Rotation2d delta = state.angle.minus(new Rotation2d(m_turnEncoder.getPosition()));
         double setpoint = m_turnEncoder.getPosition() + delta.getRadians();
 

@@ -71,13 +71,13 @@ public class Hood extends SubsystemBase implements AutoCloseable {
         return m_potentiometer.get();
     }
 
-    // @Override
-    // public void periodic() {
-    //     SmartDashboard.putNumber("Hood/Position", getPosition());
+    @Override
+    public void periodic() {
+        // SmartDashboard.putNumber("Hood/Position", getPosition());
     //     SmartDashboard.putNumber("Hood/Position(Degrees)", convertToDegreesFromEncoderPosition(getPosition()));
 
     //     // setSpeed(m_controller.calculate(getPosition()));
-    // }
+    }
 
     @Override
     public void close() throws Exception{

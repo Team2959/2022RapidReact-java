@@ -19,7 +19,7 @@ public class SnapTurretToTarget extends CommandBase {
     public void initialize() {
         // System.err.println("Started SnapToTarget");
         m_target = m_container.turret.getAngleDegrees() + m_container.vision.getTX();
-        m_container.turret.setSpeedToTargetAngle(m_target);
+        m_container.turret.setDesiredAngle(m_target);
         // SmartDashboard.putString("Snap Turret MESSAGE", "started");
     }
 

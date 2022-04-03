@@ -23,9 +23,10 @@ public class TurnTurretToPositionCommand extends CommandBase {
   @Override
   public void initialize() {
     // if(SmartDashboard.getBoolean(DashboardMap.kTurretUseManualAngle, false)) {
-    //   m_target = SmartDashboard.getNumber(DashboardMap.kTurretManualAnagle, 0.0);
+    //   m_target = SmartDashboard.getNumber(DashboardMap.kTurretManualAngle, 0.0);
     // }
-    m_container.turret.setSpeedToTargetAngle(m_target);
+    // m_container.turret.setSpeedToTargetAngle(m_target);
+    m_container.turret.setDesiredAngle(m_target);
 }
 
   // Called every time the scheduler runs while the command is scheduled.
