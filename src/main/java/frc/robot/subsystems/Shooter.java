@@ -28,6 +28,7 @@ public class Shooter extends SubsystemBase {
     private final VictorSPX m_accelerator;
     static public final double kWheelRadius = 2.5 * 0.0254;
     public static final double kIdleSpeed = 100;
+    private double m_requestedVelocity = 0;
 
     public Shooter() {
         m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
@@ -60,7 +61,12 @@ public class Shooter extends SubsystemBase {
     /** @param speed Value between 0 and 4500 */
     public void setVelocity(double rpm) {
         rpm = Math.min(4500, rpm);
+        m_requestedVelocity = rpm;
         m_mainMotorController.setReference(rpm, CANSparkMax.ControlType.kVelocity);
+    }
+
+    public double getRequestedVelocity() {
+        return m_requestedVelocity;
     }
 
     public double getVelocity() {

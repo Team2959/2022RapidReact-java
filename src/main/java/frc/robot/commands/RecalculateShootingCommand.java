@@ -21,21 +21,31 @@ public class RecalculateShootingCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        m_startVelocity = m_container.shooter.getVelocity();
+        m_startVelocity = m_container.shooter.getRequestedVelocity();
         m_ticks = 0;
     }
 
     @Override
     public void execute() {
-        if(m_ticks % 500 == 0) {
+        if(m_ticks % 100 == 0) {
             double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
             TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle), distanceMeters, Vision.kDifferenceMeters);
             var targetRpm = (calculation.m_exitVelocityMetersPerSecond / (2 * Math.PI * Shooter.kWheelRadius)) * 60.0;
             targetRpm *= SmartDashboard.getNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
             if(Math.abs(targetRpm - m_startVelocity) > 500) {
-                
+                m_container.shooter.setVelocity(targetRpm);
             }
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        m_container.shooter.setVelocity(0);
     }
 }
 
