@@ -26,6 +26,11 @@ public class Climb extends SubsystemBase {
         return m_leftEncoder.getPosition() > 10;
     }
 
+    public void startup() {
+        m_leftEncoder.setPosition(0);
+        m_rightEncoder.setPosition(0);
+    }
+
     // private Solenoid m_climb;
 
     public Climb() {
@@ -54,7 +59,7 @@ public class Climb extends SubsystemBase {
         kMinOutput = -1;
         maxRPM = 4500;
         maxVel = 4500;        
-        maxAcc = 4500;
+        maxAcc = 6000;
 
         m_rightController.setI(kI);
         m_rightController.setD(kD);
@@ -92,6 +97,12 @@ public class Climb extends SubsystemBase {
         SmartDashboard.putBoolean("Mode", true);
     }
 
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Climb/Left", m_leftEncoder.getPosition());
+        SmartDashboard.putNumber("Climb/Right", m_rightEncoder.getPosition());
+    }
+
     public void extendClimbHooks() {
         // m_climb.set(true);
 
@@ -103,7 +114,7 @@ public class Climb extends SubsystemBase {
     public void retractClimbHooks(boolean safe) {
         // m_climb.set(false);
         m_rightController.setReference(kContractPosition, CANSparkMax.ControlType.kSmartMotion);
-        m_leftController.setReference(safe ? 0 : kContractPosition, CANSparkMax.ControlType.kSmartMotion);
+        m_leftController.setReference(safe ? 5 : kContractPosition, CANSparkMax.ControlType.kSmartMotion);
     }
 
     public void keepCurrentPosition() {

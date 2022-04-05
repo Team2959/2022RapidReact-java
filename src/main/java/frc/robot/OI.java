@@ -92,7 +92,7 @@ public class OI {
         m_fireOverride = new JoystickButton(m_buttonBox, RobotMap.kFireOverrideButton);
         m_toggleIntakeButtonLeft = new JoystickButton(m_leftJoystick, 1);
         m_autoClimbTrigger = new Button(() -> {
-            return Math.abs(m_container.drivetrain.getGyroPitch()) > 5;
+            return Math.abs(m_container.drivetrain.getGyroPitch()) > 5.1 && m_container.climb.isExtended();
         });
 
         m_autoClimbTrigger.whenPressed(new RetractClimbHooksCommand(m_container, true));

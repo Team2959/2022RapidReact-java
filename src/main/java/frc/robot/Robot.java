@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Drive Reducer", 0.75);
 
         SmartDashboard.putBoolean(DashboardMap.kFieldCentric, true);
+        m_robotContainer.climb.startup();
     }
 
     @Override
