@@ -21,14 +21,14 @@ public class RunPathCommand extends SequentialCommandGroup {
         // PathPlannerTrajectory trajectory = PathPlanner.loadPath(path, 1, 0.5);
         // Trajectory trajectory = PathPlanner.loadPath(path, 1, 0.5);
         try {
-            Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve("pathweaver/output/Basic.wpilib.json"));
+            Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve("pathweaver/output/" + path + ".wpilib.json"));
             container.drivetrain.resetOdometry(trajectory.getInitialPose());
             SwerveControllerCommand command = new SwerveControllerCommand(trajectory,
                     () -> container.drivetrain.getPose(),
                     container.drivetrain.getKinematics(),
-                    new PIDController(0.5, 0.0001, 0),
-                    new PIDController(0.5, 0.0001, 0),
-                    new ProfiledPIDController(0.20, 0.0005, 0, new Constraints(Math.PI, Math.PI)),
+                    new PIDController(0.1, 0.0001, 0),
+                    new PIDController(0.2, 0.0001, 0),
+                    new ProfiledPIDController(0.4, 0.0005, 0, new Constraints(Math.PI, Math.PI)),
                     (SwerveModuleState[] states) -> container.drivetrain.setDesiredState(states),
                     container.drivetrain);
             addCommands(command);

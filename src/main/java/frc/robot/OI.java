@@ -114,37 +114,17 @@ public class OI {
     public boolean getFireOverrided() {
         return m_fireOverride.get();
     }
-    
-    public class DriveState {
-        public final double m_xMetersPerSecond;
-        public final double m_yMetersPerSecond;
-        public final double m_rotationRadiansPerSecond;
-        DriveState(double xMetersPerSecond, double yMetersPerSecond, double rotationRadiansPerSecond) {
-            m_xMetersPerSecond = xMetersPerSecond;
-            m_yMetersPerSecond = yMetersPerSecond;
-            m_rotationRadiansPerSecond = rotationRadiansPerSecond;
-        }
+
+    public double getDriveSpeedX() {
+        return m_xConditioning.condition(m_leftJoystick.getY()) * Drivetrain.kMaxSpeedMetersPerSecond;
     }
 
-    public DriveState getDriveState() {
-        double multiplier = Math.min(1.0, SmartDashboard.getNumber("Drive Reducer", 0.75));
-        double x = m_leftJoystick.getY() * multiplier;
-        x = m_xConditioning.condition(x);
-        double xSpeed = x * Drivetrain.kMaxSpeedMetersPerSecond;
-        
-        double y = m_leftJoystick.getX() * multiplier;
-        y = m_yConditioning.condition(y);
-        double ySpeed = y * Drivetrain.kMaxSpeedMetersPerSecond;
+    public double getDriveSpeedY() {
+        return m_yConditioning.condition(m_leftJoystick.getX()) * Drivetrain.kMaxSpeedMetersPerSecond;
+    }
 
-        double r = m_rightJoystick.getX();
-        r = m_rotationConditioning.condition(r);
-            double rotation = r * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
-
-        // SmartDashboard.putNumber("OI/X Speed", xSpeed);
-        // SmartDashboard.putNumber("OI/Y Speed", ySpeed);
-        // SmartDashboard.putNumber("OI/Rotation Speed", rotation);
-
-        return new DriveState(xSpeed, ySpeed, rotation);
+    public double getDriveSpeedRotation() {
+        return m_rotationConditioning.condition(m_rightJoystick.getX()) * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
     }
 
     public void onDisabledInit() {
