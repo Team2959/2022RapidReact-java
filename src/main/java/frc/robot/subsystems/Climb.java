@@ -1,13 +1,10 @@
 package frc.robot.subsystems;
 
-// import edu.wpi.first.wpilibj.PneumaticsModuleType;
-// import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Climb extends SubsystemBase {
@@ -21,9 +18,6 @@ public class Climb extends SubsystemBase {
 
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
     public double kExtendPosition = 70, kContractPosition = -25; // POSITION IS IN MOTOR ROTATIONS
-
-
-    // private Solenoid m_climb;
 
     public Climb() {
         m_rightMotor = new CANSparkMax(RobotMap.kRightClimbCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
@@ -40,7 +34,8 @@ public class Climb extends SubsystemBase {
         m_leftMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
         m_rightMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-        // m_climb = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.kClimbSolenoid);
+        m_leftMotor.setSmartCurrentLimit(30);
+        m_rightMotor.setSmartCurrentLimit(30);
 
         kP = 5e-5;
         kI = 0;
@@ -78,27 +73,21 @@ public class Climb extends SubsystemBase {
         m_leftController.setSmartMotionMaxAccel(maxAcc, smartMotionSlot);
         m_leftController.setSmartMotionAllowedClosedLoopError(allowedErr, smartMotionSlot);
 
-        SmartDashboard.putNumber("P Gain", kP);
-        SmartDashboard.putNumber("I Gain", kI);
-        SmartDashboard.putNumber("D Gain", kD);
-        SmartDashboard.putNumber("I Zone", kIz);
-        SmartDashboard.putNumber("Feed Forward", kFF);
-        SmartDashboard.putNumber("Max Output", kMaxOutput);
-        SmartDashboard.putNumber("Min Output", kMinOutput);
-
-        SmartDashboard.putBoolean("Mode", true);
+        // SmartDashboard.putNumber("P Gain", kP);
+        // SmartDashboard.putNumber("I Gain", kI);
+        // SmartDashboard.putNumber("D Gain", kD);
+        // SmartDashboard.putNumber("I Zone", kIz);
+        // SmartDashboard.putNumber("Feed Forward", kFF);
+        // SmartDashboard.putNumber("Max Output", kMaxOutput);
+        // SmartDashboard.putNumber("Min Output", kMinOutput);
     }
 
     public void extendClimbHooks() {
-        // m_climb.set(true);
-
         m_rightController.setReference(kExtendPosition, CANSparkMax.ControlType.kSmartMotion);
         m_leftController.setReference(kExtendPosition, CANSparkMax.ControlType.kSmartMotion);
-
     }
 
     public void retractClimbHooks() {
-        // m_climb.set(false);
         m_rightController.setReference(kContractPosition, CANSparkMax.ControlType.kSmartMotion);
         m_leftController.setReference(kContractPosition, CANSparkMax.ControlType.kSmartMotion);
     }

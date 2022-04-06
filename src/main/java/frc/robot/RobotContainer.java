@@ -7,12 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AutoComeForwardCommand;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriveOnlyAutoCommand;
-import frc.robot.commands.RunPathCommand;
 import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.commands.ThreeBallAutonomousCommandGroup;
 import frc.robot.subsystems.CargoFeeder;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.ColorSensor;
@@ -40,7 +39,7 @@ public class RobotContainer {
     private final AutoCommand m_autoCommand = new AutoCommand(this);
     private final AutoComeForwardCommand m_autoComeForwardCommand = new AutoComeForwardCommand(this);
     private final DriveOnlyAutoCommand m_driveOnlyAutoCommand = new DriveOnlyAutoCommand(this);
-    private final SequentialCommandGroup m_autoPathCommand = new RunPathCommand(this, "Distance");
+    private final Command m_autoPathCommand = new ThreeBallAutonomousCommandGroup(this);
     public final SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
 
     public RobotContainer() {

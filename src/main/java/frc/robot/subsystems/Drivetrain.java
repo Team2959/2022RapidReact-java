@@ -113,6 +113,8 @@ public class Drivetrain extends SubsystemBase {
         var pos = m_odometry.getPoseMeters();
         SmartDashboard.putNumber("Odometry/X", pos.getX());
         SmartDashboard.putNumber("Odometry/Y", pos.getY());
+        SmartDashboard.putNumber("NAVX/Pitch", m_navX.getPitch());
+        SmartDashboard.putNumber("NAVX/Rotation2d", m_navX.getRotation2d().getDegrees());
     }
 
     public void setInitalPositions() {
