@@ -33,7 +33,6 @@ public class FireCommand extends SequentialCommandGroup {
 
     @Override
     public void end(boolean interupt) {
-      m_container.m_activeTracking = false;
       m_container.shooter.setVelocity(Shooter.kIdleSpeed);
       m_container.shooter.setAccelarator(0);
     }

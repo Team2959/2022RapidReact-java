@@ -34,8 +34,6 @@ public class RobotContainer {
     public final CargoFeeder cargoFeeder = new CargoFeeder();
     public final OI oi = new OI(this);
 
-    public boolean m_activeTracking = false;
-
     private final AutoCommand m_autoCommand = new AutoCommand(this);
     private final AutoComeForwardCommand m_autoComeForwardCommand = new AutoComeForwardCommand(this);
     private final DriveOnlyAutoCommand m_driveOnlyAutoCommand = new DriveOnlyAutoCommand(this);

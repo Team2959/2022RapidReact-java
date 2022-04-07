@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-// import edu.wpi.first.wpilibj2.command.InstantCommand;
-// import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.RobotContainer;
 
@@ -15,7 +13,6 @@ import frc.robot.RobotContainer;
 public class ActiveTargetTrackingAndFire extends ParallelRaceGroup {
   public ActiveTargetTrackingAndFire(RobotContainer container) {
     addCommands(
-      // new InstantCommand(() -> container.m_activeTracking = true, container.shooter),
       new ActiveTurretTracking(container),
       new PostShooterPrepFiringCommandGroup(container),
       new RecalculateShootingCommand(container)

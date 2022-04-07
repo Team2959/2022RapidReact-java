@@ -42,7 +42,6 @@ public class ActiveTurretTracking extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // return !m_container.m_activeTracking;
     return false;
   }
 }

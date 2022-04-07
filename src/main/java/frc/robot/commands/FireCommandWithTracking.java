@@ -29,7 +29,6 @@ public class FireCommandWithTracking extends SequentialCommandGroup {
 
   @Override
   public void end(boolean interupt) {
-    m_container.m_activeTracking = false;
     m_container.shooter.setVelocity(Shooter.kIdleSpeed);
     m_container.shooter.setAccelarator(0);
     m_container.turret.setDesiredAngle(0.0);
