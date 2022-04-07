@@ -6,11 +6,40 @@ import java.util.LinkedList;
 import java.util.Optional;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class Manager {
     private LinkedList<ObjectImpl> m_telemetryObjects = new LinkedList<>();
 
+    private Optional<Level> m_level = Optional.empty();
+    private String prefix = "CWTelemetry";
+
     public Manager() {
+    }
+
+    public boolean isCompetition() {
+        return DriverStation.isFMSAttached();
+    }
+
+    public void setLevel(Optional<Level> level) {
+        m_level = level;
+    }
+
+    public Level level() {
+        if (m_level.isPresent()) {
+            return m_level.get();
+        } else {
+            return isCompetition() ? Level.Competition : Level.Debug;
+        }
+    }
+
+    private boolean isAllowedLevel(Level level) {
+        Level allowedLevel = level();
+        if (allowedLevel == Level.Competition) {
+            return level == Level.Competition;
+        } else {
+            return true;
+        }
     }
 
     public void register(Object object) {
@@ -19,14 +48,18 @@ public class Manager {
 
     public void run() {
         for (var object : m_telemetryObjects) {
-            object.observe();
-            object.update();
+            if (isAllowedLevel(object.level())) {
+                object.observe();
+                object.update();
+            }
         }
     }
 
     public void inital() {
         for (var object : m_telemetryObjects) {
-            object.inital();
+            if (isAllowedLevel(object.level())) {
+                object.inital();
+            }
         }
     }
 
@@ -51,6 +84,8 @@ public class Manager {
         void observe();
 
         void inital();
+
+        Level level();
     }
 
     class ObjectImpl implements TelemetryObject {
@@ -130,27 +165,48 @@ public class Manager {
             if (key.isEmpty()) {
                 key = m_class.getSimpleName();
             }
+            if(!m_parent.isPresent()) {
+                key = prefix + "/" + key;
+            }
             return (m_parent.isPresent() ? m_parent.get().key() + "/" : "") + key;
         }
 
         @Override
         public void observe() {
             for (var object : m_objects) {
-                object.observe();
+                if (isAllowedLevel(object.level())) {
+                    object.observe();
+                }
             }
         }
 
         @Override
         public void update() {
             for (var object : m_objects) {
-                object.update();
+                if (isAllowedLevel(object.level())) {
+                    object.update();
+                }
             }
         }
 
         @Override
         public void inital() {
             for (var object : m_objects) {
-                object.inital();
+                if (isAllowedLevel(object.level())) {
+                    object.inital();
+                }
+            }
+        }
+
+        @Override
+        public Level level() {
+            if (m_childAnnotation.isPresent()) {
+                return m_childAnnotation.get().level();
+            } else if (m_telemetryAnnotation.isPresent()) {
+                return m_telemetryAnnotation.get().level();
+            } else {
+                // unreachable
+                return Level.Competition;
             }
         }
     }
@@ -201,6 +257,9 @@ public class Manager {
             if (key.isEmpty()) {
                 key = m_field.getName();
             }
+            if(!m_parent.isPresent()) {
+                key = prefix + "/" + key;
+            }
             return (m_parent.isPresent() ? m_parent.get().key() + "/" : "") + key;
         }
 
@@ -245,6 +304,18 @@ public class Manager {
         @Override
         public void inital() {
             uncheckedObserve();
+        }
+
+        @Override
+        public Level level() {
+            if (m_observableAnnotation.isPresent()) {
+                return m_observableAnnotation.get().level();
+            } else if (m_updateableAnnotation.isPresent()) {
+                return m_updateableAnnotation.get().level();
+            } else {
+                // unreachable
+                return Level.Debug;
+            }
         }
 
     }
@@ -292,6 +363,9 @@ public class Manager {
             }
             if (key.isEmpty()) {
                 key = m_method.getName();
+            }
+            if(!m_parent.isPresent()) {
+                key = prefix + "/" + key;
             }
             return (m_parent.isPresent() ? m_parent.get().key() + "/" : "") + key;
         }
@@ -343,6 +417,17 @@ public class Manager {
             }
         }
 
+        @Override
+        public Level level() {
+            if (m_updateableAnnotation.isPresent()) {
+                return m_updateableAnnotation.get().level();
+            } else if (m_observableAnnotation.isPresent()) {
+                return m_observableAnnotation.get().level();
+            } else {
+                // unreachable
+                return Level.Debug;
+            }
+        }
     }
 
 }

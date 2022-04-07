@@ -9,4 +9,5 @@ import java.lang.annotation.Target;
 @Target( { ElementType.FIELD })
 public @interface Child {
     public String key();
+    public Level level() default Level.Competition;
 }

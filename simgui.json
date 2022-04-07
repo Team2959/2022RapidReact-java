@@ -54,6 +54,12 @@
     }
   },
   "NetworkTables": {
+    "CWTelemetry": {
+      "Shooter": {
+        "open": true
+      },
+      "open": true
+    },
     "Drivetrain": {
       "Back Left": {
         "open": true
@@ -70,6 +76,12 @@
       "Odometry": {
         "open": true
       },
+      "open": true
+    },
+    "LiveWindow": {
+      "open": true
+    },
+    "Shooter": {
       "open": true
     },
     "SmartDashboard": {

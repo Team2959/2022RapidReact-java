@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
+import cwtech.telemetry.Level;
 import cwtech.telemetry.Manager;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -54,6 +57,8 @@ public class RobotContainer {
         SmartDashboard.putData("Auto", m_autoChooser);
 
         m_telemetryManager.register(drivetrain);
+        m_telemetryManager.register(shooter);
+        m_telemetryManager.setLevel(Optional.of(Level.Competition));
     }
 
     public void init() {

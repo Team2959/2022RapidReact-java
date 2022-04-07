@@ -12,4 +12,5 @@ public @interface Updateable {
     public String defaultString() default "";
     public double defaultNumber() default 0.0;
     public boolean defaultBoolean() default false;
+    public Level level() default Level.Debug;
 }

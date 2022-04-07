@@ -9,4 +9,5 @@ import java.lang.annotation.Target;
 @Target( { ElementType.METHOD, ElementType.FIELD })
 public @interface Observable {
     public String key();
+    public Level level() default Level.Debug;
 }

@@ -9,4 +9,5 @@ import java.lang.annotation.Target;
 @Target( { ElementType.TYPE })
 public @interface Telemetry {
     public String key() default "";
+    public Level level() default Level.Competition;
 }
