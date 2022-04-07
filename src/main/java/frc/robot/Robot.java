@@ -61,11 +61,11 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
         // SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
         // SmartDashboard.putNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed);
-        SmartDashboard.putNumber(DashboardMap.kShooterFf, Shooter.kShooterFf);
-        SmartDashboard.putNumber(DashboardMap.kShooterP, Shooter.kShooterKp);
-        SmartDashboard.putNumber(DashboardMap.kShooterI, Shooter.kShooterKi);
-        SmartDashboard.putNumber(DashboardMap.kShooterD, Shooter.kShooterKd);
-        SmartDashboard.putNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
+        // SmartDashboard.putNumber(DashboardMap.kShooterFf, Shooter.kFrontShooterFF);
+        // SmartDashboard.putNumber(DashboardMap.kShooterP, Shooter.kFrontShooterP);
+        // SmartDashboard.putNumber(DashboardMap.kShooterI, Shooter.kFrontShooterI);
+        // SmartDashboard.putNumber(DashboardMap.kShooterD, Shooter.kFrontShooterD);
+        // SmartDashboard.putNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
         SmartDashboard.putNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle);
         SmartDashboard.putNumber("Drive Reducer", 1.00);
 

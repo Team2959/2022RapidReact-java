@@ -18,10 +18,14 @@ import frc.robot.RobotMap;
 @Telemetry
 public class Shooter extends SubsystemBase {
     public static final double kAcceleratorSpeed = 0.60;
-    public static final double kShooterFf = 0.0013;
-    public static final double kShooterKp = 0.000465;
-    public static final double kShooterKi = 0.0;
-    public static final double kShooterKd = 0.00007;
+    public static final double kFrontShooterFF = 0.0013;
+    public static final double kFrontShooterP = 0.000465;
+    public static final double kFrontShooterI = 0.0;
+    public static final double kFrontShooterD = 0.00007;
+    public static final double kBackShooterFF = 0.0013;
+    public static final double kBackShooterP = 0.000465;
+    public static final double kBackShooterI = 0.0;
+    public static final double kBackShooterD = 0.00007;
     public static final double kShooterEntryAngle = -70;
     public static final double kShooterMulti = 0.805; // 0.821;
 
@@ -38,24 +42,44 @@ public class Shooter extends SubsystemBase {
     public static final double kIdleSpeed = 100;
     private double m_requestedVelocity = 0;
 
-    @Updateable(key = "P", level = Level.Competition, defaultNumber = kShooterKp, whenDisabled = true)
+    @Updateable(key = "Front/P", level = Level.Competition, defaultNumber = kFrontShooterP, whenDisabled = true)
     void m_setP(double p) {
         m_mainMotorController.setP(p);
     }
 
-    @Updateable(key = "I", level = Level.Competition, defaultNumber = kShooterKi, whenDisabled = true)
+    @Updateable(key = "Front/I", level = Level.Competition, defaultNumber = kFrontShooterI, whenDisabled = true)
     void m_setI(double i) {
         m_mainMotorController.setI(i);
     }
 
-    @Updateable(key = "D", level = Level.Competition, defaultNumber = kShooterKd, whenDisabled = true)
+    @Updateable(key = "Front/D", level = Level.Competition, defaultNumber = kFrontShooterD, whenDisabled = true)
     void m_setD(double d) {
         m_mainMotorController.setD(d);
     }
 
-    @Updateable(key = "FF", level = Level.Competition, defaultNumber = kShooterFf, whenDisabled = true)
+    @Updateable(key = "Front/FF", level = Level.Competition, defaultNumber = kFrontShooterFF, whenDisabled = true)
     void m_setFF(double ff) {
         m_mainMotorController.setFF(ff);
+    }
+
+    @Updateable(key = "Back/P", level = Level.Competition, defaultNumber = kBackShooterP, whenDisabled = true)
+    void mb_setP(double p) {
+        m_backMotorController.setP(p);
+    }
+
+    @Updateable(key = "Back/I", level = Level.Competition, defaultNumber = kBackShooterI, whenDisabled = true)
+    void mb_setI(double i) {
+        m_backMotorController.setI(i);
+    }
+
+    @Updateable(key = "Back/D", level = Level.Competition, defaultNumber = kBackShooterD, whenDisabled = true)
+    void mb_setD(double d) {
+        m_backMotorController.setD(d);
+    }
+
+    @Updateable(key = "Back/FF", level = Level.Competition, defaultNumber = kBackShooterFF, whenDisabled = true)
+    void mb_setFF(double ff) {
+        m_backMotorController.setFF(ff);
     }
 
     public Shooter() {
@@ -69,10 +93,10 @@ public class Shooter extends SubsystemBase {
         
         m_accelerator = new VictorSPX(RobotMap.kAcceleratorVictorSPX);
  
-        m_mainMotorController.setFF(kShooterFf);
-        m_mainMotorController.setP(kShooterKp);
-        m_mainMotorController.setI(kShooterKi);
-        m_mainMotorController.setD(kShooterKd);
+        m_mainMotorController.setFF(kFrontShooterFF);
+        m_mainMotorController.setP(kFrontShooterP);
+        m_mainMotorController.setI(kFrontShooterI);
+        m_mainMotorController.setD(kFrontShooterD);
     
         m_followerMotor.follow(m_mainMotor, true);
     }
