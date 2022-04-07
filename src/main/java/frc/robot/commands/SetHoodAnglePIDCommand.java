@@ -18,6 +18,6 @@ public class SetHoodAnglePIDCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Util.dcompareMine(m_container.hood.getPosition(), m_position, 0.01);
+        return Util.dcompare2(m_container.hood.getPosition(), m_position, 0.01);
     }
 }

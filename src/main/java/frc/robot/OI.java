@@ -103,7 +103,8 @@ public class OI {
         m_safeZoneShotButton.whenPressed(new TurnTurretToPositionCommand(m_container, 0.0));
         m_wallShotButton.whenPressed(new LowGoalWallShotCommandGroup(m_container));
         m_testButton.whenPressed(new InstantCommand(() -> {
-            m_container.shooter.setVelocity(Shooter.kIdleSpeed);
+            m_container.shooter.setFrontVelocity(Shooter.kIdleSpeed);
+            m_container.shooter.setBackVelocity(Shooter.kIdleSpeed);
         }, m_container.shooter));
         // m_testButton.whenPressed(new TurnTurretToPositionCommand(m_container, 0.0));
         m_gloryShotButton.whenPressed(new GloryShotCommand(m_container));
@@ -140,19 +141,9 @@ public class OI {
         r = m_rotationConditioning.condition(r);
             double rotation = r * Drivetrain.kMaxAngularSpeedRadiansPerSecond;
 
-        // SmartDashboard.putNumber("OI/X Speed", xSpeed);
-        // SmartDashboard.putNumber("OI/Y Speed", ySpeed);
-        // SmartDashboard.putNumber("OI/Rotation Speed", rotation);
-
         return new DriveState(xSpeed, ySpeed, rotation);
     }
 
     public void onDisabledInit() {
-        // m_xConditioning.setExponent(SmartDashboard.getNumber(DashboardMap.kOIXExponent, kDriverXexponent));
-        // m_xConditioning.setDeadband(SmartDashboard.getNumber(DashboardMap.kOIXDeadband, kDriverXdeadband));
-        // m_yConditioning.setExponent(SmartDashboard.getNumber(DashboardMap.kOIYExponent, kDriverYexponent));
-        // m_yConditioning.setDeadband(SmartDashboard.getNumber(DashboardMap.kOIYDeadband, kDriverYdeadband));
-        // m_rotationConditioning.setExponent(SmartDashboard.getNumber(DashboardMap.kOITurnExponent, kDriverRotationExponent));
-        // m_rotationConditioning.setDeadband(SmartDashboard.getNumber(DashboardMap.kOITurnDeadband, kDriverRotationDeadband));
     }
 }

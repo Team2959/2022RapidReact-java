@@ -10,7 +10,7 @@ public class Util {
         final double kThreshold = 0.001;
         return Math.abs(left - right) < kThreshold;
     }
-    public static boolean dcompareMine(double left, double right, double threshold) {
+    public static boolean dcompare2(double left, double right, double threshold) {
         return Math.abs(left - right) < threshold;
     }
 }

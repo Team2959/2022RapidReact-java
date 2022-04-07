@@ -14,24 +14,15 @@ import frc.robot.subsystems.Shooter;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FireCommandWithTracking extends SequentialCommandGroup {
 
-  private final RobotContainer m_container;
+    private final RobotContainer m_container;
 
-  public FireCommandWithTracking(RobotContainer container) {
-    m_container = container;
+    public FireCommandWithTracking(RobotContainer container) {
+        m_container = container;
 
-    addCommands(
-      new TuneShooterAndHoodCommand(container).withInterrupt(() -> container.oi.getFireOverrided()),
-      new WaitCommand(1.0).withInterrupt(() -> container.oi.getFireOverrided()).raceWith(new ActiveTurretTracking(container)),
-      new ActiveTargetTrackingAndFire(container),
-      new WaitCommand(1)
-    );
-  }
-
-  @Override
-  public void end(boolean interupt) {
-    m_container.m_activeTracking = false;
-    m_container.shooter.setVelocity(Shooter.kIdleSpeed);
-    m_container.shooter.setAccelarator(0);
-    m_container.turret.setDesiredAngle(0.0);
-  }
+        addCommands(
+                new TuneShooterAndHoodCommand(container).withInterrupt(() -> container.oi.getFireOverrided()),
+                new WaitCommand(1.0).withInterrupt(() -> container.oi.getFireOverrided())
+                        .raceWith(new ActiveTurretTracking(container)),
+                new ActiveTargetTrackingAndFire(container));
+    }
 }

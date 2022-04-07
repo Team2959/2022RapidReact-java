@@ -16,25 +16,27 @@ import frc.robot.subsystems.ColorSensor.ColorType;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
 
-  private final RobotContainer m_container;
+    private final RobotContainer m_container;
 
-  public PostShooterPrepFiringCommandGroup(RobotContainer container) {
-    m_container = container;
+    public PostShooterPrepFiringCommandGroup(RobotContainer container) {
+        m_container = container;
 
-    addCommands(
-      new FeedCargoAndRetractCommand(container.cargoFeeder, 0.25),
-      new WaitCommand(.25),
-      new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(1),
-      new WaitCommand(0.75),
-      new FeedCargoAndRetractCommand(container.cargoFeeder, 0.25),
-      new WaitCommand(1.0)
-      );
-  }
+        addCommands(
+                new FeedCargoAndRetractCommand(container.cargoFeeder, 0.25),
+                new WaitCommand(.25),
+                new WaitUntilCommand(
+                        () -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided())
+                                .withTimeout(1),
+                new WaitCommand(0.75),
+                new FeedCargoAndRetractCommand(container.cargoFeeder, 0.25),
+                new WaitCommand(1.0));
+    }
 
-  @Override
-  public void end(boolean interupt) {
-    m_container.m_activeTracking = false;
-    m_container.shooter.setVelocity(Shooter.kIdleSpeed);
-    m_container.shooter.setAccelarator(0);
-  }
+    @Override
+    public void end(boolean interupt) {
+        m_container.shooter.setFrontVelocity(Shooter.kIdleSpeed);
+        m_container.shooter.setBackVelocity(Shooter.kIdleSpeed);
+        m_container.shooter.setAccelarator(0);
+        m_container.turret.setDesiredAngle(0.0);
+    }
 }

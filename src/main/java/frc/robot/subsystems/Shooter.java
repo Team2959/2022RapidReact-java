@@ -23,18 +23,25 @@ public class Shooter extends SubsystemBase {
 
     private final CANSparkMax m_mainMotor;
     private final CANSparkMax m_followerMotor;
+    private final CANSparkMax m_backMotor;
     private final SparkMaxPIDController m_mainMotorController;
     private final SparkMaxRelativeEncoder m_mainMotorEncoder;
+    private final SparkMaxPIDController m_backMotorController;
+    private final SparkMaxRelativeEncoder m_backMotorEncoder;
     private final VictorSPX m_accelerator;
     static public final double kWheelRadius = 2.5 * 0.0254;
+    static public final double kBackWheelRadius = 2.0 * 0.0254;
     public static final double kIdleSpeed = 100;
     private double m_requestedVelocity = 0;
 
     public Shooter() {
         m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
         m_followerMotor = new CANSparkMax(RobotMap.kShooterFollowerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
+        m_backMotor = new CANSparkMax(RobotMap.kShooterBackCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
         m_mainMotorController = m_mainMotor.getPIDController();
         m_mainMotorEncoder = (SparkMaxRelativeEncoder) m_mainMotor.getEncoder();
+        m_backMotorEncoder = (SparkMaxRelativeEncoder) m_backMotor.getEncoder();
+        m_backMotorController = m_backMotor.getPIDController();
         
         m_accelerator = new VictorSPX(RobotMap.kAcceleratorVictorSPX);
  
@@ -55,21 +62,34 @@ public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber(DashboardMap.kShooterVelocity, getVelocity());
+        SmartDashboard.putNumber(DashboardMap.kShooterVelocity, getFrontVelocity());
     }
 
     /** @param speed Value between 0 and 4500 */
-    public void setVelocity(double rpm) {
+    public void setFrontVelocity(double rpm) {
         rpm = Math.min(4500, rpm);
         m_requestedVelocity = rpm;
         m_mainMotorController.setReference(rpm, CANSparkMax.ControlType.kVelocity);
+    }
+
+    /**
+     * 
+     * @param rpm between 0 and 4500
+     */
+    public void setBackVelocity(double rpm) {
+        rpm = Math.min(4500, rpm);
+        m_backMotorController.setReference(rpm, CANSparkMax.ControlType.kVelocity);
+    }
+
+    public double getBackVelocity() {
+        return m_backMotorEncoder.getVelocity();
     }
 
     public double getRequestedVelocity() {
         return m_requestedVelocity;
     }
 
-    public double getVelocity() {
+    public double getFrontVelocity() {
         return m_mainMotorEncoder.getVelocity();
     }
 
