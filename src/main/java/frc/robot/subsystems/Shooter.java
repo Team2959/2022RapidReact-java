@@ -34,26 +34,25 @@ public class Shooter extends SubsystemBase {
     public static final double kIdleSpeed = 100;
     private double m_requestedVelocity = 0;
 
-    @Updateable(key = "P", level = Level.Competition, defaultNumber = kShooterKp)
+    @Updateable(key = "P", level = Level.Competition, defaultNumber = kShooterKp, whenDisabled = true)
     void m_setP(double p) {
         m_mainMotorController.setP(p);
     }
 
-    @Updateable(key = "I", level = Level.Competition, defaultNumber = kShooterKi)
+    @Updateable(key = "I", level = Level.Competition, defaultNumber = kShooterKi, whenDisabled = true)
     void m_setI(double i) {
         m_mainMotorController.setI(i);
     }
 
-    @Updateable(key = "D", level = Level.Competition, defaultNumber = kShooterKd)
+    @Updateable(key = "D", level = Level.Competition, defaultNumber = kShooterKd, whenDisabled = true)
     void m_setD(double d) {
         m_mainMotorController.setD(d);
     }
 
-    @Updateable(key = "FF", level = Level.Competition, defaultNumber = kShooterFf)
+    @Updateable(key = "FF", level = Level.Competition, defaultNumber = kShooterFf, whenDisabled = true)
     void m_setFF(double ff) {
         m_mainMotorController.setFF(ff);
     }
-
 
     public Shooter() {
         m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);

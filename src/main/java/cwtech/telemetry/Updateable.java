@@ -13,4 +13,5 @@ public @interface Updateable {
     public double defaultNumber() default 0.0;
     public boolean defaultBoolean() default false;
     public Level level() default Level.Debug;
+    public boolean whenDisabled() default false;
 }

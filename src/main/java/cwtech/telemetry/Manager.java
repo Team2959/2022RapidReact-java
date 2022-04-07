@@ -287,6 +287,9 @@ public class Manager {
         @Override
         public void update() {
             if (m_updateableAnnotation.isPresent()) {
+                if(m_updateableAnnotation.get().whenDisabled() && DriverStation.isEnabled()) {
+                    return;
+                }
                 try {
                     if (isNumber(m_field.getType())) {
                         m_field.set(m_object, m_ntEntry.getNumber(m_updateableAnnotation.get().defaultNumber()));
@@ -390,6 +393,9 @@ public class Manager {
         @Override
         public void update() {
             if (m_updateableAnnotation.isPresent()) {
+                if(m_updateableAnnotation.get().whenDisabled() && DriverStation.isEnabled()) {
+                    return;
+                }
                 try {
                     if (isNumber(m_method.getParameterTypes()[0])) {
                         m_method.invoke(m_object, m_ntEntry.getNumber(m_updateableAnnotation.get().defaultNumber()));
