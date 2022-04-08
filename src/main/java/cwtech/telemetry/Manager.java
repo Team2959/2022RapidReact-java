@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.Optional;
+
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -12,7 +14,9 @@ public class Manager {
     private LinkedList<ObjectImpl> m_telemetryObjects = new LinkedList<>();
 
     private Optional<Level> m_level = Optional.empty();
-    private String prefix = "CWTelemetry";
+    private String prefix = "Telemetry";
+
+    private NetworkTable m_table = NetworkTableInstance.getDefault().getTable(prefix);
 
     public Manager() {
     }
@@ -240,7 +244,9 @@ public class Manager {
                 m_observableAnnotation = Optional.empty();
             }
 
-            m_ntEntry = NetworkTableInstance.getDefault().getEntry(key());
+            String k = key();
+            System.err.println("Registered: " + k);
+            m_ntEntry = m_table.getEntry(k);
 
         }
 
@@ -351,7 +357,11 @@ public class Manager {
                 m_updateableAnnotation = Optional.empty();
                 m_observableAnnotation = Optional.empty();
             }
-            m_ntEntry = NetworkTableInstance.getDefault().getEntry(key());
+
+            String k = key();
+            System.err.println("Registered: " + k);
+            m_ntEntry = m_table.getEntry(k);
+            System.err.println("valid: " + String.format("%b", m_ntEntry.isValid()));
         }
 
         @Override
