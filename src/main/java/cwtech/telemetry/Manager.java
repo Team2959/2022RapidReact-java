@@ -169,9 +169,6 @@ public class Manager {
             if (key.isEmpty()) {
                 key = m_class.getSimpleName();
             }
-            if(!m_parent.isPresent()) {
-                key = prefix + "/" + key;
-            }
             return (m_parent.isPresent() ? m_parent.get().key() + "/" : "") + key;
         }
 
@@ -262,9 +259,6 @@ public class Manager {
             }
             if (key.isEmpty()) {
                 key = m_field.getName();
-            }
-            if(!m_parent.isPresent()) {
-                key = prefix + "/" + key;
             }
             return (m_parent.isPresent() ? m_parent.get().key() + "/" : "") + key;
         }
@@ -376,9 +370,6 @@ public class Manager {
             }
             if (key.isEmpty()) {
                 key = m_method.getName();
-            }
-            if(!m_parent.isPresent()) {
-                key = prefix + "/" + key;
             }
             return (m_parent.isPresent() ? m_parent.get().key() + "/" : "") + key;
         }
