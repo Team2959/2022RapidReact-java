@@ -8,6 +8,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 
 import cwtech.telemetry.Level;
+import cwtech.telemetry.Observable;
 import cwtech.telemetry.Telemetry;
 import cwtech.telemetry.Updateable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,14 +18,14 @@ import frc.robot.RobotMap;
 
 @Telemetry
 public class Shooter extends SubsystemBase {
-    public static final double kAcceleratorSpeed = 0.60;
+    public static final double kAcceleratorSpeed = 0.80;
     public static final double kFrontShooterFF = 0.0013;
     public static final double kFrontShooterP = 0.000465;
-    public static final double kFrontShooterI = 0.0;
+    public static final double kFrontShooterI = 0.0000015;
     public static final double kFrontShooterD = 0.00007;
     public static final double kBackShooterFF = 0.0013;
     public static final double kBackShooterP = 0.000465;
-    public static final double kBackShooterI = 0.0;
+    public static final double kBackShooterI = 0.0000015;
     public static final double kBackShooterD = 0.00007;
     public static final double kShooterEntryAngle = -70;
     public static final double kShooterMulti = 0.805; // 0.821;
@@ -42,54 +43,72 @@ public class Shooter extends SubsystemBase {
     public static final double kIdleSpeed = 100;
     private double m_requestedVelocity = 0;
 
-    @Updateable(key = "Front/P", level = Level.Competition, defaultNumber = kFrontShooterP, whenDisabled = true)
-    void m_setP(double p) {
-        m_mainMotorController.setP(p);
-    }
+    // @Updateable(key = "Do Manual Back RPM")
+    // public boolean doManualBackRPM = false;
 
-    @Updateable(key = "Front/I", level = Level.Competition, defaultNumber = kFrontShooterI, whenDisabled = true)
-    void m_setI(double i) {
-        m_mainMotorController.setI(i);
-    }
+    // @Updateable(key = "Do Manual Front RPM")
+    // public boolean doManualFrontRPM = false;
 
-    @Updateable(key = "Front/D", level = Level.Competition, defaultNumber = kFrontShooterD, whenDisabled = true)
-    void m_setD(double d) {
-        m_mainMotorController.setD(d);
-    }
+    // @Updateable(key = "Manual Front RPM")
+    // public double manualFrontRPM = 0.0;
 
-    @Updateable(key = "Front/FF", level = Level.Competition, defaultNumber = kFrontShooterFF, whenDisabled = true)
-    void m_setFF(double ff) {
-        m_mainMotorController.setFF(ff);
-    }
+    // @Updateable(key = "Manual Back RPM")
+    // public double manualBackRPM = 0.0;
 
-    @Updateable(key = "Back/P", level = Level.Competition, defaultNumber = kBackShooterP, whenDisabled = true)
-    void mb_setP(double p) {
-        m_backMotorController.setP(p);
-    }
+    // @Updateable(key = "Front/P", level = Level.Competition, defaultNumber = kFrontShooterP, whenDisabled = true)
+    // void m_setP(double p) {
+    //     m_mainMotorController.setP(p);
+    // }
 
-    @Updateable(key = "Back/I", level = Level.Competition, defaultNumber = kBackShooterI, whenDisabled = true)
-    void mb_setI(double i) {
-        m_backMotorController.setI(i);
-    }
+    // @Updateable(key = "Front/I", level = Level.Competition, defaultNumber = kFrontShooterI, whenDisabled = true)
+    // void m_setI(double i) {
+    //     m_mainMotorController.setI(i);
+    // }
 
-    @Updateable(key = "Back/D", level = Level.Competition, defaultNumber = kBackShooterD, whenDisabled = true)
-    void mb_setD(double d) {
-        m_backMotorController.setD(d);
-    }
+    // @Updateable(key = "Front/D", level = Level.Competition, defaultNumber = kFrontShooterD, whenDisabled = true)
+    // void m_setD(double d) {
+    //     m_mainMotorController.setD(d);
+    // }
 
-    @Updateable(key = "Back/FF", level = Level.Competition, defaultNumber = kBackShooterFF, whenDisabled = true)
-    void mb_setFF(double ff) {
-        m_backMotorController.setFF(ff);
-    }
+    // @Updateable(key = "Front/FF", level = Level.Competition, defaultNumber = kFrontShooterFF, whenDisabled = true)
+    // void m_setFF(double ff) {
+    //     m_mainMotorController.setFF(ff);
+    // }
+
+    // @Updateable(key = "Back/P", level = Level.Competition, defaultNumber = kBackShooterP, whenDisabled = true)
+    // void mb_setP(double p) {
+    //     m_backMotorController.setP(p);
+    // }
+
+    // @Updateable(key = "Back/I", level = Level.Competition, defaultNumber = kBackShooterI, whenDisabled = true)
+    // void mb_setI(double i) {
+    //     m_backMotorController.setI(i);
+    // }
+
+    // @Updateable(key = "Back/D", level = Level.Competition, defaultNumber = kBackShooterD, whenDisabled = true)
+    // void mb_setD(double d) {
+    //     m_backMotorController.setD(d);
+    // }
+
+    // @Updateable(key = "Back/FF", level = Level.Competition, defaultNumber = kBackShooterFF, whenDisabled = true)
+    // void mb_setFF(double ff) {
+    //     m_backMotorController.setFF(ff);
+    // }
 
     public Shooter() {
         m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
         m_followerMotor = new CANSparkMax(RobotMap.kShooterFollowerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
         m_backMotor = new CANSparkMax(RobotMap.kShooterBackCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
+
+        m_mainMotor.restoreFactoryDefaults();
+        m_followerMotor.restoreFactoryDefaults();
+        m_backMotor.restoreFactoryDefaults();
+
         m_mainMotorController = m_mainMotor.getPIDController();
         m_mainMotorEncoder = (SparkMaxRelativeEncoder) m_mainMotor.getEncoder();
         m_backMotorEncoder = (SparkMaxRelativeEncoder) m_backMotor.getEncoder();
         m_backMotorController = m_backMotor.getPIDController();
+
         
         m_accelerator = new VictorSPX(RobotMap.kAcceleratorVictorSPX);
  
@@ -97,20 +116,36 @@ public class Shooter extends SubsystemBase {
         m_mainMotorController.setP(kFrontShooterP);
         m_mainMotorController.setI(kFrontShooterI);
         m_mainMotorController.setD(kFrontShooterD);
+
+        m_backMotorController.setFF(kBackShooterFF);
+        m_backMotorController.setP(kBackShooterP);
+        m_backMotorController.setI(kBackShooterI);
+        m_backMotorController.setD(kBackShooterD);
     
         m_followerMotor.follow(m_mainMotor, true);
+        m_backMotor.setInverted(true);
+
+        m_mainMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        m_followerMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        m_backMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
     }
 
     public void onDisabledPeriodic() {
-        // m_mainMotorController.setFF(SmartDashboard.getNumber(DashboardMap.kShooterFf, kShooterFf));
-        // m_mainMotorController.setP(SmartDashboard.getNumber(DashboardMap.kShooterP, kShooterKp));
-        // m_mainMotorController.setI(SmartDashboard.getNumber(DashboardMap.kShooterI, kShooterKi));
-        // m_mainMotorController.setD(SmartDashboard.getNumber(DashboardMap.kShooterD, kShooterKd));
+        m_mainMotorController.setFF(SmartDashboard.getNumber(DashboardMap.kShooterFf, kFrontShooterFF));
+        m_mainMotorController.setP(SmartDashboard.getNumber(DashboardMap.kShooterP, kFrontShooterP));
+        m_mainMotorController.setI(SmartDashboard.getNumber(DashboardMap.kShooterI, kFrontShooterI));
+        m_mainMotorController.setD(SmartDashboard.getNumber(DashboardMap.kShooterD, kFrontShooterD));
+
+        m_backMotorController.setFF(SmartDashboard.getNumber("Shooter/Back/FF", kBackShooterFF));
+        m_backMotorController.setP(SmartDashboard.getNumber ("Shooter/Back/P",   kBackShooterP));
+        m_backMotorController.setI(SmartDashboard.getNumber ("Shooter/Back/I",   kBackShooterI));
+        m_backMotorController.setD(SmartDashboard.getNumber ("Shooter/Back/D",   kBackShooterD));
     }
 
     @Override
     public void periodic() {
         SmartDashboard.putNumber(DashboardMap.kShooterVelocity, getFrontVelocity());
+        SmartDashboard.putNumber("Shooter/Back Velocity", getBackVelocity());
     }
 
     /** @param speed Value between 0 and 4500 */
@@ -129,6 +164,7 @@ public class Shooter extends SubsystemBase {
         m_backMotorController.setReference(rpm, CANSparkMax.ControlType.kVelocity);
     }
 
+    @Observable(key = "Back Velocity")
     public double getBackVelocity() {
         return m_backMotorEncoder.getVelocity();
     }
@@ -137,6 +173,7 @@ public class Shooter extends SubsystemBase {
         return m_requestedVelocity;
     }
 
+    @Observable(key = "Front Velocity", level = Level.Competition)
     public double getFrontVelocity() {
         return m_mainMotorEncoder.getVelocity();
     }

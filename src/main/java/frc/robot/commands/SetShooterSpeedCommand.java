@@ -45,9 +45,24 @@ public class SetShooterSpeedCommand extends CommandBase {
                     * 60.0;
         }
 
+        if(SmartDashboard.getBoolean(DashboardMap.kShooterDoManualBack, false)) {
+            m_targetBackRPM = SmartDashboard.getNumber(DashboardMap.kShooterManualBack, 0.0);
+        }
+
+        if(SmartDashboard.getBoolean(DashboardMap.kShooterDoManualBack, false)) {
+            m_targetFrontRPM = SmartDashboard.getNumber(DashboardMap.kShooterManualFront, 0.0);
+        }
+
+        m_targetFrontRPM *= SmartDashboard.getNumber(DashboardMap.kShooterMulti, 1.0);
+        m_targetBackRPM *= SmartDashboard.getNumber(DashboardMap.kBackShooterMulti, 1.0);
+
+
+        SmartDashboard.putNumber("Expected Front Velocity", m_targetFrontRPM);
+        SmartDashboard.putNumber("Expected Back Velocity", m_targetBackRPM);
+
         m_container.shooter.setFrontVelocity(m_targetFrontRPM);
         m_container.shooter.setBackVelocity(m_targetBackRPM);
-        m_container.shooter.setAccelarator(m_targetFrontRPM > 0 ? Shooter.kAcceleratorSpeed : 0.0);
+        m_container.shooter.setAccelarator(m_targetFrontRPM > 0 ? SmartDashboard.getNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed) : 0.0);
     }
 
     @Override
@@ -60,6 +75,7 @@ public class SetShooterSpeedCommand extends CommandBase {
         // return m_container.shooter.getFrontVelocity() < m_targetFrontRPM + 600;
         return Util.dcompare2(m_container.shooter.getFrontVelocity(), m_targetFrontRPM, 300)
                 && Util.dcompare2(m_container.shooter.getBackVelocity(), m_targetBackRPM, 300);
+        // return true;
     }
 
     // @Override

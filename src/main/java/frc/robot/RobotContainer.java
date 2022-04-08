@@ -58,7 +58,6 @@ public class RobotContainer {
 
         m_telemetryManager.register(drivetrain);
         m_telemetryManager.register(shooter);
-        m_telemetryManager.setLevel(Optional.of(Level.Competition));
     }
 
     public void init() {

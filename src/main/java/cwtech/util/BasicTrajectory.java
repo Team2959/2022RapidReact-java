@@ -22,7 +22,7 @@ public class BasicTrajectory {
      * Based on: https://www.desmos.com/calculator/mdxtrnxps5
      */
     static public TrajectoryCalculation calculate(double S, double d, double H) {
-        double a = atan(((tan(S) * d) - (2.0 * H)) / -d);
+        double a = 75; //atan(((tan(S) * d) - (2.0 * H)) / -d);
         double v = Math.sqrt(-( ((9.8 * (Math.pow(d, 2.0))) * (1.0 + Math.pow(tan(a), 2.0))) / ((2.0 * H) - (2.0 * d * tan(a))) ));
 
         /*

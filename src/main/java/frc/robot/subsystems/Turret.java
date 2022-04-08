@@ -56,14 +56,14 @@ public class Turret extends SubsystemBase {
 
     public void setDesiredAngle(double degrees) {
         double newTarget = Math.min(kMaxDegreesForwards ,Math.max(degrees, kMaxDegreesBackwards));
-        REVLibError error = m_turretController.setReference(newTarget, CANSparkMax.ControlType.kPosition);
-        if(error != REVLibError.kOk) {
-            System.err.println("Returned error on setDesiredAngle");
-        }
+        //REVLibError error = m_turretController.setReference(newTarget, CANSparkMax.ControlType.kPosition);
+        // if(error != REVLibError.kOk) {
+            // System.err.println("Returned error on setDesiredAngle");
+        // }
     }
 
     public void setSpeed(double speed) {
-        m_turretMotor.set(speed);
+        // m_turretMotor.set(speed);
         //m_turretController.setReference(speed, CANSparkMax.ControlType.kSmartMotion);
     }
 
@@ -72,8 +72,8 @@ public class Turret extends SubsystemBase {
     }
 
     public void setSpeedToTargetAngle(double targetAngle){
-        double newTarget = Math.min(kMaxDegreesForwards ,Math.max(targetAngle, kMaxDegreesBackwards));
-        setSpeed(newTarget > getAngleDegrees() ? 0.80 : -0.80);
+        // double newTarget = Math.min(kMaxDegreesForwards ,Math.max(targetAngle, kMaxDegreesBackwards));
+        // setSpeed(newTarget > getAngleDegrees() ? 0.80 : -0.80);
     }
 
     private final double kVisionError = 2;

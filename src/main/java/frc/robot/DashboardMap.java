@@ -38,13 +38,19 @@ public class DashboardMap {
     public static final String kShooterUseManualSpeed = key("Use Specified Speed", kShooter);
     public static final String kShooterManualSpeed = key("Set Speed", kShooter);
     public static final String kShooterAcceleratorSpeed = key("Accelarator Speed", kShooter);
-    public static final String kShooterP = key("Shooter P", kShooter);
-    public static final String kShooterI = key("Shooter I", kShooter);
-    public static final String kShooterD = key("Shooter D", kShooter);
-    public static final String kShooterFf = key("Shooter FF", kShooter);
-    public static final String kShooterVelocity = key("Velocity", kShooter);
+    public static final String kShooterP =  key("Front/P", kShooter);
+    public static final String kShooterI =  key("Front/I", kShooter);
+    public static final String kShooterD =  key("Front/D", kShooter);
+    public static final String kShooterFf = key("Front/FF", kShooter);
+    public static final String kShooterDoManualFront = key("Front/Do Manual", kShooter);
+    public static final String kShooterDoManualBack = key("Back/Do Manual", kShooter);
+    public static final String kShooterManualFront = key("Front/Manual RPM", kShooter);
+    public static final String kShooterManualBack = key("Back/Manual RPM", kShooter); 
+    public static final String kShooterVelocity = key("Front Velocity", kShooter);
     public static final String kShooterEntryAngle = key("Entry Angle", kShooter);
     public static final String kShooterMulti = key("Multi", kShooter);
+    public static final String kBackShooterMulti = key("Back Multi", kShooter);
+
 
     public static final String kTrajectory = "Trajectory";
     public static final String kTrajectoryTyOffset = key("TY Offset", kTrajectory);
