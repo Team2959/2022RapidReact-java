@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
+import cwtech.telemetry.Level;
+import cwtech.telemetry.Manager;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -43,6 +47,8 @@ public class RobotContainer {
     private final Command m_autoPathCommand = new ThreeBallAutonomousCommandGroup(this);
     public final SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
 
+    private final Manager m_telemetryManager = new Manager();
+
     public RobotContainer() {
         drivetrain.setDefaultCommand(new TeleopDriveCommand(this, true));
         cargoIndexer.setDefaultCommand(new PositionBallCommand(this));
@@ -51,5 +57,17 @@ public class RobotContainer {
         m_autoChooser.addOption("Drive", m_driveOnlyAutoCommand);
         m_autoChooser.addOption("Path", m_autoPathCommand);
         SmartDashboard.putData("Auto", m_autoChooser);
+
+        m_telemetryManager.register(drivetrain);
+        m_telemetryManager.register(shooter);
+        m_telemetryManager.register(hood);
+    }
+
+    public void init() {
+        m_telemetryManager.inital();
+    }
+
+    public void periodic() {
+        m_telemetryManager.run();
     }
 }

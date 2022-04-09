@@ -1,10 +1,5 @@
 {
   "HALProvider": {
-    "Analog Inputs": {
-      "window": {
-        "visible": true
-      }
-    },
     "DIO": {
       "window": {
         "visible": true
@@ -12,6 +7,16 @@
     },
     "Other Devices": {
       "REV Color Sensor V3[0,82]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [15]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SPARK MAX [16]": {
         "header": {
           "open": true
         }
@@ -33,6 +38,11 @@
       "window": {
         "visible": true
       }
+    },
+    "Timing": {
+      "window": {
+        "visible": false
+      }
     }
   },
   "NTProvider": {
@@ -44,7 +54,49 @@
     }
   },
   "NetworkTables": {
-    "FMSInfo": {
+    "CWTelemetry": {
+      "Shooter": {
+        "open": true
+      },
+      "open": true
+    },
+    "Drivetrain": {
+      "Back Left": {
+        "open": true
+      },
+      "Back Right": {
+        "open": true
+      },
+      "Front Left": {
+        "open": true
+      },
+      "Front Right": {
+        "open": true
+      },
+      "Odometry": {
+        "open": true
+      },
+      "open": true
+    },
+    "LiveWindow": {
+      "open": true
+    },
+    "Shooter": {
+      "open": true
+    },
+    "SmartDashboard": {
+      "Auto": {
+        "open": true
+      },
+      "Odometry": {
+        "open": true
+      },
+      "Shooter": {
+        "open": true
+      },
+      "Trajectory": {
+        "open": true
+      },
       "open": true
     }
   }

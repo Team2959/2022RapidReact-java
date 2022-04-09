@@ -40,8 +40,11 @@ public class SetHoodAngleCommand extends CommandBase {
         {
             if(SmartDashboard.getBoolean(DashboardMap.kHoodUseManualAngle, false)) {
                 m_hoodPositionDegrees = SmartDashboard.getNumber(DashboardMap.kHoodManualAngle, Hood.kMinDegrees);
-                // SmartDashboard.putNumber("Hood Target Debug - Raw Degrees", m_hoodPositionDegrees);
+                SmartDashboard.putNumber("Hood Target Debug - Raw Degrees", m_hoodPositionDegrees);
             }
+            // if(m_container.hood.pDoManualAngle) {
+                // m_hoodPositionDegrees = m_container.hood.pManualAngle;
+            // }
             else {
                 double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
                 TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle), distanceMeters, Vision.kDifferenceMeters);
