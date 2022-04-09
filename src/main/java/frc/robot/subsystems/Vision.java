@@ -28,10 +28,14 @@ public class Vision extends SubsystemBase {
     public static final double kHubHeightMeters = (104 * 0.0254);
     public static final double kDifferenceMeters = kHubHeightMeters - kCameraHeightMeters;
 
-    private double kShootingMin;
-    private double kShootingMax;
-    private double kShootingRes;
-    private Vector<Pair<Double, Double>> kShootingMap;
+    // private double kShootingMin;
+    // private double kShootingMax;
+    // private double kShootingRes;
+    // private Vector<Pair<Double, Double>> kShootingMap;
+
+    private Vector<Double> m_points = new Vector<>();
+    private Vector<Double> m_velocities = new Vector<>();
+    private Vector<Double> m_hoods = new Vector<>();
 
     public Vision() {
         m_txEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
@@ -39,12 +43,12 @@ public class Vision extends SubsystemBase {
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(Filesystem.getDeployDirectory().toPath().resolve("shooting.csv").toString()));
-            boolean setMin = false;
-            boolean setRes = false;
+            // boolean setMin = false;
+            // boolean setRes = false;
             boolean readHeader = false;
             String line;
-            kShootingMap = new Vector<>();
-            double lastDist = 0;
+            // kShootingMap = new Vector<>();
+            // double lastDist = 0;
 
             while((line = reader.readLine()) != null) {
                 if(!readHeader) {
@@ -52,29 +56,41 @@ public class Vision extends SubsystemBase {
                     continue;
                 }
                 String[] info = line.split(",");
-                lastDist = Double.parseDouble(info[0]);
-                if(setMin && !setRes) {
-                    setRes = true;
-                    kShootingRes = lastDist - kShootingMin;
-                }
-                if(!setMin) {
-                    setMin = true;
-                    kShootingMin = lastDist;
-                }
-                kShootingMap.add(new Pair<>(Double.parseDouble(info[1]), Double.parseDouble(info[2])));
+                m_points.add(Double.parseDouble(info[0]));
+                m_velocities.add(Double.parseDouble(info[1]));
+                m_hoods.add(Double.parseDouble(info[2]));
+                // lastDist = Double.parseDouble(info[0]);
+                // if(setMin && !setRes) {
+                //     setRes = true;
+                //     kShootingRes = lastDist - kShootingMin;
+                // }
+                // if(!setMin) {
+                //     setMin = true;
+                //     kShootingMin = lastDist;
+                // }
+                // kShootingMap.add(new Pair<>(Double.parseDouble(info[1]), Double.parseDouble(info[2])));
             }
-            kShootingMax = lastDist;
+            // kShootingMax = lastDist;
         }
         catch(Exception e) {
-            kShootingMax = 0;
-            kShootingMin = 0;
-            kShootingRes = 0;
-            kShootingMap = new Vector<>();
+            // kShootingMax = 0;
+            // kShootingMin = 0;
+            // kShootingRes = 0;
+            // kShootingMap = new Vector<>();
             DriverStation.reportError("Failed to load shooting map file", e.getStackTrace());
         }
 
-        System.err.println(String.format("Min: %f, Max: %f, Res: %f", kShootingMin, kShootingMax, kShootingRes));
-        System.err.println(String.format("Best Index for 0.60: %d", getClosestIndex(0.60)));
+        // System.err.println(String.format("Min: %f, Max: %f, Res: %f", kShootingMin, kShootingMax, kShootingRes));
+        // System.err.println(String.format("Best Index for 0.60: %d", getClosestIndex(0.60)));
+
+        System.err.println(String.format("%d %d %d", m_points.size(), m_velocities.size(), m_hoods.size()));
+        for(var i = 0; i < m_points.size(); i++) {
+            System.err.println(String.format("%f %f %f", m_points.get(i), m_velocities.get(i), m_hoods.get(i)));
+        }
+
+        for(var i = 0.0; i <= 1; i += 0.1) {
+            System.err.println(String.format("Distance: %f, Velocity: %f, Hood: %f", i, shooterVelocity(i), shooterAngle(i)));
+        }
     }
 
     /** Gets the 'tx' from the limelight 
@@ -105,21 +121,63 @@ public class Vision extends SubsystemBase {
         return getDistanceFromTargetWithHeight(heightMeters) + kHubRadius;
     }
 
-    public int getClosestIndex(double distance) {
-        if(distance > kShootingMax) { 
-            return kShootingMap.size();
+    // public int getClosestIndex(double distance) {
+    //     if(distance > kShootingMax) { 
+    //         return kShootingMap.size();
+    //     }
+    //     else if(distance < kShootingMin) {
+    //         return 0;
+    //     }
+    //     return (int) ((Math.round(distance / kShootingRes)) + 1 - kShootingMin);
+    // }
+
+    // public double getShooterSpeed(int index) {
+    //     return kShootingMap.get(index).getFirst();
+    // }
+
+    // public double getHoodPosition(int index) {
+    //     return kShootingMap.get(index).getSecond();
+    // }
+
+    public double shooterVelocity(double d){
+
+        // var points = m_points; //new Vector<Double>();
+        // points.add(.25);
+        // points.add(.5);
+        // points.add(.75);
+        // points.add(1.);
+
+        // Vector<Double> velocities = m_velocities;//new Vector<>();
+        // velocities.add(1000.0);
+        // velocities.add(2000.0);
+        // velocities.add(4000.0);
+        // velocities.add(5000.0);
+
+        for(int i = 0; i < m_points.size() - 1; i++){
+            if(d >= m_points.get(i) && d < m_points.get(i + 1)){
+                double p = (d - m_points.get(i)) / (m_points.get(i + 1) - m_points.get(i));
+                return p * (m_velocities.get(i + 1) - m_velocities.get(i)) + m_velocities.get(i);
+            }
+            if(d == m_points.get(m_points.size() - 1)){
+                return m_velocities.get(m_velocities.size() - 1);
+            }
         }
-        else if(distance < kShootingMin) {
-            return 0;
-        }
-        return (int) ((Math.round(distance / kShootingRes)) + 1 - kShootingMin);
+        return 0;
     }
 
-    public double getShooterSpeed(int index) {
-        return kShootingMap.get(index).getFirst();
+    public double shooterAngle(double d){
+        
+        for(int i = 0; i < m_points.size() - 1; i++){
+            if(d >= m_points.get(i) && d < m_points.get(i + 1)){
+                double p = (d - m_points.get(i) / (m_points.get(i + 1) - m_points.get(i)));
+                return p * (m_hoods.get(i + 1) - m_hoods.get(i)) + m_hoods.get(i);
+            }
+            if(d == m_points.get(m_points.size() - 1)){
+                return m_hoods.get(m_hoods.size() - 1);
+            }
+        }
+        return 0;
     }
 
-    public double getHoodPosition(int index) {
-        return kShootingMap.get(index).getSecond();
-    }
+    
 }
