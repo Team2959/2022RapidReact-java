@@ -1,8 +1,15 @@
 package frc.robot.subsystems;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.Vector;
+
 import cwtech.util.BasicTrajectory;
+import edu.wpi.first.math.Pair;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.DashboardMap;
@@ -21,9 +28,53 @@ public class Vision extends SubsystemBase {
     public static final double kHubHeightMeters = (104 * 0.0254);
     public static final double kDifferenceMeters = kHubHeightMeters - kCameraHeightMeters;
 
+    private double kShootingMin;
+    private double kShootingMax;
+    private double kShootingRes;
+    private Vector<Pair<Double, Double>> kShootingMap;
+
     public Vision() {
         m_txEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
         m_tyEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty");
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(Filesystem.getDeployDirectory().toPath().resolve("shooting.csv").toString()));
+            boolean setMin = false;
+            boolean setRes = false;
+            boolean readHeader = false;
+            String line;
+            kShootingMap = new Vector<>();
+            double lastDist = 0;
+
+            while((line = reader.readLine()) != null) {
+                if(!readHeader) {
+                    readHeader = true;
+                    continue;
+                }
+                String[] info = line.split(",");
+                lastDist = Double.parseDouble(info[0]);
+                if(setMin && !setRes) {
+                    setRes = true;
+                    kShootingRes = lastDist - kShootingMin;
+                }
+                if(!setMin) {
+                    setMin = true;
+                    kShootingMin = lastDist;
+                }
+                kShootingMap.add(new Pair<>(Double.parseDouble(info[1]), Double.parseDouble(info[2])));
+            }
+            kShootingMax = lastDist;
+        }
+        catch(Exception e) {
+            kShootingMax = 0;
+            kShootingMin = 0;
+            kShootingRes = 0;
+            kShootingMap = new Vector<>();
+            DriverStation.reportError("Failed to load shooting map file", e.getStackTrace());
+        }
+
+        System.err.println(String.format("Min: %f, Max: %f, Res: %f", kShootingMin, kShootingMax, kShootingRes));
+        System.err.println(String.format("Best Index for 0.60: %d", getClosestIndex(0.60)));
     }
 
     /** Gets the 'tx' from the limelight 
@@ -52,5 +103,23 @@ public class Vision extends SubsystemBase {
 
     public double getDistanceToHubCenterWithHeight(double heightMeters) {
         return getDistanceFromTargetWithHeight(heightMeters) + kHubRadius;
+    }
+
+    public int getClosestIndex(double distance) {
+        if(distance > kShootingMax) { 
+            return kShootingMap.size();
+        }
+        else if(distance < kShootingMin) {
+            return 0;
+        }
+        return (int) ((Math.round(distance / kShootingRes)) + 1 - kShootingMin);
+    }
+
+    public double getShooterSpeed(int index) {
+        return kShootingMap.get(index).getFirst();
+    }
+
+    public double getHoodPosition(int index) {
+        return kShootingMap.get(index).getSecond();
     }
 }
