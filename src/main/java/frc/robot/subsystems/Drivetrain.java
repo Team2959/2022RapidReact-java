@@ -2,6 +2,10 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import cwtech.telemetry.Child;
+import cwtech.telemetry.Observable;
+import cwtech.telemetry.Telemetry;
+import cwtech.telemetry.Updateable;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -16,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import frc.robot.DashboardMap;
 import frc.robot.RobotMap;
 
+@Telemetry
 public class Drivetrain extends SubsystemBase {
     public static final double kMaxSpeedMetersPerSecond = 4;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;// kMaxSpeedMetersPerSecond / Math.hypot(0.381, 0.381);
@@ -25,10 +30,16 @@ public class Drivetrain extends SubsystemBase {
     private final Translation2d kBackLeftLocation = new Translation2d(-0.381, 0.381);
     private final Translation2d kBackRightLocation = new Translation2d(-0.381, -0.381);
 
+    @Updateable(key = "Hello")
+    private double m_hello;
 
+    @Child(key = "Front Left")
     private SwerveModule m_frontLeft;
+    @Child(key = "Front Right")
     private SwerveModule m_frontRight;
+    @Child(key = "Back Left")
     private SwerveModule m_backLeft;
+    @Child(key = "Back Right")
     private SwerveModule m_backRight;
 
     private AHRS m_navX;
@@ -91,8 +102,6 @@ public class Drivetrain extends SubsystemBase {
         SwerveModuleState bl = states[2];
         SwerveModuleState br = states[3];
 
-        SmartDashboard.putNumber("SM/MPS", fl.speedMetersPerSecond);
-
         m_frontLeft.setDesiredState(fl);
         m_frontRight.setDesiredState(fr);
         m_backLeft.setDesiredState(bl);
@@ -109,10 +118,6 @@ public class Drivetrain extends SubsystemBase {
         m_frontRight.periodic();
         m_backLeft.periodic();
         m_backRight.periodic();
-
-        var pos = m_odometry.getPoseMeters();
-        SmartDashboard.putNumber("Odometry/X", pos.getX());
-        SmartDashboard.putNumber("Odometry/Y", pos.getY());
     }
 
     public void setInitalPositions() {
@@ -130,6 +135,7 @@ public class Drivetrain extends SubsystemBase {
         return m_odometry.getPoseMeters();
     }
 
+    @Observable(key = "Angle")
     public double getGyroAngle() {
         return m_navX.getAngle();
     }
@@ -144,5 +150,15 @@ public class Drivetrain extends SubsystemBase {
 
     public void resetOdometry(Pose2d pose) {
         m_odometry.resetPosition(pose, m_navX.getRotation2d());
+    }
+
+    @Observable(key = "Odometry/X")
+    private double m_X() {
+        return m_odometry.getPoseMeters().getX();
+    }
+
+    @Observable(key = "Odometry/Y")
+    private double m_Y() {
+        return m_odometry.getPoseMeters().getY();
     }
 }

@@ -7,11 +7,15 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 
+import cwtech.telemetry.Level;
+import cwtech.telemetry.Telemetry;
+import cwtech.telemetry.Updateable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.DashboardMap;
 import frc.robot.RobotMap;
 
+@Telemetry
 public class Shooter extends SubsystemBase {
     public static final double kAcceleratorSpeed = 0.60;
     public static final double kShooterFf = 0.0013;
@@ -29,6 +33,26 @@ public class Shooter extends SubsystemBase {
     static public final double kWheelRadius = 2.5 * 0.0254;
     public static final double kIdleSpeed = 100;
     private double m_requestedVelocity = 0;
+
+    @Updateable(key = "P", level = Level.Competition, defaultNumber = kShooterKp, whenDisabled = true)
+    void m_setP(double p) {
+        m_mainMotorController.setP(p);
+    }
+
+    @Updateable(key = "I", level = Level.Competition, defaultNumber = kShooterKi, whenDisabled = true)
+    void m_setI(double i) {
+        m_mainMotorController.setI(i);
+    }
+
+    @Updateable(key = "D", level = Level.Competition, defaultNumber = kShooterKd, whenDisabled = true)
+    void m_setD(double d) {
+        m_mainMotorController.setD(d);
+    }
+
+    @Updateable(key = "FF", level = Level.Competition, defaultNumber = kShooterFf, whenDisabled = true)
+    void m_setFF(double ff) {
+        m_mainMotorController.setFF(ff);
+    }
 
     public Shooter() {
         m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);

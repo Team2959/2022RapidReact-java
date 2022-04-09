@@ -70,6 +70,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Drive Reducer", 1.00);
 
         SmartDashboard.putBoolean(DashboardMap.kFieldCentric, true);
+        m_robotContainer.init();
     }
 
     @Override
@@ -88,6 +89,7 @@ public class Robot extends TimedRobot {
         }
 
         CommandScheduler.getInstance().run();
+        m_robotContainer.periodic();
     }
 
     @Override
