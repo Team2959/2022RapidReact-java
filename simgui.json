@@ -39,6 +39,7 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Auto": "String Chooser",
+      "/SmartDashboard/CS": "Scheduler",
       "/SmartDashboard/Scheduler": "Scheduler"
     }
   },

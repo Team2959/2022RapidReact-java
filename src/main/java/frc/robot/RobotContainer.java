@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.AutoComeForwardCommand;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriveOnlyAutoCommand;
+import frc.robot.commands.PositionBallCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.commands.ThreeBallAutonomousCommandGroup;
 import frc.robot.subsystems.Accelerator;
@@ -44,6 +45,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         drivetrain.setDefaultCommand(new TeleopDriveCommand(this, true));
+        cargoIndexer.setDefaultCommand(new PositionBallCommand(this));
         m_autoChooser.addOption("2 Ball Away", m_autoCommand);
         m_autoChooser.setDefaultOption("2 Ball Close", m_autoComeForwardCommand);
         m_autoChooser.addOption("Drive", m_driveOnlyAutoCommand);

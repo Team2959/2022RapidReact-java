@@ -33,6 +33,10 @@ public class CargoIndexer extends SubsystemBase {
     m_motor.set(speed);
   }
 
+  public void turnOnToIndex() {
+    setSpeed(SmartDashboard.getNumber(DashboardMap.kCargoIndexerIntakeSpeed, kSpeed));
+  }
+
   public void toggleIntake(boolean ballPresent) {
     if (m_extended)
     {

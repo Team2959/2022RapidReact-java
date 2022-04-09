@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         LiveWindow.disableAllTelemetry();
         SmartDashboard.putString("MESSAGE", "started");
-        // SmartDashboard.putData("CS", CommandScheduler.getInstance());
+        SmartDashboard.putData("CS", CommandScheduler.getInstance());
 
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveP, SwerveModule.kDriveKp);
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveI, SwerveModule.kDriveKi);

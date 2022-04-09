@@ -23,7 +23,7 @@ public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
       new InstantCommand(() -> {
         m_container.accelarator.setSpeed(SmartDashboard.getNumber(DashboardMap.kAcceleratorSpeed, 0.0));
         m_container.cargoIndexer.setSpeed(SmartDashboard.getNumber(DashboardMap.kCargoIndexerSpeed, 0.0));
-      }),
+      }, m_container.accelarator, m_container.cargoIndexer),
       new WaitCommand(3.0)
       );
   }

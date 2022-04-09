@@ -74,5 +74,6 @@ public class Vision extends SubsystemBase {
         else {
             setLedMode(1); //force off
         }
+        SmartDashboard.putNumber("Vision/Distance(Meters)", getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters));
     }
 }

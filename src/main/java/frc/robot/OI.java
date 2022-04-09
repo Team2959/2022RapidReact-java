@@ -4,9 +4,13 @@ package frc.robot;
 
 import cwtech.util.Conditioning;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ExtendClimbHooksCommand;
+import frc.robot.subsystems.ColorSensor.ColorType;
 // import frc.robot.commands.FireCommand;
 import frc.robot.commands.FireCommandWithTracking;
 import frc.robot.commands.GloryShotCommand;
@@ -16,6 +20,8 @@ import frc.robot.commands.LowGoalWallShotCommandGroup;
 import frc.robot.commands.RetractClimbHooksCommand;
 import frc.robot.commands.ReverseAccelaratorCommand;
 import frc.robot.commands.ReverseIntakeCommand;
+import frc.robot.commands.RotateClimbHooksBackCommand;
+import frc.robot.commands.RotateClimbHooksForwardCommand;
 // import frc.robot.commands.SafeZoneShotCommandGroup;
 import frc.robot.commands.SetHoodAngleCommand;
 import frc.robot.commands.TurnTurretToPositionCommand;
@@ -35,6 +41,7 @@ public class OI {
     private Joystick m_leftJoystick;
     private Joystick m_rightJoystick;
     private Joystick m_buttonBox;
+    private XboxController m_xboxController;
     private final RobotContainer m_container;
 
     private Conditioning m_xConditioning;
@@ -43,8 +50,7 @@ public class OI {
 
     private final JoystickButton m_toggleIntakeButton;
     private final JoystickButton m_reverseIntakeButton;
-    private final JoystickButton m_extendClimbHooksButton;
-    private final JoystickButton m_retractClimbHooksButton;
+    
     private final JoystickButton m_fireButton;
     private final JoystickButton m_hoodDownButton;
     private final JoystickButton m_testButton;
@@ -55,6 +61,15 @@ public class OI {
     private final JoystickButton m_hoodUpButton;
     private final JoystickButton m_fireOverride;
     private final JoystickButton m_toggleIntakeButtonLeft;
+
+    // private final JoystickButton m_extendClimbHooksButton;
+    // private final JoystickButton m_retractClimbHooksButton;
+    private final Button m_extendClimbHooksButton;
+    private final Button m_retractClimbHooksButton;
+    private final Button m_rotateClimbHooksBackButton;
+    private final Button m_rotateClimbHooksForwardButton;
+
+    private final Button m_ballPresentButton;
 
     public OI(RobotContainer container) {
         m_container = container;
@@ -73,11 +88,14 @@ public class OI {
         m_leftJoystick = new Joystick(RobotMap.kLeftJoystick);
         m_rightJoystick = new Joystick(RobotMap.kRightJoystick);
         m_buttonBox = new Joystick(RobotMap.kButtonBox);
+        m_xboxController = new XboxController(3);
 
         m_toggleIntakeButton = new JoystickButton(m_rightJoystick, RobotMap.kToggleIntakeButton);
         m_reverseIntakeButton = new JoystickButton(m_buttonBox, RobotMap.kReverseIntakeButton);
-        m_extendClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kExtendClimbHooksButton);
-        m_retractClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kRetractClimbHooksButton);
+        m_ballPresentButton = new Button(() -> {
+            return m_container.colorSensor.readColor() != ColorType.None;
+        });
+     
         m_fireButton = new JoystickButton(m_buttonBox, RobotMap.kFireButton);
         m_hoodDownButton = new JoystickButton(m_buttonBox, RobotMap.kHoodDownButton);
         m_testButton = new JoystickButton(m_buttonBox, RobotMap.kTestButton);
@@ -88,7 +106,24 @@ public class OI {
         m_hoodUpButton = new JoystickButton(m_buttonBox, RobotMap.kHoodUpButton);
         m_fireOverride = new JoystickButton(m_buttonBox, RobotMap.kFireOverrideButton);
         m_toggleIntakeButtonLeft = new JoystickButton(m_leftJoystick, 1);
+        
+        m_rotateClimbHooksForwardButton = new Button(() -> {
+            return m_xboxController.getLeftY() > 0.5;
+        });
+        m_rotateClimbHooksBackButton = new Button(() -> {
+            return m_xboxController.getLeftY() < 0.5;
+        });
+        m_extendClimbHooksButton = new Button(() -> {
+            return m_xboxController.getRightY() > 0.5;
+        });
+        m_retractClimbHooksButton = new Button(() -> {
+            return m_xboxController.getRightY() < 0.5;
+        });
 
+
+        // m_extendClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kExtendClimbHooksButton);
+        // m_retractClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kRetractClimbHooksButton);
+ 
         m_toggleIntakeButton.whenPressed(new IntakeToggleCommand(m_container));
         m_toggleIntakeButtonLeft.whenPressed(new IntakeToggleCommand(m_container));
         m_reverseIntakeButton.whileHeld(new ReverseIntakeCommand(m_container));
@@ -108,6 +143,16 @@ public class OI {
         m_gloryShotButton.whenPressed(new GloryShotCommand(m_container));
         m_reverseAccButton.whileHeld(new ReverseAccelaratorCommand(m_container));
         m_hoodUpButton.whenPressed(new SetHoodAngleCommand(m_container, 1));
+        m_rotateClimbHooksForwardButton.whileHeld(new RotateClimbHooksForwardCommand(m_container));
+        m_rotateClimbHooksBackButton.whileHeld(new RotateClimbHooksBackCommand(m_container));
+        m_extendClimbHooksButton.whileHeld(new ExtendClimbHooksCommand(m_container));
+        m_retractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container));
+
+        m_ballPresentButton.whenPressed(new InstantCommand(() -> {
+            if(m_container.cargoIndexer.intakeExtended()) {
+                m_container.cargoIndexer.setSpeed(0);
+            }
+        }));
     }
 
     public boolean getFireOverrided() {
