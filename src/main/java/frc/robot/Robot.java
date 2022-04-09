@@ -50,16 +50,13 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
         // SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
 
-        // SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
-        // SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
+      
         // SmartDashboard.putNumber(DashboardMap.kTurretP, Turret.kTurretP);
         // SmartDashboard.putNumber(DashboardMap.kTurretI, Turret.kTurretI);
         // SmartDashboard.putNumber(DashboardMap.kTurretD, Turret.kTurretD);
         // SmartDashboard.putNumber(DashboardMap.kTurretFF, Turret.kTurretFF);
         // SmartDashboard.putNumber(DashboardMap.kTurretIZon, Turret.kTurretIZone);
 
-        // SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
-        // SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
         // SmartDashboard.putNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed);
         SmartDashboard.putNumber(DashboardMap.kShooterFf, Shooter.kShooterFf);
         SmartDashboard.putNumber(DashboardMap.kShooterP, Shooter.kShooterKp);
@@ -68,6 +65,11 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
         SmartDashboard.putNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle);
         SmartDashboard.putNumber("Drive Reducer", 1.00);
+
+        // SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
+        // SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
+          // SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
+        // SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
 
         SmartDashboard.putBoolean(DashboardMap.kFieldCentric, true);
         m_robotContainer.init();

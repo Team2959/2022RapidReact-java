@@ -58,6 +58,7 @@ public class RobotContainer {
 
         m_telemetryManager.register(drivetrain);
         m_telemetryManager.register(shooter);
+        m_telemetryManager.register(hood);
     }
 
     public void init() {

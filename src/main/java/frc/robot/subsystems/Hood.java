@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import cwtech.telemetry.Observable;
+import cwtech.telemetry.Telemetry;
+import cwtech.telemetry.Updateable;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.PWM;
@@ -7,6 +10,7 @@ import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
+@Telemetry
 public class Hood extends SubsystemBase implements AutoCloseable {
     public static final int kMiddle = 994;
     public static final double kMinEncoderOffset = 0.095;
@@ -21,6 +25,12 @@ public class Hood extends SubsystemBase implements AutoCloseable {
     private PIDController m_controller;
 
     private final AnalogPotentiometer m_potentiometer;
+
+    @Updateable(key = "Do Manual Angle")
+    public boolean pDoManualAngle = false;
+
+    @Updateable(key = "Manual Angle")
+    public double pManualAngle = 0.0;
 
     public Hood() {
         m_left = new PWM(RobotMap.kHoodServoLeft);
@@ -67,8 +77,14 @@ public class Hood extends SubsystemBase implements AutoCloseable {
     }
 
     // returns 0.0 to 1.0
+    @Observable(key = "String Pot Position")
     public double getPosition() {
         return m_potentiometer.get();
+    }
+
+    @Observable(key = "Position(Degrees)")
+    double getPositionDegrees() {
+        return convertToDegreesFromEncoderPosition(getPosition());
     }
 
     @Override
@@ -76,7 +92,7 @@ public class Hood extends SubsystemBase implements AutoCloseable {
         // SmartDashboard.putNumber("Hood/Position", getPosition());
     //     SmartDashboard.putNumber("Hood/Position(Degrees)", convertToDegreesFromEncoderPosition(getPosition()));
 
-    //     // setSpeed(m_controller.calculate(getPosition()));
+    //     // setSpeed(m_controller.calculate(getPosition()));        
     }
 
     @Override

@@ -54,6 +54,12 @@ public class Shooter extends SubsystemBase {
         m_mainMotorController.setFF(ff);
     }
 
+    @Updateable(key = "Do Manual Speed")
+    public boolean dDoManualSpeed = false;
+
+    @Updateable(key = "Manual Speed")
+    public double dManualSpeed = 0.0;
+
     public Shooter() {
         m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
         m_followerMotor = new CANSparkMax(RobotMap.kShooterFollowerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
