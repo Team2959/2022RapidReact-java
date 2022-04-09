@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import cwtech.util.BasicTrajectory;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.DashboardMap;
@@ -52,5 +53,26 @@ public class Vision extends SubsystemBase {
 
     public double getDistanceToHubCenterWithHeight(double heightMeters) {
         return getDistanceFromTargetWithHeight(heightMeters) + kHubRadius;
+    }
+
+    public void setLedMode(int mode) {
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
+    }
+
+    public int ledMode() {
+        return (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getNumber(0);
+    }
+
+    @Override
+    public void periodic() {
+        if(ledMode() == 2) { //if force blink
+            return;
+        }
+        else if(DriverStation.isEnabled()) {
+            setLedMode(0); //normal
+        }
+        else {
+            setLedMode(1); //force off
+        }
     }
 }

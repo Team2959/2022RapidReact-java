@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putString("Snap Turret MESSAGE", "");
         // SmartDashboard.putString("Hood Angle MESSAGE", "");
         // SmartDashboard.putString("Shooter Speed MESSAGE", "");
-        SmartDashboard.putData("CS", CommandScheduler.getInstance());
+        // SmartDashboard.putData("CS", CommandScheduler.getInstance());
 
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveP, SwerveModule.kDriveKp);
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveI, SwerveModule.kDriveKi);
@@ -78,11 +78,15 @@ public class Robot extends TimedRobot {
             m_initTicks++;
             if (m_initTicks == 100)
             {
-                m_initTicks = -1;
                 m_robotContainer.drivetrain.setInitalPositions();
                 m_robotContainer.drivetrain.resetNavX();
                 m_robotContainer.turret.resetEncoder();
+                m_robotContainer.vision.setLedMode(2);
                 SmartDashboard.putString("MESSAGE", "initialized");
+            }
+            else if(m_initTicks == 500) {
+                m_initTicks = -1;
+                m_robotContainer.vision.setLedMode(0);
             }
         }
 
