@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DashboardMap;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 
@@ -37,16 +38,16 @@ public class SetHoodAngleCommand extends CommandBase {
 
         if (m_hoodPositionDegrees <= 0)
         {
-            // if(SmartDashboard.getBoolean(DashboardMap.kHoodUseManualAngle, false)) {
-            //     m_hoodPositionDegrees = SmartDashboard.getNumber(DashboardMap.kHoodManualAngle, Hood.kMinDegrees);
-            //     SmartDashboard.putNumber("Hood Target Debug - Raw Degrees", m_hoodPositionDegrees);
-            // }
-            // else {
+            if(SmartDashboard.getBoolean(DashboardMap.kHoodUseManualAngle, false)) {
+                m_hoodPositionDegrees = SmartDashboard.getNumber(DashboardMap.kHoodManualAngle, Hood.kMinDegrees);
+                // SmartDashboard.putNumber("Hood Target Debug - Raw Degrees", m_hoodPositionDegrees);
+            }
+            else {
                 double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
                 TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle), distanceMeters, Vision.kDifferenceMeters);
                 m_hoodPositionDegrees = calculation.m_shootingAngleDegrees;
                 // SmartDashboard.putNumber("Hood Target Angle From Vision", m_hoodPositionDegrees);
-            // }
+            }
         }
         m_hoodPosition = m_container.hood.convertToEncoderPositionFromDegrees(m_hoodPositionDegrees);
 

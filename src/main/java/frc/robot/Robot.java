@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Accelerator;
+import frc.robot.subsystems.CargoIndexer;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Intake;
 // import cwtech.trigger.ModeTrigger;
 import frc.robot.subsystems.Shooter;
@@ -23,9 +26,6 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         LiveWindow.disableAllTelemetry();
         SmartDashboard.putString("MESSAGE", "started");
-        // SmartDashboard.putString("Snap Turret MESSAGE", "");
-        // SmartDashboard.putString("Hood Angle MESSAGE", "");
-        // SmartDashboard.putString("Shooter Speed MESSAGE", "");
         // SmartDashboard.putData("CS", CommandScheduler.getInstance());
 
         // SmartDashboard.putNumber(DashboardMap.kDrivetrainDriveP, SwerveModule.kDriveKp);
@@ -47,26 +47,36 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber(DashboardMap.kTrajectoryTyOffset, Vision.kCameraTYOffset);
 
-        // SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
-        // SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
+        SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
+        SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
+        SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
+        SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
 
-        // SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
-        // SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
+        SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
+        SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
+  
         // SmartDashboard.putNumber(DashboardMap.kTurretP, Turret.kTurretP);
         // SmartDashboard.putNumber(DashboardMap.kTurretI, Turret.kTurretI);
         // SmartDashboard.putNumber(DashboardMap.kTurretD, Turret.kTurretD);
         // SmartDashboard.putNumber(DashboardMap.kTurretFF, Turret.kTurretFF);
         // SmartDashboard.putNumber(DashboardMap.kTurretIZon, Turret.kTurretIZone);
 
-        // SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
-        // SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
-        // SmartDashboard.putNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed);
         SmartDashboard.putNumber(DashboardMap.kShooterFf, Shooter.kShooterFf);
         SmartDashboard.putNumber(DashboardMap.kShooterP, Shooter.kShooterKp);
         SmartDashboard.putNumber(DashboardMap.kShooterI, Shooter.kShooterKi);
         SmartDashboard.putNumber(DashboardMap.kShooterD, Shooter.kShooterKd);
         SmartDashboard.putNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
         SmartDashboard.putNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle);
+
+        SmartDashboard.putNumber(DashboardMap.kCargoIndexerIntakeSpeed, CargoIndexer.kSpeed);
+        SmartDashboard.putNumber(DashboardMap.kCargoIndexerSpeed, CargoIndexer.kFireSpeed);
+
+        SmartDashboard.putNumber(DashboardMap.kAcceleratorSpeed, Accelerator.kSpeed);
+
+        SmartDashboard.putNumber(DashboardMap.kClimbExtendPosition, Climb.kExtendPosition);
+        SmartDashboard.putNumber(DashboardMap.kClimbRetractPosition, Climb.kRetractPosition);
+        SmartDashboard.putNumber(DashboardMap.kClimbRetractRotatorPosition, Climb.kRetractRotatorPosition);
+        SmartDashboard.putNumber(DashboardMap.kClimbExtendRotatorPosition, Climb.kExtendRotatorPosition);
 
         SmartDashboard.putBoolean(DashboardMap.kFieldCentric, true);
     }

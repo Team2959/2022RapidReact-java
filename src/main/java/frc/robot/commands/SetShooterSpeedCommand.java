@@ -68,7 +68,7 @@ public class SetShooterSpeedCommand extends CommandBase {
 
         m_container.shooter.setVelocity(m_targetRpm);
         // m_container.shooter.setAccelarator(m_targetRpm > 0 ? SmartDashboard.getNumber(DashboardMap.kShooterAcceleratorSpeed, Shooter.kAcceleratorSpeed) : 0.0);
-        m_container.shooter.setAccelarator(m_targetRpm > 0 ? Shooter.kAcceleratorSpeed : 0.0);
+        // m_container.shooter.setAccelarator(m_targetRpm > 0 ? Shooter.kAcceleratorSpeed : 0.0);
     }
 
     @Override

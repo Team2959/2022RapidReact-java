@@ -22,6 +22,8 @@ public final class RobotMap {
     public static final int kBackLeftTurnCANSparkMaxMotor = 14;
     public static final int kLeftClimbCANSparkMaxMotor = 15;
     public static final int kRightClimbCANSparkMaxMotor = 16;
+    public static final int kLeftClimbRotaterCANSparkMaxMotor = 30;
+    public static final int kRightClimbRotaterCANSparkMaxMotor = 31;
 
     // PWM motor addresses
     // Servos
@@ -72,4 +74,10 @@ public final class RobotMap {
     public static final double kZeroedBackLeft = 0.520 + Math.toRadians(90);
     public static final double kZeroedBackRight = -0.230 + Math.toRadians(90);
     public static final double kZeroedTurret = 0.0;
+
+    // Climb Buttons
+    public static final int kExtendClimbButton = 0;
+    public static final int kRetractClimbButton = 1;
+    public static final int kRotateClimbBackButton = 2;
+    public static final int kRotateClimbForwardButton = 3;
 }

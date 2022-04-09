@@ -4,16 +4,14 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import frc.robot.DashboardMap;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.ColorSensor.ColorType;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
 
   private final RobotContainer m_container;
@@ -22,18 +20,18 @@ public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
     m_container = container;
 
     addCommands(
-      new FeedCargoAndRetractCommand(container.cargoFeeder, 0.25),
-      new WaitCommand(.25),
-      new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(1),
-      new WaitCommand(0.75),
-      new FeedCargoAndRetractCommand(container.cargoFeeder, 0.25),
-      new WaitCommand(1.0)
+      new InstantCommand(() -> {
+        m_container.accelarator.setSpeed(SmartDashboard.getNumber(DashboardMap.kAcceleratorSpeed, 0.0));
+        m_container.cargoIndexer.setSpeed(SmartDashboard.getNumber(DashboardMap.kCargoIndexerSpeed, 0.0));
+      }),
+      new WaitCommand(3.0)
       );
   }
 
   @Override
   public void end(boolean interupt) {
     m_container.shooter.setVelocity(Shooter.kIdleSpeed);
-    m_container.shooter.setAccelarator(0);
+    m_container.accelarator.setSpeed(0);
+    m_container.cargoIndexer.setSpeed(0);
   }
 }

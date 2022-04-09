@@ -1,8 +1,11 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import frc.robot.DashboardMap;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ColorSensor.ColorType;
@@ -17,14 +20,11 @@ public class FireCommand extends SequentialCommandGroup {
         addCommands(
             new TuneShooterAndHoodCommand(container),
             new WaitCommand(1),
-            new FeedCargoAndRetractCommand(container.cargoFeeder, 0.25),
-            new SnapTurretToTarget(container),
-            new WaitCommand(.25),
-            new WaitUntilCommand(() -> container.colorSensor.readColor() != ColorType.None || container.oi.getFireOverrided()).withTimeout(1),
-            new WaitCommand(0.75),
-            new FeedCargoAndRetractCommand(container.cargoFeeder, 0.25),
-            new WaitCommand(1.0)
-
+            new InstantCommand(() -> {
+              m_container.accelarator.setSpeed(SmartDashboard.getNumber(DashboardMap.kAcceleratorSpeed, 0.0));
+              m_container.cargoIndexer.setSpeed(SmartDashboard.getNumber(DashboardMap.kCargoIndexerSpeed, 0.0));
+            }),
+            new WaitCommand(3.0)
             // KFR: potentially refactor to this
             // new TuneShooterAndHoodCommand(container),
             // new PostShooterPrepFiringCommandGroup(container)
@@ -34,6 +34,7 @@ public class FireCommand extends SequentialCommandGroup {
     @Override
     public void end(boolean interupt) {
       m_container.shooter.setVelocity(Shooter.kIdleSpeed);
-      m_container.shooter.setAccelarator(0);
+      m_container.accelarator.setSpeed(0);
+      m_container.cargoIndexer.setSpeed(0);
     }
   }

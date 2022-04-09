@@ -60,7 +60,7 @@ public class Vision extends SubsystemBase {
     }
 
     public int ledMode() {
-        return (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getNumber(0);
+        return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").getNumber(0).intValue();
     }
 
     @Override

@@ -12,7 +12,8 @@ import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriveOnlyAutoCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.commands.ThreeBallAutonomousCommandGroup;
-import frc.robot.subsystems.CargoFeeder;
+import frc.robot.subsystems.Accelerator;
+import frc.robot.subsystems.CargoIndexer;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drivetrain;
@@ -31,7 +32,8 @@ public class RobotContainer {
     public final Vision vision = new Vision();
     public final Intake intake = new Intake();
     public final ColorSensor colorSensor = new ColorSensor();
-    public final CargoFeeder cargoFeeder = new CargoFeeder();
+    public final Accelerator accelarator = new Accelerator();
+    public final CargoIndexer cargoIndexer = new CargoIndexer();
     public final OI oi = new OI(this);
 
     private final AutoCommand m_autoCommand = new AutoCommand(this);
@@ -43,8 +45,8 @@ public class RobotContainer {
     public RobotContainer() {
         drivetrain.setDefaultCommand(new TeleopDriveCommand(this, true));
         m_autoChooser.addOption("2 Ball Away", m_autoCommand);
-        m_autoChooser.addOption("2 Ball Close", m_autoComeForwardCommand);
-        m_autoChooser.setDefaultOption("Drive", m_driveOnlyAutoCommand);
+        m_autoChooser.setDefaultOption("2 Ball Close", m_autoComeForwardCommand);
+        m_autoChooser.addOption("Drive", m_driveOnlyAutoCommand);
         m_autoChooser.addOption("Path", m_autoPathCommand);
         SmartDashboard.putData("Auto", m_autoChooser);
     }

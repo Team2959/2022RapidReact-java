@@ -37,7 +37,6 @@ public class DashboardMap {
     public static final String kShooter = "Shooter";
     public static final String kShooterUseManualSpeed = key("Use Specified Speed", kShooter);
     public static final String kShooterManualSpeed = key("Set Speed", kShooter);
-    public static final String kShooterAcceleratorSpeed = key("Accelarator Speed", kShooter);
     public static final String kShooterP = key("Shooter P", kShooter);
     public static final String kShooterI = key("Shooter I", kShooter);
     public static final String kShooterD = key("Shooter D", kShooter);
@@ -48,6 +47,19 @@ public class DashboardMap {
 
     public static final String kTrajectory = "Trajectory";
     public static final String kTrajectoryTyOffset = key("TY Offset", kTrajectory);
+
+    public static final String kAccelerator = "Accelerator";
+    public static final String kAcceleratorSpeed = key("Speed", "Accelerator");
+
+    public static final String kCargoIndexer = "Cargo Indexer";
+    public static final String kCargoIndexerSpeed = key("Speed", kCargoIndexer);
+    public static final String kCargoIndexerIntakeSpeed = key("Intake Speed", kCargoIndexer);
+
+    public static final String kClimb = "Climb";
+    public static final String kClimbExtendPosition = key("Extend Position", kClimb);
+    public static final String kClimbRetractPosition = key("Retract Position", kClimb);
+    public static final String kClimbExtendRotatorPosition = key("Rotator Extend Position", kClimb);
+    public static final String kClimbRetractRotatorPosition = key("Rotator Retract Position", kClimb);
 
     public static final String kFieldCentric = "Field Centric";
 

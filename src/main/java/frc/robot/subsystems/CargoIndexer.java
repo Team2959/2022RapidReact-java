@@ -1,0 +1,70 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+package frc.robot.subsystems;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.DashboardMap;
+
+public class CargoIndexer extends SubsystemBase {
+  public static final double kSpeed = 0.1;
+  public static final double kFireSpeed = 0.25;
+  private final CANSparkMax m_motor;
+  private boolean m_extended = false;
+
+  public CargoIndexer() {
+    m_motor = new CANSparkMax(18, CANSparkMax.MotorType.kBrushless);
+    m_motor.restoreFactoryDefaults();
+    m_motor.setIdleMode(IdleMode.kBrake);
+  }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+
+  public void setSpeed(double speed)
+  {
+    m_motor.set(speed);
+  }
+
+  public void toggleIntake(boolean ballPresent) {
+    if (m_extended)
+    {
+      m_extended = false;
+      setSpeed(0.0);
+    }
+    else
+    {
+      m_extended = true;
+      if (!ballPresent)
+      {
+        setSpeed(SmartDashboard.getNumber(DashboardMap.kCargoIndexerIntakeSpeed, kSpeed));
+      }
+    }
+  }
+
+  public void reverseIntake() {
+    setSpeed(-SmartDashboard.getNumber(DashboardMap.kCargoIndexerIntakeSpeed, kSpeed));
+  }
+
+  public void restoreIntakeDirection() {
+    if (m_extended)
+    {
+      setSpeed(SmartDashboard.getNumber(DashboardMap.kCargoIndexerIntakeSpeed, kSpeed));
+    }
+    else
+    {
+      setSpeed(0);
+    }
+  }
+
+  public boolean intakeExtended() {
+    return m_extended;
+  }
+}

@@ -25,7 +25,6 @@ public class Shooter extends SubsystemBase {
     private final CANSparkMax m_followerMotor;
     private final SparkMaxPIDController m_mainMotorController;
     private final SparkMaxRelativeEncoder m_mainMotorEncoder;
-    private final VictorSPX m_accelerator;
     static public final double kWheelRadius = 2.5 * 0.0254;
     public static final double kIdleSpeed = 100;
     private double m_requestedVelocity = 0;
@@ -35,9 +34,7 @@ public class Shooter extends SubsystemBase {
         m_followerMotor = new CANSparkMax(RobotMap.kShooterFollowerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
         m_mainMotorController = m_mainMotor.getPIDController();
         m_mainMotorEncoder = (SparkMaxRelativeEncoder) m_mainMotor.getEncoder();
-        
-        m_accelerator = new VictorSPX(RobotMap.kAcceleratorVictorSPX);
- 
+         
         m_mainMotorController.setFF(kShooterFf);
         m_mainMotorController.setP(kShooterKp);
         m_mainMotorController.setI(kShooterKi);
@@ -47,10 +44,10 @@ public class Shooter extends SubsystemBase {
     }
 
     public void onDisabledPeriodic() {
-        // m_mainMotorController.setFF(SmartDashboard.getNumber(DashboardMap.kShooterFf, kShooterFf));
-        // m_mainMotorController.setP(SmartDashboard.getNumber(DashboardMap.kShooterP, kShooterKp));
-        // m_mainMotorController.setI(SmartDashboard.getNumber(DashboardMap.kShooterI, kShooterKi));
-        // m_mainMotorController.setD(SmartDashboard.getNumber(DashboardMap.kShooterD, kShooterKd));
+        m_mainMotorController.setFF(SmartDashboard.getNumber(DashboardMap.kShooterFf, kShooterFf));
+        m_mainMotorController.setP(SmartDashboard.getNumber(DashboardMap.kShooterP, kShooterKp));
+        m_mainMotorController.setI(SmartDashboard.getNumber(DashboardMap.kShooterI, kShooterKi));
+        m_mainMotorController.setD(SmartDashboard.getNumber(DashboardMap.kShooterD, kShooterKd));
     }
 
     @Override
@@ -71,16 +68,6 @@ public class Shooter extends SubsystemBase {
 
     public double getVelocity() {
         return m_mainMotorEncoder.getVelocity();
-    }
-
-    /** @param speed A value between -1.0 and 1.0 */
-    public void setAccelarator(double speed) {
-        m_accelerator.set(VictorSPXControlMode.PercentOutput, speed);
-    }
-
-    public void setAccelaratorVelocity(double rpm) {
-        rpm = Math.max(rpm, 11000);
-        m_accelerator.set(VictorSPXControlMode.Velocity, rpm);
     }
 }
 

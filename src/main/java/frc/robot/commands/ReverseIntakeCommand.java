@@ -15,10 +15,12 @@ public class ReverseIntakeCommand extends CommandBase {
     @Override
     public void initialize() {
         m_container.intake.reverseIntake();
+        m_container.cargoIndexer.reverseIntake();
     }
 
     @Override
     public void end(boolean interupt) {
         m_container.intake.restoreIntakeDirection();
+        m_container.cargoIndexer.restoreIntakeDirection();
     }
 }

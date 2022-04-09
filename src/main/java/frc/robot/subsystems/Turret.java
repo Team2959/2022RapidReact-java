@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.REVLibError;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
@@ -14,8 +15,8 @@ public class Turret extends SubsystemBase {
     private final SparkMaxAlternateEncoder m_turretEncoder;
     private final SparkMaxPIDController m_turretController;
 
-    static public final double kMaxDegreesForwards = 130;
-    static public final double kMaxDegreesBackwards = -130;
+    static public final float kMaxDegreesForwards = 45;
+    static public final float kMaxDegreesBackwards = -45;
 
     static public final double kTurretP = 0.04;
     static public final double kTurretI = 0.00001;
@@ -35,6 +36,10 @@ public class Turret extends SubsystemBase {
         m_turretController.setIZone(kTurretIZone);
         m_turretController.setOutputRange(-0.8, 0.8);
         m_turretController.setFF(kTurretFF);
+        m_turretMotor.enableSoftLimit(SoftLimitDirection.kForward, true);
+        m_turretMotor.enableSoftLimit(SoftLimitDirection.kReverse, true);
+        m_turretMotor.setSoftLimit(SoftLimitDirection.kForward, kMaxDegreesForwards);
+        m_turretMotor.setSoftLimit(SoftLimitDirection.kReverse, kMaxDegreesBackwards);
     
         m_turretController.setSmartMotionMaxVelocity(3000, 0);
         m_turretController.setSmartMotionMaxAccel(2000, 0);
