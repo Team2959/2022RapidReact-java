@@ -108,7 +108,7 @@ public class OI {
         }, m_container.shooter));
         // m_testButton.whenPressed(new TurnTurretToPositionCommand(m_container, 0.0));
         m_gloryShotButton.whenPressed(new GloryShotCommand(m_container));
-        // m_reverseAccButton.whileHeld(new ReverseAccelaratorCommand(m_container));
+        m_reverseAccButton.whileHeld(new ReverseAccelaratorCommand(m_container));
         // m_hoodUpButton.whenPressed(new SetHoodAngleCommand(m_container, 1));
     }
 
