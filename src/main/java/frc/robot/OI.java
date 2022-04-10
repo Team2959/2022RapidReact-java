@@ -5,7 +5,6 @@ package frc.robot;
 import cwtech.util.Conditioning;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -111,13 +110,13 @@ public class OI {
             return m_xboxController.getLeftY() > 0.5;
         });
         m_rotateClimbHooksBackButton = new Button(() -> {
-            return m_xboxController.getLeftY() < 0.5;
+            return m_xboxController.getLeftY() < -0.5;
         });
         m_extendClimbHooksButton = new Button(() -> {
             return m_xboxController.getRightY() > 0.5;
         });
         m_retractClimbHooksButton = new Button(() -> {
-            return m_xboxController.getRightY() < 0.5;
+            return m_xboxController.getRightY() < -0.5;
         });
 
 
@@ -127,8 +126,6 @@ public class OI {
         m_toggleIntakeButton.whenPressed(new IntakeToggleCommand(m_container));
         m_toggleIntakeButtonLeft.whenPressed(new IntakeToggleCommand(m_container));
         m_reverseIntakeButton.whileHeld(new ReverseIntakeCommand(m_container));
-        m_extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(m_container));
-        m_retractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container));
         // m_fireButton.whenPressed(new FireCommand(m_container));
         m_fireButton.whenPressed(new FireCommandWithTracking(m_container));
         m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, Hood.kMinDegrees));

@@ -44,6 +44,11 @@ public class Climb extends SubsystemBase {
         m_rightRotatorEncoder = m_rightMotor.getEncoder();
         m_leftRotatorEncoder = m_leftMotor.getEncoder();
 
+        m_leftEncoder.setPosition(0);
+        m_rightEncoder.setPosition(0);
+        m_leftRotatorEncoder.setPosition(0);
+        m_rightRotatorEncoder.setPosition(0);
+
         m_leftMotor.setInverted(true);
 
         m_leftMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);

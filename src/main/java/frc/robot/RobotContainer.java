@@ -51,7 +51,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         drivetrain.setDefaultCommand(new TeleopDriveCommand(this, true));
-        cargoIndexer.setDefaultCommand(new PositionBallCommand(this));
+        // cargoIndexer.setDefaultCommand(new PositionBallCommand(this));
         m_autoChooser.addOption("2 Ball Away", m_autoCommand);
         m_autoChooser.setDefaultOption("2 Ball Close", m_autoComeForwardCommand);
         m_autoChooser.addOption("Drive", m_driveOnlyAutoCommand);
