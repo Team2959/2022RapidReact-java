@@ -1,8 +1,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
@@ -17,7 +15,6 @@ import frc.robot.RobotMap;
 
 @Telemetry
 public class Shooter extends SubsystemBase {
-    public static final double kAcceleratorSpeed = 0.60;
     public static final double kShooterFf = 0.0013;
     public static final double kShooterKp = 0.000465;
     public static final double kShooterKi = 0.0;

@@ -32,9 +32,7 @@ public class Intake extends SubsystemBase implements AutoCloseable {
     }
 
     public void reverseIntake() {
-        // if (m_arms.get() == true) {
-            m_motor.set(-m_intakeSpeed);
-        // }
+        m_motor.set(-m_intakeSpeed);
     }
 
     public void restoreIntakeDirection() {

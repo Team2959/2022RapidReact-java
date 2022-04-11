@@ -39,6 +39,8 @@ public class Climb extends SubsystemBase {
         m_leftRotatorController = m_leftRotatorMotor.getPIDController();
         m_rightMotor.restoreFactoryDefaults();
         m_leftMotor.restoreFactoryDefaults();
+        m_rightRotatorMotor.restoreFactoryDefaults();
+        m_leftRotatorMotor.restoreFactoryDefaults();
         m_rightEncoder = m_rightMotor.getEncoder();
         m_leftEncoder = m_leftMotor.getEncoder();
         m_rightRotatorEncoder = m_rightMotor.getEncoder();
@@ -53,6 +55,8 @@ public class Climb extends SubsystemBase {
 
         m_leftMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
         m_rightMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        m_rightRotatorMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        m_leftRotatorMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
         m_leftMotor.setSmartCurrentLimit(30);
         m_rightMotor.setSmartCurrentLimit(30);

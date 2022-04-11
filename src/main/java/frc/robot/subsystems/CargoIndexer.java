@@ -10,22 +10,18 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.DashboardMap;
+import frc.robot.RobotMap;
 
 public class CargoIndexer extends SubsystemBase {
   public static final double kSpeed = 0.1;
-  public static final double kFireSpeed = 0.25;
+  public static final double kFireSpeed = 0.4;
   private final CANSparkMax m_motor;
   private boolean m_extended = false;
 
   public CargoIndexer() {
-    m_motor = new CANSparkMax(18, CANSparkMax.MotorType.kBrushless);
+    m_motor = new CANSparkMax(RobotMap.kCargoIndexerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
     m_motor.restoreFactoryDefaults();
     m_motor.setIdleMode(IdleMode.kBrake);
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
   }
 
   public void setSpeed(double speed)

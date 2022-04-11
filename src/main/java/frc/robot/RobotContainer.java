@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import java.util.Optional;
-
-import cwtech.telemetry.Level;
 import cwtech.telemetry.Manager;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.AutoComeForwardCommand;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.DriveOnlyAutoCommand;
-import frc.robot.commands.PositionBallCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.commands.ThreeBallAutonomousCommandGroup;
 import frc.robot.subsystems.Accelerator;

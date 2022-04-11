@@ -15,13 +15,14 @@ public final class RobotMap {
     public static final int kShooterFollowerCANSparkMaxMotor = 5;
     public static final int kTurretCANSparkMaxMotor = 7;
     public static final int kIntakeCANSparkMaxMotor = 8;
-    public static final int kAcceleratorVictorSPX = 9;
     public static final int kFrontLeftTurnCANSparkMaxMotor = 11;
     public static final int kFrontRightTurnCANSparkMaxMotor = 12;
     public static final int kBackRightTurnCANSparkMaxMotor = 13;
     public static final int kBackLeftTurnCANSparkMaxMotor = 14;
     public static final int kLeftClimbCANSparkMaxMotor = 15;
     public static final int kRightClimbCANSparkMaxMotor = 16;
+    public static final int kCargoIndexerCANSparkMaxMotor = 18;
+    public static final int kAcceleratorCANSparkMaxMotor = 19;
     public static final int kLeftClimbRotaterCANSparkMaxMotor = 30;
     public static final int kRightClimbRotaterCANSparkMaxMotor = 31;
 
@@ -32,8 +33,6 @@ public final class RobotMap {
 
     // REV Pneumatic Hub solenoid addresses
     public static final int kIntakeArmsSolenoid = 0;
-    public static final int kFeederSolenoid = 1;
-    public static final int kClimbSolenoid = 2;
 
     // String Pot
     public static final int kHoodStringPotAnalog = 0;
@@ -49,6 +48,7 @@ public final class RobotMap {
     public static final int kLeftJoystick = 0;
     public static final int kRightJoystick = 1;
     public static final int kButtonBox = 2;
+    public static final int kXBoxController = 3;
 
     // Co-Pilot Buttons
     public static final int kFireButton = 1;
@@ -76,8 +76,9 @@ public final class RobotMap {
     public static final double kZeroedTurret = 0.0;
 
     // Climb Buttons
-    public static final int kExtendClimbButton = 0;
-    public static final int kRetractClimbButton = 1;
-    public static final int kRotateClimbBackButton = 2;
-    public static final int kRotateClimbForwardButton = 3;
+    // public static final int kExtendClimbButton = 0;
+    // public static final int kRetractClimbButton = 1;
+    // public static final int kRotateClimbBackButton = 2;
+    // public static final int kRotateClimbForwardButton = 3;
+    public static final int kClimbSafetyButton = 5;
 }

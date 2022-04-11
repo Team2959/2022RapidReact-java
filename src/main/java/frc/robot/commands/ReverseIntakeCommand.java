@@ -9,7 +9,7 @@ public class ReverseIntakeCommand extends CommandBase {
     public ReverseIntakeCommand(RobotContainer container) {
         m_container = container;
     
-        addRequirements(m_container.intake);
+        addRequirements(m_container.intake, m_container.cargoIndexer);
     }
 
     @Override
