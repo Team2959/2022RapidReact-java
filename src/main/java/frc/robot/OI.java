@@ -19,6 +19,7 @@ import frc.robot.commands.ReverseIntakeCommand;
 import frc.robot.commands.RotateClimbHooksBackCommand;
 import frc.robot.commands.RotateClimbHooksForwardCommand;
 import frc.robot.commands.SetHoodAngleCommand;
+import frc.robot.commands.TraverseExtendClimbHooksCommand;
 import frc.robot.commands.TurnTurretToPositionCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Hood;
@@ -56,12 +57,11 @@ public class OI {
     private final JoystickButton m_fireOverride;
     private final JoystickButton m_toggleIntakeButtonLeft;
 
-    // private final JoystickButton m_extendClimbHooksButton;
-    // private final JoystickButton m_retractClimbHooksButton;
-    private final Button m_extendClimbHooksButton;
+    private final JoystickButton m_extendClimbHooksButton;
     private final Button m_retractClimbHooksButton;
     private final Button m_rotateClimbHooksBackButton;
     private final Button m_rotateClimbHooksForwardButton;
+    private final Button m_traverseExtendClimbHooksButton;
 
     public OI(RobotContainer container) {
         m_container = container;
@@ -106,19 +106,19 @@ public class OI {
              m_xboxController.getRawButton(RobotMap.kClimbSafetyButton) &&
              m_xboxController.getLeftY() < -0.5;
         });
-        m_extendClimbHooksButton = new Button(() -> {
-            return
-            m_xboxController.getRawButton(RobotMap.kClimbSafetyButton) &&
-            m_xboxController.getRightY() > 0.5;
-        });
-        m_retractClimbHooksButton = new Button(() -> {
+        m_traverseExtendClimbHooksButton = new Button(() -> {
             return
             m_xboxController.getRawButton(RobotMap.kClimbSafetyButton) &&
             m_xboxController.getRightY() < -0.5;
         });
+        m_retractClimbHooksButton = new Button(() -> {
+            return
+            m_xboxController.getRawButton(RobotMap.kClimbSafetyButton) &&
+            m_xboxController.getRightY() > 0.5;
+        });
 
 
-        // m_extendClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kExtendClimbHooksButton);
+        m_extendClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kExtendClimbHooksButton);
         // m_retractClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kRetractClimbHooksButton);
  
         m_toggleIntakeButton.whenPressed(new IntakeToggleCommand(m_container));
@@ -137,10 +137,12 @@ public class OI {
         m_gloryShotButton.whenPressed(new GloryShotCommand(m_container));
         m_reverseAccButton.whileHeld(new ReverseAccelaratorCommand(m_container));
         m_hoodUpButton.whenPressed(new SetHoodAngleCommand(m_container, 1));
+
+        m_extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(m_container));
         m_rotateClimbHooksForwardButton.whileHeld(new RotateClimbHooksForwardCommand(m_container));
         m_rotateClimbHooksBackButton.whileHeld(new RotateClimbHooksBackCommand(m_container));
-        m_extendClimbHooksButton.whileHeld(new ExtendClimbHooksCommand(m_container));
         m_retractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container));
+        m_traverseExtendClimbHooksButton.whileHeld(new TraverseExtendClimbHooksCommand(m_container));
     }
 
     public boolean getFireOverrided() {

@@ -17,6 +17,7 @@ public class RecalculateShootingCommand extends CommandBase {
 
     public RecalculateShootingCommand(RobotContainer container) {
         m_container = container;
+        addRequirements(m_container.shooter);
     }
 
     @Override

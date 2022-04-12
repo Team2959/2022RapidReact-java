@@ -26,7 +26,8 @@ public class Climb extends SubsystemBase {
 
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
     public static double kExtendPosition = 70, kRetractPosition = -25; // POSITION IS IN MOTOR ROTATIONS
-    public static double kExtendRotatorPosition = 30, kRetractRotatorPosition = 0;
+    public static double kExtendRotatorPosition = 70, kRetractRotatorPosition = 0;
+    public static double kTraverseExtendPosition = 100;
 
     public Climb() {
         m_rightMotor = new CANSparkMax(RobotMap.kRightClimbCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
@@ -41,6 +42,7 @@ public class Climb extends SubsystemBase {
         m_leftMotor.restoreFactoryDefaults();
         m_rightRotatorMotor.restoreFactoryDefaults();
         m_leftRotatorMotor.restoreFactoryDefaults();
+
         m_rightEncoder = m_rightMotor.getEncoder();
         m_leftEncoder = m_leftMotor.getEncoder();
         m_rightRotatorEncoder = m_rightMotor.getEncoder();
@@ -132,32 +134,45 @@ public class Climb extends SubsystemBase {
     }
 
     public void extendClimbHooks() {
-        m_rightController.setReference(SmartDashboard.getNumber(DashboardMap.kClimbExtendPosition, kExtendPosition), CANSparkMax.ControlType.kSmartMotion);
-        m_leftController.setReference(SmartDashboard.getNumber(DashboardMap.kClimbExtendPosition, kExtendPosition), CANSparkMax.ControlType.kSmartMotion);
+        var target = SmartDashboard.getNumber(DashboardMap.kClimbExtendPosition, kExtendPosition);
+        moveClimbHooks(target, target);
     }
 
     public void retractClimbHooks() {
-        m_rightController.setReference(SmartDashboard.getNumber(DashboardMap.kClimbRetractPosition, kRetractPosition), CANSparkMax.ControlType.kSmartMotion);
-        m_leftController.setReference(SmartDashboard.getNumber(DashboardMap.kClimbRetractPosition, kRetractPosition), CANSparkMax.ControlType.kSmartMotion);
+        var target = SmartDashboard.getNumber(DashboardMap.kClimbRetractPosition, kRetractPosition);
+        moveClimbHooks(target, target);
     }
 
     public void rotateClimbHooksBack() {
-        m_rightRotatorController.setReference(SmartDashboard.getNumber(DashboardMap.kClimbExtendRotatorPosition, kExtendRotatorPosition), CANSparkMax.ControlType.kSmartMotion);
-        m_leftRotatorController.setReference(SmartDashboard.getNumber(DashboardMap.kClimbExtendRotatorPosition, kExtendRotatorPosition), CANSparkMax.ControlType.kSmartMotion);
+        var target = SmartDashboard.getNumber(DashboardMap.kClimbExtendRotatorPosition, kExtendRotatorPosition);
+        rotateClimbHooks(target, target);
     }
 
     public void rotateClimbHooksForward() {
-        m_rightRotatorController.setReference(SmartDashboard.getNumber(DashboardMap.kClimbRetractRotatorPosition, kRetractRotatorPosition), CANSparkMax.ControlType.kSmartMotion);
-        m_leftRotatorController.setReference(SmartDashboard.getNumber(DashboardMap.kClimbRetractRotatorPosition, kRetractRotatorPosition), CANSparkMax.ControlType.kSmartMotion);
+        var target = SmartDashboard.getNumber(DashboardMap.kClimbRetractRotatorPosition, kRetractRotatorPosition);
+        rotateClimbHooks(target, target);
     }
 
     public void keepCurrentPosition() {
-        m_rightController.setReference(m_rightEncoder.getPosition(),  CANSparkMax.ControlType.kSmartMotion);
-        m_leftController.setReference(m_leftEncoder.getPosition(),  CANSparkMax.ControlType.kSmartMotion);
+        moveClimbHooks(m_rightEncoder.getPosition(), m_leftEncoder.getPosition());
     }
 
     public void keepRotatorsCurrentPosition() {
-        m_rightRotatorController.setReference(m_rightRotatorEncoder.getPosition(),  CANSparkMax.ControlType.kSmartMotion);
-        m_leftRotatorController.setReference(m_leftRotatorEncoder.getPosition(),  CANSparkMax.ControlType.kSmartMotion);
+        rotateClimbHooks(m_rightRotatorEncoder.getPosition(), m_leftRotatorEncoder.getPosition());
+    }
+
+    public void traverseExtendClimbHooks() {
+        var target = SmartDashboard.getNumber(DashboardMap.kClimbTraverseExtendPosition, kTraverseExtendPosition);
+        moveClimbHooks(target, target);
+    }
+
+    private void moveClimbHooks(double targetRight, double targetLeft){
+        m_rightController.setReference(targetRight, CANSparkMax.ControlType.kSmartMotion);
+        m_leftController.setReference(targetLeft, CANSparkMax.ControlType.kSmartMotion);
+    }
+
+    private void rotateClimbHooks(double targetRight, double targetLeft){
+        m_rightRotatorController.setReference(targetRight, CANSparkMax.ControlType.kSmartMotion);
+        m_leftRotatorController.setReference(targetLeft, CANSparkMax.ControlType.kSmartMotion);
     }
 }

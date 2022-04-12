@@ -60,6 +60,7 @@ public class DashboardMap {
     public static final String kClimbRetractPosition = key("Retract Position", kClimb);
     public static final String kClimbExtendRotatorPosition = key("Rotator Extend Position", kClimb);
     public static final String kClimbRetractRotatorPosition = key("Rotator Retract Position", kClimb);
+    public static final String kClimbTraverseExtendPosition = key("Traverse Extend Position", kClimb);
 
     public static final String kFieldCentric = "Field Centric";
 

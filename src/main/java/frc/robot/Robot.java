@@ -76,6 +76,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber(DashboardMap.kClimbRetractPosition, Climb.kRetractPosition);
         SmartDashboard.putNumber(DashboardMap.kClimbRetractRotatorPosition, Climb.kRetractRotatorPosition);
         SmartDashboard.putNumber(DashboardMap.kClimbExtendRotatorPosition, Climb.kExtendRotatorPosition);
+        SmartDashboard.putNumber(DashboardMap.kClimbTraverseExtendPosition, Climb.kTraverseExtendPosition);
 
         SmartDashboard.putBoolean(DashboardMap.kFieldCentric, true);
         m_robotContainer.init();
