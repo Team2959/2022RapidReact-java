@@ -45,8 +45,8 @@ public class Climb extends SubsystemBase {
 
         m_rightEncoder = m_rightMotor.getEncoder();
         m_leftEncoder = m_leftMotor.getEncoder();
-        m_rightRotatorEncoder = m_rightMotor.getEncoder();
-        m_leftRotatorEncoder = m_leftMotor.getEncoder();
+        m_rightRotatorEncoder = m_rightRotatorMotor.getEncoder();
+        m_leftRotatorEncoder = m_leftRotatorMotor.getEncoder();
 
         m_leftEncoder.setPosition(0);
         m_rightEncoder.setPosition(0);
