@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Accelerator;
 import frc.robot.subsystems.CargoIndexer;
-import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
@@ -72,11 +71,11 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber(DashboardMap.kAcceleratorSpeed, Accelerator.kSpeed);
 
-        SmartDashboard.putNumber(DashboardMap.kClimbExtendPosition, Climb.kExtendPosition);
-        SmartDashboard.putNumber(DashboardMap.kClimbRetractPosition, Climb.kRetractPosition);
-        SmartDashboard.putNumber(DashboardMap.kClimbRetractRotatorPosition, Climb.kRetractRotatorPosition);
-        SmartDashboard.putNumber(DashboardMap.kClimbExtendRotatorPosition, Climb.kExtendRotatorPosition);
-        SmartDashboard.putNumber(DashboardMap.kClimbTraverseExtendPosition, Climb.kTraverseExtendPosition);
+        // SmartDashboard.putNumber(DashboardMap.kClimbExtendPosition, Climb.kExtendPosition);
+        // SmartDashboard.putNumber(DashboardMap.kClimbRetractPosition, Climb.kRetractPosition);
+        // SmartDashboard.putNumber(DashboardMap.kClimbRetractRotatorPosition, Climb.kRetractRotatorPosition);
+        // SmartDashboard.putNumber(DashboardMap.kClimbExtendRotatorPosition, Climb.kExtendRotatorPosition);
+        // SmartDashboard.putNumber(DashboardMap.kClimbTraverseExtendPosition, Climb.kTraverseExtendPosition);
 
         SmartDashboard.putBoolean(DashboardMap.kFieldCentric, true);
         m_robotContainer.init();
