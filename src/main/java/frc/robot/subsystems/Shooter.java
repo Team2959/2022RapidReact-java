@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import cwtech.telemetry.Level;
 import cwtech.telemetry.Telemetry;
@@ -15,12 +16,12 @@ import frc.robot.RobotMap;
 
 @Telemetry
 public class Shooter extends SubsystemBase {
-    public static final double kShooterFf = 0.0013;
-    public static final double kShooterKp = 0.000465;
-    public static final double kShooterKi = 0.0;
-    public static final double kShooterKd = 0.00007;
+    public static final double kShooterFf = 0.00018;
+    public static final double kShooterKp = 0.0002;
+    public static final double kShooterKi = 0.00000001;
+    public static final double kShooterKd = 0.0;
     public static final double kShooterEntryAngle = -70;
-    public static final double kShooterMulti = 0.805; // 0.821;
+    public static final double kShooterMulti = 1;
 
     private final CANSparkMax m_mainMotor;
     private final CANSparkMax m_followerMotor;
@@ -59,6 +60,8 @@ public class Shooter extends SubsystemBase {
     public Shooter() {
         m_mainMotor = new CANSparkMax(RobotMap.kShooterPrimaryCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
         m_followerMotor = new CANSparkMax(RobotMap.kShooterFollowerCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
+        m_mainMotor.restoreFactoryDefaults();
+        m_mainMotor.setIdleMode(IdleMode.kCoast);
         m_mainMotorController = m_mainMotor.getPIDController();
         m_mainMotorEncoder = (SparkMaxRelativeEncoder) m_mainMotor.getEncoder();
          
