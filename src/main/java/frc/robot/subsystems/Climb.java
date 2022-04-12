@@ -58,8 +58,8 @@ public class Climb extends SubsystemBase {
         m_rightRotatorMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
         m_leftRotatorMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-        m_leftMotor.setSmartCurrentLimit(30);
-        m_rightMotor.setSmartCurrentLimit(30);
+        m_leftMotor.setSmartCurrentLimit(60);
+        m_rightMotor.setSmartCurrentLimit(60);
 
         kP = 5e-5;
         kI = 0;

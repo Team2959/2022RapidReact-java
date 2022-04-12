@@ -88,7 +88,7 @@ public class Vision extends SubsystemBase {
         }
 
         for(var i = 0.0; i <= 1; i += 0.1) {
-            System.err.println(String.format("Distance: %f, Velocity: %f, Hood: %f", i, shooterVelocity(i), shooterAngle(i)));
+            System.err.println(String.format("Distance: %f, Velocity: %f, Hood: %f", i, shooterVelocity(i), shooterAngleDegrees(i)));
         }
     }
 
@@ -159,7 +159,7 @@ public class Vision extends SubsystemBase {
     //     return kShootingMap.get(index).getSecond();
     // }
 
-    public double shooterVelocity(double d){
+    public double shooterVelocity(double distance){
 
         // var points = m_points; //new Vector<Double>();
         // points.add(.25);
@@ -174,25 +174,25 @@ public class Vision extends SubsystemBase {
         // velocities.add(5000.0);
 
         for(int i = 0; i < m_points.size() - 1; i++){
-            if(d >= m_points.get(i) && d < m_points.get(i + 1)){
-                double p = (d - m_points.get(i)) / (m_points.get(i + 1) - m_points.get(i));
+            if(distance >= m_points.get(i) && distance < m_points.get(i + 1)){
+                double p = (distance - m_points.get(i)) / (m_points.get(i + 1) - m_points.get(i));
                 return p * (m_velocities.get(i + 1) - m_velocities.get(i)) + m_velocities.get(i);
             }
-            if(d == m_points.get(m_points.size() - 1)){
+            if(distance == m_points.get(m_points.size() - 1)){
                 return m_velocities.get(m_velocities.size() - 1);
             }
         }
         return 0;
     }
 
-    public double shooterAngle(double d){
+    public double shooterAngleDegrees(double distance){
         
         for(int i = 0; i < m_points.size() - 1; i++){
-            if(d >= m_points.get(i) && d < m_points.get(i + 1)){
-                double p = (d - m_points.get(i) / (m_points.get(i + 1) - m_points.get(i)));
+            if(distance >= m_points.get(i) && distance < m_points.get(i + 1)){
+                double p = (distance - m_points.get(i) / (m_points.get(i + 1) - m_points.get(i)));
                 return p * (m_hoods.get(i + 1) - m_hoods.get(i)) + m_hoods.get(i);
             }
-            if(d == m_points.get(m_points.size() - 1)){
+            if(distance == m_points.get(m_points.size() - 1)){
                 return m_hoods.get(m_hoods.size() - 1);
             }
         }

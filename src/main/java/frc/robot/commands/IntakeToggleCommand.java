@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.ColorSensor;
+// import frc.robot.subsystems.ColorSensor;
 
 public class IntakeToggleCommand extends InstantCommand {
 
@@ -17,6 +17,7 @@ public class IntakeToggleCommand extends InstantCommand {
     @Override
     public void initialize() {
         m_container.intake.toggleIntake();
-        m_container.cargoIndexer.toggleIntake(m_container.colorSensor.readColor() != ColorSensor.ColorType.None);
+        m_container.cargoIndexer.toggleIntake(false);
+        // m_container.cargoIndexer.toggleIntake(m_container.colorSensor.readColor() != ColorSensor.ColorType.None);
     }
 }

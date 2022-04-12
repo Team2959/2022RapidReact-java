@@ -35,14 +35,14 @@ public final class ColorSensor extends SubsystemBase {
         Color detectedColor = m_colorSensor.getColor();
         ColorMatchResult matchedColor = m_colorMatcher.matchClosestColor(detectedColor);
 
-        SmartDashboard.putNumber("Detected Red", detectedColor.red);
-        SmartDashboard.putNumber("Detected Blue", detectedColor.blue);
-        SmartDashboard.putNumber("Detected Green", detectedColor.green);
+        // SmartDashboard.putNumber("Detected Red", detectedColor.red);
+        // SmartDashboard.putNumber("Detected Blue", detectedColor.blue);
+        // SmartDashboard.putNumber("Detected Green", detectedColor.green);
 
-        SmartDashboard.putNumber("Matched Red", matchedColor.color.red);
-        SmartDashboard.putNumber("Matched Green", matchedColor.color.green);
-        SmartDashboard.putNumber("Matched Blue", matchedColor.color.blue);
-        SmartDashboard.putNumber("Confidence", matchedColor.confidence);
+        // SmartDashboard.putNumber("Matched Red", matchedColor.color.red);
+        // SmartDashboard.putNumber("Matched Green", matchedColor.color.green);
+        // SmartDashboard.putNumber("Matched Blue", matchedColor.color.blue);
+        // SmartDashboard.putNumber("Confidence", matchedColor.confidence);
 
         if(matchedColor.confidence > 0.92)
         {

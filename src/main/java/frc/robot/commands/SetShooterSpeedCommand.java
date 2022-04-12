@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
-import cwtech.util.BasicTrajectory;
-import cwtech.util.BasicTrajectory.TrajectoryCalculation;
+// import cwtech.util.BasicTrajectory;
+// import cwtech.util.BasicTrajectory.TrajectoryCalculation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import cwtech.util.Util;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -45,13 +45,14 @@ public class SetShooterSpeedCommand extends CommandBase {
         else
         {
             double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
-            TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle), distanceMeters, Vision.kDifferenceMeters);
-            SmartDashboard.putNumber("Trajectory/Hood Angle", calculation.m_shootingAngleDegrees);
-            SmartDashboard.putNumber("Trajectory/Exit Velocity", calculation.m_exitVelocityMetersPerSecond);
-            m_targetRpm = (calculation.m_exitVelocityMetersPerSecond / (2 * Math.PI * Shooter.kWheelRadius)) * 60.0;
+
+            m_targetRpm = m_container.vision.shooterVelocity(distanceMeters);
+
+            // TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle), distanceMeters, Vision.kDifferenceMeters);
+            // SmartDashboard.putNumber("Trajectory/Hood Angle", calculation.m_shootingAngleDegrees);
+            // SmartDashboard.putNumber("Trajectory/Exit Velocity", calculation.m_exitVelocityMetersPerSecond);
+            // m_targetRpm = (calculation.m_exitVelocityMetersPerSecond / (2 * Math.PI * Shooter.kWheelRadius)) * 60.0;
             
-            // Rough estimate (Possibly times .25)
-            // m_targetRpm += 400;
             m_targetRpm *= SmartDashboard.getNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
             
             SmartDashboard.putNumber("Trajectory/RPMs", m_targetRpm);
@@ -59,9 +60,6 @@ public class SetShooterSpeedCommand extends CommandBase {
             double ty = m_container.vision.getTY();
             SmartDashboard.putNumber("Trajectory/Corrected TY", ty);
         }
-        
-        //m_container.shooter.setVelocity(m_targetRpm);
-        //m_container.shooter.setAccelaratorVelocity(m_targetRpm * 1.3);
         
         /*
         if(!m_container.colorSensor.ballIsForTeam()) {

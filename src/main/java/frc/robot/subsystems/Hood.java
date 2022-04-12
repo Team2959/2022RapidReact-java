@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import cwtech.telemetry.Observable;
 import cwtech.telemetry.Telemetry;
 import cwtech.telemetry.Updateable;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.PWM;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,7 +21,6 @@ public class Hood extends SubsystemBase implements AutoCloseable {
 
     private final PWM m_left;
     private final PWM m_right;
-    private PIDController m_controller;
 
     private final AnalogPotentiometer m_potentiometer;
 
@@ -35,8 +33,6 @@ public class Hood extends SubsystemBase implements AutoCloseable {
     public Hood() {
         m_left = new PWM(RobotMap.kHoodServoLeft);
         m_right = new PWM(RobotMap.kHoodServoRight);
-
-        m_controller = new PIDController(0.05, 0, 0);
 
         m_potentiometer = new AnalogPotentiometer(RobotMap.kHoodStringPotAnalog);
 
@@ -72,10 +68,6 @@ public class Hood extends SubsystemBase implements AutoCloseable {
         m_right.setRaw(kMiddle - rawSpeed);
     }
 
-    public void setPosition(double position) {
-        m_controller.setSetpoint(position);
-    }
-
     // returns 0.0 to 1.0
     @Observable(key = "String Pot Position")
     public double getPosition() {
@@ -87,13 +79,13 @@ public class Hood extends SubsystemBase implements AutoCloseable {
         return convertToDegreesFromEncoderPosition(getPosition());
     }
 
-    @Override
-    public void periodic() {
+    // @Override
+    // public void periodic() {
         // SmartDashboard.putNumber("Hood/Position", getPosition());
     //     SmartDashboard.putNumber("Hood/Position(Degrees)", convertToDegreesFromEncoderPosition(getPosition()));
 
     //     // setSpeed(m_controller.calculate(getPosition()));        
-    }
+    // }
 
     @Override
     public void close() throws Exception{

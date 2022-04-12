@@ -38,7 +38,6 @@ public final class RobotMap {
     public static final int kHoodStringPotAnalog = 0;
 
     // Digital IO addresses
-    public static final int kTurretPulseWidthDigIO = 3;
     public static final int kFrontLeftTurnPulseWidthDigIO = 5;
     public static final int kFrontRightTurnPulseWidthDigIO = 8;
     public static final int kBackRightTurnPulseWidthDigIO = 7;

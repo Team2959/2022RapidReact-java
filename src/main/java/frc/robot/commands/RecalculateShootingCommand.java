@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
-import cwtech.util.BasicTrajectory;
-import cwtech.util.BasicTrajectory.TrajectoryCalculation;
+// import cwtech.util.BasicTrajectory;
+// import cwtech.util.BasicTrajectory.TrajectoryCalculation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DashboardMap;
@@ -27,15 +27,25 @@ public class RecalculateShootingCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(m_ticks % 100 == 0) {
-            double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
-            TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle), distanceMeters, Vision.kDifferenceMeters);
-            var targetRpm = (calculation.m_exitVelocityMetersPerSecond / (2 * Math.PI * Shooter.kWheelRadius)) * 60.0;
+        // if(m_ticks % 100 == 0) {
+            var targetRpm = 0.0;
+            if(m_container.shooter.dDoManualSpeed) {
+                targetRpm = m_container.shooter.dManualSpeed;
+            }
+            else{
+                double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
+
+                targetRpm = m_container.vision.shooterVelocity(distanceMeters);
+            }
+
+            // TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle), distanceMeters, Vision.kDifferenceMeters);
+            // var targetRpm = (calculation.m_exitVelocityMetersPerSecond / (2 * Math.PI * Shooter.kWheelRadius)) * 60.0;
+            SmartDashboard.putNumber("Trajectory/RPMs", targetRpm);
             targetRpm *= SmartDashboard.getNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
             if(Math.abs(targetRpm - m_startVelocity) > 500) {
                 m_container.shooter.setVelocity(targetRpm);
             }
-        }
+        // }
     }
 
     @Override
@@ -45,7 +55,7 @@ public class RecalculateShootingCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_container.shooter.setVelocity(0);
+        m_container.shooter.setVelocity(Shooter.kIdleSpeed);
     }
 }
 
