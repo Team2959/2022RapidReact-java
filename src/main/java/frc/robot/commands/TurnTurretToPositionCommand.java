@@ -4,9 +4,7 @@
 
 package frc.robot.commands;
 
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-// import frc.robot.DashboardMap;
 import frc.robot.RobotContainer;
 
 public class TurnTurretToPositionCommand extends CommandBase {
@@ -25,9 +23,8 @@ public class TurnTurretToPositionCommand extends CommandBase {
     // if(SmartDashboard.getBoolean(DashboardMap.kTurretUseManualAngle, false)) {
     //   m_target = SmartDashboard.getNumber(DashboardMap.kTurretManualAngle, 0.0);
     // }
-    // m_container.turret.setSpeedToTargetAngle(m_target);
     m_container.turret.setDesiredAngle(m_target);
-}
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -37,7 +34,7 @@ public class TurnTurretToPositionCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_container.turret.setSpeed(0.0);
+    m_container.turret.stopMovement();
   }
 
   // Returns true when the command should end.

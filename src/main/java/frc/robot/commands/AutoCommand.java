@@ -17,7 +17,8 @@ public class AutoCommand extends SequentialCommandGroup {
             new InstantCommand(() -> {
                 container.drivetrain.drive(0, 0, 0, false);
             }, container.drivetrain),
-            new FireCommand(container),
+            new FireCommandWithTracking(container),
+            // new FireCommand(container),
             new SetHoodAngleCommand(container, 1)
         );
     }

@@ -1,13 +1,7 @@
 package frc.robot.commands;
 
-// import cwtech.util.BasicTrajectory;
-// import cwtech.util.BasicTrajectory.TrajectoryCalculation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.DashboardMap;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Hood;
-// import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 
 public class SetHoodAngleCommand extends CommandBase {
@@ -34,17 +28,15 @@ public class SetHoodAngleCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        // SmartDashboard.putString("Hood Angle MESSAGE", "started");
-
         if (m_hoodPositionDegrees <= 0)
         {
-            if(SmartDashboard.getBoolean(DashboardMap.kHoodUseManualAngle, false)) {
-                m_hoodPositionDegrees = SmartDashboard.getNumber(DashboardMap.kHoodManualAngle, Hood.kMinDegrees);
-                SmartDashboard.putNumber("Hood Target Debug - Raw Degrees", m_hoodPositionDegrees);
-            }
-            // if(m_container.hood.pDoManualAngle) {
-                // m_hoodPositionDegrees = m_container.hood.pManualAngle;
+            // if(SmartDashboard.getBoolean(DashboardMap.kHoodUseManualAngle, false)) {
+            //     m_hoodPositionDegrees = SmartDashboard.getNumber(DashboardMap.kHoodManualAngle, Hood.kMinDegrees);
+            //     SmartDashboard.putNumber("Hood Target Debug - Raw Degrees", m_hoodPositionDegrees);
             // }
+            if(m_container.hood.pDoManualAngle) {
+                m_hoodPositionDegrees = m_container.hood.pManualAngle;
+            }
             else {
                 double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
 
@@ -81,16 +73,6 @@ public class SetHoodAngleCommand extends CommandBase {
     public boolean isFinished() {
         double currentHoodPosition = m_container.hood.getPosition();
 
-        // KFR:  This does not belong in isFinished if try to restore, put in execute override code
-        // double diff = Math.abs(currentHoodPosition - m_hoodPosition);
-        /*if(diff > 0.008) {
-            if(m_backwards) {
-                m_container.hood.setSpeed(kSpeed);
-            } else {
-                m_container.hood.setSpeed(-kSpeed);
-            }
-        }*/
-
         // Checks to see if at or pass requested hood position and if so stop
         return m_backwards ? currentHoodPosition <= m_hoodPosition : currentHoodPosition >= m_hoodPosition;
     }
@@ -98,6 +80,5 @@ public class SetHoodAngleCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_container.hood.setSpeed(0.0);
-        // SmartDashboard.putString("Shooter Speed MESSAGE", "ended");
     }
 }

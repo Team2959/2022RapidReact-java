@@ -12,7 +12,6 @@ import frc.robot.subsystems.Accelerator;
 import frc.robot.subsystems.CargoIndexer;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Intake;
-// import cwtech.trigger.ModeTrigger;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 
@@ -47,13 +46,13 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber(DashboardMap.kTrajectoryTyOffset, Vision.kCameraTYOffset);
 
-        SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
-        SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
-        SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
-        SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
+        // SmartDashboard.putBoolean(DashboardMap.kHoodUseManualAngle, false);
+        // SmartDashboard.putNumber(DashboardMap.kHoodManualAngle, 0.5);
+        // SmartDashboard.putBoolean(DashboardMap.kShooterUseManualSpeed, false);
+        // SmartDashboard.putNumber(DashboardMap.kShooterManualSpeed, 1500);
 
-        SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
-        SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
+        // SmartDashboard.putBoolean(DashboardMap.kTurretUseManualAngle, false);
+        // SmartDashboard.putNumber(DashboardMap.kTurretManualAngle, 0.0);
   
         // SmartDashboard.putNumber(DashboardMap.kTurretP, Turret.kTurretP);
         // SmartDashboard.putNumber(DashboardMap.kTurretI, Turret.kTurretI);
@@ -107,7 +106,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledInit() {
-        // ModeTrigger.registerMode(ModeTrigger.Mode.Disabled);
         m_robotContainer.drivetrain.onDisabledInit();
         m_robotContainer.oi.onDisabledInit();
         m_robotContainer.intake.onDisabledInit();
@@ -122,7 +120,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         m_robotContainer.m_autoChooser.getSelected().schedule();
-        // ModeTrigger.registerMode(ModeTrigger.Mode.Autonomous);
     }
 
     @Override
@@ -131,7 +128,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        // ModeTrigger.registerMode(ModeTrigger.Mode.Teleop);
     }
 
     @Override

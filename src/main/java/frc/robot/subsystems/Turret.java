@@ -67,29 +67,16 @@ public class Turret extends SubsystemBase {
         }
     }
 
-    public void setSpeed(double speed) {
-        m_turretMotor.set(speed);
-        //m_turretController.setReference(speed, CANSparkMax.ControlType.kSmartMotion);
+    public void stopMovement() {
+        m_turretMotor.set(0.0);
     }
 
     public double getAngleDegrees() {
         return m_turretEncoder.getPosition();
     }
 
-    public void setSpeedToTargetAngle(double targetAngle){
-        double newTarget = Math.min(kMaxDegreesForwards ,Math.max(targetAngle, kMaxDegreesBackwards));
-        setSpeed(newTarget > getAngleDegrees() ? 0.80 : -0.80);
-    }
-
     private final double kVisionError = 2;
     public boolean isCloseEnoughToTarget(double targetAngle){
       return Math.abs(getAngleDegrees() - targetAngle) < kVisionError;
-      }
-
-    // @Override
-    // public void initSendable(SendableBuilder builder) {
-    //     builder.setSmartDashboardType("Turret");
-    //     builder.addDoubleProperty("Encoder", () -> getAngleDegrees(), null);
-    // }
-
+    }
 }

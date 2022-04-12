@@ -26,7 +26,7 @@ public class ActiveTurretTracking extends CommandBase {
   public void execute() {
     m_target = m_container.turret.getAngleDegrees() + m_container.vision.getTX();
     if (m_container.turret.isCloseEnoughToTarget(m_target)){
-      m_container.turret.setSpeed(0.0);
+      m_container.turret.stopMovement();
     }
     else{
       m_container.turret.setDesiredAngle(m_target);
@@ -36,7 +36,7 @@ public class ActiveTurretTracking extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_container.turret.setSpeed(0.0);
+    m_container.turret.stopMovement();
   }
 
   // Returns true when the command should end.

@@ -28,7 +28,7 @@ public class Hood extends SubsystemBase implements AutoCloseable {
     public boolean pDoManualAngle = false;
 
     @Updateable(key = "Manual Angle")
-    public double pManualAngle = 0.0;
+    public double pManualAngle = 1.0;
 
     public Hood() {
         m_left = new PWM(RobotMap.kHoodServoLeft);
