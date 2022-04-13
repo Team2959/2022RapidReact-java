@@ -37,7 +37,7 @@ public class CargoIndexer extends SubsystemBase {
     if (m_extended)
     {
       m_extended = false;
-      setSpeed(kSpeed);
+      setSpeed(0);
     }
     else
     {
