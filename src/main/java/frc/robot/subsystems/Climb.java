@@ -25,6 +25,7 @@ public class Climb extends SubsystemBase {
     private RelativeEncoder m_leftRotatorEncoder;
 
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, maxVel, minVel, maxAcc, allowedErr;
+    public double kRI, kRP;
     public static double kExtendPosition = 70, kRetractPosition = -25; // POSITION IS IN MOTOR ROTATIONS
     public static double kExtendRotatorPosition = 70, kRetractRotatorPosition = 0;
     public static double kTraverseExtendPosition = 100;
@@ -74,6 +75,9 @@ public class Climb extends SubsystemBase {
         maxVel = 4500;        
         maxAcc = 4500;
 
+        kRI = 0.00000001;
+        kRP = 0.0001;
+
         m_rightController.setI(kI);
         m_rightController.setD(kD);
         m_rightController.setP(kP);
@@ -88,16 +92,16 @@ public class Climb extends SubsystemBase {
         m_leftController.setFF(kFF);
         m_leftController.setOutputRange(kMinOutput, kMaxOutput);
 
-        m_rightRotatorController.setI(kI);
+        m_rightRotatorController.setI(kRI);
         m_rightRotatorController.setD(kD);
-        m_rightRotatorController.setP(kP);
+        m_rightRotatorController.setP(kRP);
         m_rightRotatorController.setIZone(kIz);
         m_rightRotatorController.setFF(kFF);
         m_rightRotatorController.setOutputRange(kMinOutput, kMaxOutput);
         
-        m_leftRotatorController.setI(kI);
+        m_leftRotatorController.setI(kRI);
         m_leftRotatorController.setD(kD);
-        m_leftRotatorController.setP(kP);
+        m_leftRotatorController.setP(kRP);
         m_leftRotatorController.setIZone(kIz);
         m_leftRotatorController.setFF(kFF);
         m_leftRotatorController.setOutputRange(kMinOutput, kMaxOutput);
@@ -174,5 +178,12 @@ public class Climb extends SubsystemBase {
     private void rotateClimbHooks(double targetRight, double targetLeft){
         m_rightRotatorController.setReference(targetRight, CANSparkMax.ControlType.kSmartMotion);
         m_leftRotatorController.setReference(targetLeft, CANSparkMax.ControlType.kSmartMotion);
+    }
+
+    public void onTeleOpPeriodic() {
+        SmartDashboard.putNumber("Climb/Right Position", m_rightEncoder.getPosition());
+        SmartDashboard.putNumber("Climb/Left Position", m_leftEncoder.getPosition());
+        SmartDashboard.putNumber("Climb/Rotate Right Position", m_rightRotatorEncoder.getPosition());
+        SmartDashboard.putNumber("Climb/Rotate Left Position", m_leftRotatorEncoder.getPosition());
     }
 }
