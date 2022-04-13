@@ -39,10 +39,10 @@ public class SetShooterSpeedCommand extends CommandBase {
         // {
         //     m_targetRpm = SmartDashboard.getNumber(DashboardMap.kShooterManualSpeed, 0.0);
         // }
-        else if(m_container.shooter.dDoManualSpeed) {
-            m_targetRpm = m_container.shooter.dManualSpeed;
-        }
-        else
+        // else if(m_container.shooter.dDoManualSpeed) {
+        //     m_targetRpm = m_container.shooter.dManualSpeed;
+        // }
+        // else
         {
             double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
 

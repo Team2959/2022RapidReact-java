@@ -22,7 +22,7 @@ public class Vision extends SubsystemBase {
     /** This is what the limelight's angle when mounted */
     private static final double kCameraAngleDegrees = 30;
 
-    public static final double kCameraTYOffset = 5.5;
+    public static final double kCameraTYOffset = 3.2;
     private static final double kHubRadius = (26 * 0.0254);
     public static final double kHubHeightMeters = (104 * 0.0254);
     public static final double kDifferenceMeters = kHubHeightMeters - kCameraHeightMeters;

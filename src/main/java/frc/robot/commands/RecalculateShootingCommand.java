@@ -30,10 +30,11 @@ public class RecalculateShootingCommand extends CommandBase {
     public void execute() {
         // if(m_ticks % 100 == 0) {
             var targetRpm = 0.0;
-            if(m_container.shooter.dDoManualSpeed) {
-                targetRpm = m_container.shooter.dManualSpeed;
-            }
-            else{
+            // if(m_container.shooter.dDoManualSpeed) {
+            //     targetRpm = m_container.shooter.dManualSpeed;
+            // }
+            // else
+            {
                 double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
 
                 targetRpm = m_container.vision.shooterVelocity(distanceMeters);

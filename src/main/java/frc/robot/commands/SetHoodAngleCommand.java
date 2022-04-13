@@ -35,17 +35,18 @@ public class SetHoodAngleCommand extends CommandBase {
             //     SmartDashboard.putNumber("Hood Target Debug - Raw Degrees", m_hoodPositionDegrees);
             // }
             // if(m_container.hood.pDoManualAngle) {
-                m_hoodPositionDegrees = m_container.hood.pManualAngle;
+            //     m_hoodPositionDegrees = m_container.hood.pManualAngle;
             // }
-            // else {
-            //     double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
+            // else
+            {
+                double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
 
-            //     m_hoodPositionDegrees = m_container.vision.shooterAngleDegrees(distanceMeters);
+                m_hoodPositionDegrees = m_container.vision.shooterAngleDegrees(distanceMeters);
 
                 // TrajectoryCalculation calculation = BasicTrajectory.calculate(SmartDashboard.getNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle), distanceMeters, Vision.kDifferenceMeters);
                 // m_hoodPositionDegrees = calculation.m_shootingAngleDegrees;
                 // SmartDashboard.putNumber("Hood Target Angle From Vision", m_hoodPositionDegrees);
-            // }
+            }
         }
         m_hoodPosition = m_container.hood.convertToEncoderPositionFromDegrees(m_hoodPositionDegrees);
 
