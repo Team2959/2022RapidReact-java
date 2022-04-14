@@ -42,7 +42,7 @@ public class SetShooterSpeedCommand extends CommandBase {
         // else if(m_container.shooter.dDoManualSpeed) {
         //     m_targetRpm = m_container.shooter.dManualSpeed;
         // }
-        // else
+        else
         {
             double distanceMeters = m_container.vision.getDistanceToHubCenterWithHeight(Vision.kHubHeightMeters);
 

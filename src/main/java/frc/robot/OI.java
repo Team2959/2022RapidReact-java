@@ -58,7 +58,8 @@ public class OI {
     private final JoystickButton m_toggleIntakeButtonLeft;
 
     private final JoystickButton m_extendClimbHooksButton;
-    private final Button m_retractClimbHooksButton;
+    private final JoystickButton m_retractClimbHooksButton;
+    private final Button m_traverseRetractClimbHooksButton;
     private final Button m_rotateClimbHooksBackButton;
     private final Button m_rotateClimbHooksForwardButton;
     private final Button m_traverseExtendClimbHooksButton;
@@ -111,7 +112,7 @@ public class OI {
             m_xboxController.getRawButton(RobotMap.kClimbSafetyButton) &&
             m_xboxController.getRightY() < -0.5;
         });
-        m_retractClimbHooksButton = new Button(() -> {
+        m_traverseRetractClimbHooksButton = new Button(() -> {
             return
             m_xboxController.getRawButton(RobotMap.kClimbSafetyButton) &&
             m_xboxController.getRightY() > 0.5;
@@ -119,7 +120,7 @@ public class OI {
 
 
         m_extendClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kExtendClimbHooksButton);
-        // m_retractClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kRetractClimbHooksButton);
+        m_retractClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kRetractClimbHooksButton);
  
         m_toggleIntakeButton.whenPressed(new IntakeToggleCommand(m_container));
         m_toggleIntakeButtonLeft.whenPressed(new IntakeToggleCommand(m_container));
@@ -139,9 +140,10 @@ public class OI {
         m_hoodUpButton.whenPressed(new SetHoodAngleCommand(m_container, 1));
 
         m_extendClimbHooksButton.whenPressed(new ExtendClimbHooksCommand(m_container));
+        m_retractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container));
         m_rotateClimbHooksForwardButton.whileHeld(new RotateClimbHooksForwardCommand(m_container));
         m_rotateClimbHooksBackButton.whileHeld(new RotateClimbHooksBackCommand(m_container));
-        m_retractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container));
+        m_traverseRetractClimbHooksButton.whileHeld(new RetractClimbHooksCommand(m_container));
         m_traverseExtendClimbHooksButton.whileHeld(new TraverseExtendClimbHooksCommand(m_container));
     }
 

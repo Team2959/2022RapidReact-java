@@ -97,6 +97,7 @@ public class Robot extends TimedRobot {
             else if(m_initTicks == 500) {
                 m_initTicks = -1;
                 m_robotContainer.vision.setLedMode(0);
+                // m_robotContainer.vision.startingUp = false;
             }
         }
 
@@ -109,6 +110,7 @@ public class Robot extends TimedRobot {
         m_robotContainer.drivetrain.onDisabledInit();
         m_robotContainer.oi.onDisabledInit();
         m_robotContainer.intake.onDisabledInit();
+        // m_robotContainer.vision.setLedMode(1);
     }
 
     @Override
@@ -119,6 +121,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        m_robotContainer.vision.setLedMode(0);
         m_robotContainer.m_autoChooser.getSelected().schedule();
     }
 
@@ -128,6 +131,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        // m_robotContainer.vision.setLedMode(0);
     }
 
     @Override

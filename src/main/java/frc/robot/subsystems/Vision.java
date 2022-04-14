@@ -40,6 +40,8 @@ public class Vision extends SubsystemBase {
         m_txEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
         m_tyEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty");
 
+        setLedMode(0);
+
         try {
             BufferedReader reader = new BufferedReader(new FileReader(Filesystem.getDeployDirectory().toPath().resolve("shooting.csv").toString()));
             // boolean setMin = false;

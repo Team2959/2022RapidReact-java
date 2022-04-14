@@ -16,7 +16,7 @@ public class FireCommandWithTracking extends SequentialCommandGroup {
       new TuneShooterAndHoodCommand(container).withInterrupt(() -> container.oi.getFireOverrided()),
       new WaitCommand(1.0).withInterrupt(() -> container.oi.getFireOverrided()).raceWith(new ActiveTurretTracking(container)),
       new ActiveTargetTrackingAndFire(container),
-      new WaitCommand(3.0)
+      new WaitCommand(1.0)
     );
   }
 
