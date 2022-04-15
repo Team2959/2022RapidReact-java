@@ -44,6 +44,7 @@ public class RecalculateShootingCommand extends CommandBase {
             // var targetRpm = (calculation.m_exitVelocityMetersPerSecond / (2 * Math.PI * Shooter.kWheelRadius)) * 60.0;
             SmartDashboard.putNumber("Trajectory/RPMs", targetRpm);
             targetRpm *= SmartDashboard.getNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
+            targetRpm += SmartDashboard.getNumber(DashboardMap.kShooterAdder, Shooter.kShooterAdder);
             if(Math.abs(targetRpm - m_startVelocity) > 500) {
                 m_container.shooter.setVelocity(targetRpm);
             }

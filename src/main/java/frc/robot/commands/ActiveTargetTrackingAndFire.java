@@ -14,8 +14,8 @@ public class ActiveTargetTrackingAndFire extends ParallelRaceGroup {
   public ActiveTargetTrackingAndFire(RobotContainer container) {
     addCommands(
       new ActiveTurretTracking(container),
-      new PostShooterPrepFiringCommandGroup(container),
-      new RecalculateShootingCommand(container)
+      new PostShooterPrepFiringCommandGroup(container)
+      // new RecalculateShootingCommand(container)
     );
   }
 }

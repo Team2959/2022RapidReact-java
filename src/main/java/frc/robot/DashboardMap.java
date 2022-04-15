@@ -44,6 +44,7 @@ public class DashboardMap {
     public static final String kShooterVelocity = key("Velocity", kShooter);
     public static final String kShooterEntryAngle = key("Entry Angle", kShooter);
     public static final String kShooterMulti = key("Multi", kShooter);
+    public static final String kShooterAdder = key("Adder", kShooter);
 
     public static final String kTrajectory = "Trajectory";
     public static final String kTrajectoryTyOffset = key("TY Offset", kTrajectory);

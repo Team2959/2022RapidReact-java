@@ -17,6 +17,7 @@ public class AutoComeForwardCommand extends SequentialCommandGroup {
             new InstantCommand(() -> {
                 container.drivetrain.drive(0, 0, 0, false);
             }, container.drivetrain),
+            new IntakeToggleCommand(container),
             new WaitCommand(1),
             new InstantCommand(() -> {
                 container.drivetrain.drive(1.35, 0, 0, false);

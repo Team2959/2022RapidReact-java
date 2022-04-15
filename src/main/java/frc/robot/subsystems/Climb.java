@@ -135,6 +135,11 @@ public class Climb extends SubsystemBase {
         // SmartDashboard.putNumber("Feed Forward", kFF);
         // SmartDashboard.putNumber("Max Output", kMaxOutput);
         // SmartDashboard.putNumber("Min Output", kMinOutput);
+    
+        m_leftController.setReference(0, CANSparkMax.ControlType.kPosition);
+        m_rightController.setReference(0, CANSparkMax.ControlType.kPosition);
+        m_leftRotatorController.setReference(0, CANSparkMax.ControlType.kPosition);
+        m_rightRotatorController.setReference(0, CANSparkMax.ControlType.kPosition);
     }
 
     public void extendClimbHooks() {

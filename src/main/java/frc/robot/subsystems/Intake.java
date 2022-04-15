@@ -53,4 +53,8 @@ public class Intake extends SubsystemBase implements AutoCloseable {
     public void onDisabledInit() {
         m_intakeSpeed = SmartDashboard.getNumber(DashboardMap.kIntakeSpeed, kIntakeSpeed);
     }
+
+    public boolean isExtended() {
+        return m_arms.get();
+    }
 }

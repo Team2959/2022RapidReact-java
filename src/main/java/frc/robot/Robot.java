@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber(DashboardMap.kShooterI, Shooter.kShooterKi);
         SmartDashboard.putNumber(DashboardMap.kShooterD, Shooter.kShooterKd);
         SmartDashboard.putNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
+        SmartDashboard.putNumber(DashboardMap.kShooterAdder, Shooter.kShooterAdder);
         SmartDashboard.putNumber(DashboardMap.kShooterEntryAngle, Shooter.kShooterEntryAngle);
 
         SmartDashboard.putNumber(DashboardMap.kCargoIndexerIntakeSpeed, CargoIndexer.kSpeed);

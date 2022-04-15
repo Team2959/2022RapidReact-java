@@ -14,7 +14,7 @@ import frc.robot.RobotMap;
 
 public class CargoIndexer extends SubsystemBase {
   public static final double kSpeed = 0.1;
-  public static final double kFireSpeed = 0.4;
+  public static final double kFireSpeed = 0.35;
   private final CANSparkMax m_motor;
   private boolean m_extended = false;
 

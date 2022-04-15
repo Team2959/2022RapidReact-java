@@ -54,6 +54,7 @@ public class SetShooterSpeedCommand extends CommandBase {
             // m_targetRpm = (calculation.m_exitVelocityMetersPerSecond / (2 * Math.PI * Shooter.kWheelRadius)) * 60.0;
             
             m_targetRpm *= SmartDashboard.getNumber(DashboardMap.kShooterMulti, Shooter.kShooterMulti);
+            m_targetRpm += SmartDashboard.getNumber(DashboardMap.kShooterAdder, Shooter.kShooterAdder);
             
             SmartDashboard.putNumber("Trajectory/RPMs", m_targetRpm);
             SmartDashboard.putNumber("Trajectory/Distance", distanceMeters);

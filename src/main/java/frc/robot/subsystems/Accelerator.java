@@ -16,7 +16,8 @@ public class Accelerator extends SubsystemBase {
   public Accelerator() {
     m_motor = new CANSparkMax(RobotMap.kAcceleratorCANSparkMaxMotor, CANSparkMax.MotorType.kBrushless);
     m_motor.restoreFactoryDefaults();
-    m_motor.setIdleMode(IdleMode.kCoast);
+    // m_motor.setIdleMode(IdleMode.kCoast);
+    m_motor.setIdleMode(IdleMode.kBrake);
   }
 
   public void setSpeed(double speed)

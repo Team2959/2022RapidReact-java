@@ -20,10 +20,11 @@ import frc.robot.commands.RotateClimbHooksBackCommand;
 import frc.robot.commands.RotateClimbHooksForwardCommand;
 import frc.robot.commands.SetHoodAngleCommand;
 import frc.robot.commands.TraverseExtendClimbHooksCommand;
-import frc.robot.commands.TurnTurretToPositionCommand;
+import frc.robot.commands.TuneShooterAndHoodCommand;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ColorSensor.ColorType;
 
 public class OI {
     public static final double kDriverXdeadband = 0.15;
@@ -63,6 +64,7 @@ public class OI {
     private final Button m_rotateClimbHooksBackButton;
     private final Button m_rotateClimbHooksForwardButton;
     private final Button m_traverseExtendClimbHooksButton;
+    private final Button m_stopCargoIndexerButton;
 
     public OI(RobotContainer container) {
         m_container = container;
@@ -85,6 +87,8 @@ public class OI {
 
         m_toggleIntakeButton = new JoystickButton(m_rightJoystick, RobotMap.kToggleIntakeButton);
         m_reverseIntakeButton = new JoystickButton(m_buttonBox, RobotMap.kReverseIntakeButton);
+
+        m_stopCargoIndexerButton = new Button(() -> m_container.colorSensor.readColor() != ColorType.None && m_container.intake.isExtended());
      
         m_fireButton = new JoystickButton(m_buttonBox, RobotMap.kFireButton);
         m_hoodDownButton = new JoystickButton(m_buttonBox, RobotMap.kHoodDownButton);
@@ -118,6 +122,7 @@ public class OI {
             m_xboxController.getRightY() > 0.5;
         });
 
+        m_stopCargoIndexerButton.whenPressed(new InstantCommand(() -> m_container.cargoIndexer.setSpeed(0)));
 
         m_extendClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kExtendClimbHooksButton);
         m_retractClimbHooksButton = new JoystickButton(m_buttonBox, RobotMap.kRetractClimbHooksButton);
@@ -129,7 +134,8 @@ public class OI {
         m_fireButton.whenPressed(new FireCommandWithTracking(m_container));
         m_hoodDownButton.whenPressed(new SetHoodAngleCommand(m_container, Hood.kMinDegrees));
         // m_safeZoneShotButton.whenPressed(new SafeZoneShotCommandGroup(m_container));
-        m_safeZoneShotButton.whenPressed(new TurnTurretToPositionCommand(m_container, 0.0));
+        // m_safeZoneShotButton.whenPressed(new TurnTurretToPositionCommand(m_container, 0.0));
+        m_safeZoneShotButton.whenPressed(new TuneShooterAndHoodCommand(m_container));
         m_wallShotButton.whenPressed(new LowGoalWallShotCommandGroup(m_container));
         m_testButton.whenPressed(new InstantCommand(() -> {
             m_container.shooter.setVelocity(Shooter.kIdleSpeed);
