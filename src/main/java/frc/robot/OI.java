@@ -28,7 +28,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ColorSensor.ColorType;
 
 public class OI {
-    public static final double kDriverXdeadband = 0.15;
+    public static final double kDriverXdeadband = 0.18;
     public static final double kDriverXexponent = 1.7;
     public static final double kDriverYdeadband = 0.15;
     public static final double kDriverYexponent = 1.4;
