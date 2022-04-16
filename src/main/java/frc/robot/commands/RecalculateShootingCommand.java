@@ -58,7 +58,7 @@ public class RecalculateShootingCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_container.shooter.setVelocity(Shooter.kIdleSpeed);
+        // m_container.shooter.setVelocity(Shooter.kIdleSpeed);
     }
 }
 

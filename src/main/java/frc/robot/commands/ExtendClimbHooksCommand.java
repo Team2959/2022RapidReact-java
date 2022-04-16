@@ -8,7 +8,7 @@ public class ExtendClimbHooksCommand extends InstantCommand {
     public ExtendClimbHooksCommand(RobotContainer container) {
         m_container = container;
 
-        addRequirements(m_container.climb);
+        // addRequirements(m_container.climb);
     }
 
     @Override

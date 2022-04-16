@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import cwtech.telemetry.Level;
@@ -72,6 +73,8 @@ public class Shooter extends SubsystemBase {
         m_mainMotorController.setD(kShooterKd);
     
         m_followerMotor.follow(m_mainMotor, true);
+    
+        m_mainMotorController.setReference(kIdleSpeed, ControlType.kVelocity);
     }
 
     public void onDisabledPeriodic() {

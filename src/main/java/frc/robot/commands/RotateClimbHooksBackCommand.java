@@ -10,7 +10,7 @@ public class RotateClimbHooksBackCommand extends CommandBase {
     public RotateClimbHooksBackCommand(RobotContainer container) {
         m_container = container;
 
-        addRequirements(m_container.climb);
+        // addRequirements(m_container.climb);
     }
 
     @Override

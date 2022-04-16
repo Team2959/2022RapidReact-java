@@ -142,6 +142,16 @@ public class Climb extends SubsystemBase {
         m_rightRotatorController.setReference(0, CANSparkMax.ControlType.kPosition);
     }
 
+    public void setPosition(double position) {
+        m_leftController.setReference(position, CANSparkMax.ControlType.kPosition);
+        m_rightController.setReference(position, CANSparkMax.ControlType.kPosition);
+    }
+
+    public void setRotatorPosition(double position) {
+        m_leftRotatorController.setReference(position, CANSparkMax.ControlType.kPosition);
+        m_rightRotatorController.setReference(position, CANSparkMax.ControlType.kPosition);
+    }
+
     public void extendClimbHooks() {
         var target = SmartDashboard.getNumber(DashboardMap.kClimbExtendPosition, kExtendPosition);
         moveClimbHooks(target, target);

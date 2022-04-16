@@ -9,7 +9,7 @@ public class RetractClimbHooksCommand extends CommandBase {
     public RetractClimbHooksCommand(RobotContainer container) {
         m_container = container;
     
-        addRequirements(m_container.climb);
+        // addRequirements(m_container.climb);
     }
 
     @Override

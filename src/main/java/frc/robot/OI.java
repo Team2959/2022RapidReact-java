@@ -21,6 +21,7 @@ import frc.robot.commands.RotateClimbHooksForwardCommand;
 import frc.robot.commands.SetHoodAngleCommand;
 import frc.robot.commands.TraverseExtendClimbHooksCommand;
 import frc.robot.commands.TuneShooterAndHoodCommand;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Shooter;
@@ -65,6 +66,7 @@ public class OI {
     private final Button m_rotateClimbHooksForwardButton;
     private final Button m_traverseExtendClimbHooksButton;
     private final Button m_stopCargoIndexerButton;
+    private final JoystickButton m_autoGrabTraverseButton;
 
     public OI(RobotContainer container) {
         m_container = container;
@@ -100,6 +102,7 @@ public class OI {
         m_hoodUpButton = new JoystickButton(m_buttonBox, RobotMap.kHoodUpButton);
         m_fireOverride = new JoystickButton(m_buttonBox, RobotMap.kFireOverrideButton);
         m_toggleIntakeButtonLeft = new JoystickButton(m_leftJoystick, 1);
+        m_autoGrabTraverseButton = new JoystickButton(m_xboxController, 6);
         
         m_rotateClimbHooksForwardButton = new Button(() -> {
             return
@@ -121,6 +124,10 @@ public class OI {
             m_xboxController.getRawButton(RobotMap.kClimbSafetyButton) &&
             m_xboxController.getRightY() > 0.5;
         });
+
+        // m_autoGrabTraverseButton.whenPressed(
+            // new ExtendClimbHooksCommand(m_container).alongWith(new InstantCommand(() -> m_container.climb.setRotatorPosition(Climb.kExtendRotatorPosition * 0.5))));
+            // new InstantCommand(() -> m_container.climb.setRotatorPosition(Climb.kExtendRotatorPosition * 0.5)));
 
         m_stopCargoIndexerButton.whenPressed(new InstantCommand(() -> m_container.cargoIndexer.setSpeed(0)));
 

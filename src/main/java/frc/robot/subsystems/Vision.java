@@ -16,6 +16,7 @@ import frc.robot.DashboardMap;
 public class Vision extends SubsystemBase {
     private final NetworkTableEntry m_txEntry;
     private final NetworkTableEntry m_tyEntry;
+    private final NetworkTableEntry m_pipelineEntry;
 
     /** This is what the limelight's height when mounted */
     public static final double kCameraHeightMeters = 43.75 * 0.0254;
@@ -39,6 +40,9 @@ public class Vision extends SubsystemBase {
     public Vision() {
         m_txEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
         m_tyEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty");
+        m_pipelineEntry = NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline");
+
+        m_pipelineEntry.setNumber(0);
 
         setLedMode(0);
 
