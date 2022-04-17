@@ -17,7 +17,7 @@ import frc.robot.subsystems.Vision;
 // Do code sa java ateema, do chowbaso
 
 public class Robot extends TimedRobot {
-    private RobotContainer m_robotContainer = new RobotContainer();
+    private RobotContainer m_robotContainer = new RobotContainer(() -> {return isTeleopEnabled();});
     private int m_initTicks = 1;
 
     @Override

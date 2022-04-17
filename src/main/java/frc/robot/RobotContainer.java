@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 import cwtech.telemetry.Manager;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,8 +47,8 @@ public class RobotContainer {
 
     private final Manager m_telemetryManager = new Manager();
 
-    public RobotContainer() {
-        drivetrain.setDefaultCommand(new TeleopDriveCommand(this, true));
+    public RobotContainer(BooleanSupplier isInTeleopEnabled) {
+        drivetrain.setDefaultCommand(new TeleopDriveCommand(this, true, isInTeleopEnabled));
         // cargoIndexer.setDefaultCommand(new PositionBallCommand(this));
         m_autoChooser.addOption("2 Ball Away", m_autoCommand);
         m_autoChooser.setDefaultOption("2 Ball Close", m_autoComeForwardCommand);

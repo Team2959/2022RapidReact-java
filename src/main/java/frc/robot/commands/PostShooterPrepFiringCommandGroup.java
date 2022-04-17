@@ -8,11 +8,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.DashboardMap;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Accelerator;
 import frc.robot.subsystems.CargoIndexer;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ColorSensor.ColorType;
 
 public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
 
@@ -29,6 +31,12 @@ public class PostShooterPrepFiringCommandGroup extends SequentialCommandGroup {
       new InstantCommand(() -> {
         m_container.cargoIndexer.setSpeed(SmartDashboard.getNumber(DashboardMap.kCargoIndexerSpeed, CargoIndexer.kFireSpeed));
       }, m_container.cargoIndexer),
+      new WaitUntilCommand(() -> m_container.colorSensor.readColor() == ColorType.None),
+      new InstantCommand(() -> {
+        m_container.cargoIndexer.setSpeed(0);
+      }, m_container.cargoIndexer),
+      new WaitCommand(0.25),
+      new InstantCommand(() -> m_container.cargoIndexer.setSpeed(SmartDashboard.getNumber(DashboardMap.kCargoIndexerSpeed, CargoIndexer.kSpeed))),
       new WaitCommand(3.0)
       );
   }
